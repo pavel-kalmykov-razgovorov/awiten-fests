@@ -17,9 +17,6 @@ class CreateArtistsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('facebook');
-            $table->string('twitter');
-            $table->string('instagram');
             $table->string('soundcloud');
             $table->string('website');
             $table->string('country');
