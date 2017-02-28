@@ -15,10 +15,11 @@ class GenresTableSeeder extends Seeder
         DB::table('genres')->insert(
             [
                 ['genre' => 'Techno'],
+                ['genre' => 'Tech House'],
                 ['genre' => 'EDM'],
-                ['genre' => 'House'],
+                ['genre' => 'Future House'],
                 ['genre' => 'Trance'],
-                ['genre' => 'Hardstyle'],
+                ['genre' => 'Hardstyle']
             ]
         );
     }
