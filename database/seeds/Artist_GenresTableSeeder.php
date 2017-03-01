@@ -43,9 +43,9 @@ class Artist_GenresTableSeeder extends Seeder
         DB::table('artist_genres')->delete();
         DB::table('artist_genres')->insert(
             [
-                ['artist_id' => $joris , 'genre_id' => $techno],
-                ['artist_id' => $osuna , 'genre_id' => $techno],
                 
+                ['artist_id' => $joris , 'genre_id' => $techno],
+                ['artist_id' => $osuna , 'genre_id' => $techno],                
                 ['artist_id' => $osuna , 'genre_id' => $techouse],
                 ['artist_id' => $hawtin , 'genre_id' => $techno],
                 ['artist_id' => $cc , 'genre_id' => $techno],
@@ -54,13 +54,12 @@ class Artist_GenresTableSeeder extends Seeder
                 ['artist_id' => $carola , 'genre_id' => $techno],
                 ['artist_id' => $carola , 'genre_id' => $techouse],
                 
-                /*
-                ['artist_id' => $capriati , 'genre_id' => $techno]
                 
                 
+                /*['artist_id' => $capriati , 'genre_id' => $techno]
                 ['artist_id' => $locodice , 'genre_id' => $techno],
                 ['artist_id' => $locodice , 'genre_id' => $techouse],
-                ['artist_id' => $ritch , 'genre_id' => $techno],
+                ['artist_id' => $ritch , 'genre_id' => $techno]
                 ['artist_id' => $ritch , 'genre_id' => $techouse],
                 ['artist_id' => $panpot , 'genre_id' => $techno],
                 ['artist_id' => $panpot , 'genre_id' => $techouse],

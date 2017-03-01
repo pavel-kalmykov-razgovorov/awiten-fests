@@ -17,7 +17,7 @@ class CreateFestivalsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('address');
+            $table->string('location');
             $table->timestamp('date');
             $table->string('province');
 
