@@ -57,9 +57,9 @@ class Artist_GenresTableSeeder extends Seeder
                 
                 
                 ['artist_id' => $capriati , 'genre_id' => $techno],
-                ['artist_id' => $locodice , 'genre_id' => $techno],/*
+                ['artist_id' => $locodice , 'genre_id' => $techno],
                 ['artist_id' => $locodice , 'genre_id' => $techouse],
-                ['artist_id' => $ritch , 'genre_id' => $techno]
+                ['artist_id' => $ritch , 'genre_id' => $techno],
                 ['artist_id' => $ritch , 'genre_id' => $techouse],
                 ['artist_id' => $panpot , 'genre_id' => $techno],
                 ['artist_id' => $panpot , 'genre_id' => $techouse],
@@ -76,7 +76,7 @@ class Artist_GenresTableSeeder extends Seeder
                 ['artist_id' => $coone , 'genre_id' => $hardstyle],
                 ['artist_id' => $coone , 'genre_id' => $edm],
                 ['artist_id' => $zatox , 'genre_id' => $hardstyle],
-                ['artist_id' => $brennan , 'genre_id' => $hardstyle]*/
+                ['artist_id' => $brennan , 'genre_id' => $hardstyle]
             ]
         );
     }

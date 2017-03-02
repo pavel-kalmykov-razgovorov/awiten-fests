@@ -16,8 +16,8 @@ class CreateArtistGenresTable extends Migration
         Schema::create('artist_genres', function (Blueprint $table) {
             $table->integer('artist_id');
             $table->integer('genre_id');
-            $table->foreign('artist_id')->references('id')->on('genres')->onDelete('cascade');
-            $table->foreign('genre_id')->references('id')->on('artists')->onDelete('cascade');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
+            $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
             $table->primary(['artist_id', 'genre_id']);
             $table->timestamps();
         });
