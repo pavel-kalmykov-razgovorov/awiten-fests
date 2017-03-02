@@ -56,8 +56,8 @@ class Artist_GenresTableSeeder extends Seeder
                 
                 
                 
-                /*['artist_id' => $capriati , 'genre_id' => $techno]
-                ['artist_id' => $locodice , 'genre_id' => $techno],
+                ['artist_id' => $capriati , 'genre_id' => $techno],
+                ['artist_id' => $locodice , 'genre_id' => $techno],/*
                 ['artist_id' => $locodice , 'genre_id' => $techouse],
                 ['artist_id' => $ritch , 'genre_id' => $techno]
                 ['artist_id' => $ritch , 'genre_id' => $techouse],

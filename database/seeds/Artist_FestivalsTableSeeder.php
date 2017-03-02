@@ -47,10 +47,8 @@ class Artist_FestivalsTableSeeder extends Seeder
         DB::table('artist_festivals')->delete();
         DB::table('artist_festivals')->insert(
             [
-                ['festival_id' => $dreambeach , 'artist_id' => $panpot]
-                /*
-                ['festival_id' => $medusa , 'artist_id' => $hardwell]
-                
+              ['festival_id' => $dreambeach , 'artist_id' => $panpot],
+                ['festival_id' => $medusa , 'artist_id' => $hardwell],     
                 ['festival_id' => $medusa , 'artist_id' => $coone],
                 ['festival_id' => $medusa , 'artist_id' => $hawtin],
                 ['festival_id' => $medusa , 'artist_id' => $panpot],
@@ -118,7 +116,7 @@ class Artist_FestivalsTableSeeder extends Seeder
                 ['festival_id' => $jaco , 'artist_id' => $capriati],
                 ['festival_id' => $jaco , 'artist_id' => $locodice],
                 ['festival_id' => $jaco , 'artist_id' => $ritch],
-                ['festival_id' => $jaco , 'artist_id' => $panpot]*/
+                ['festival_id' => $jaco , 'artist_id' => $panpot]
             ]
         );
     }

@@ -16,8 +16,8 @@ class CreateFestivalGenresTable extends Migration
         Schema::create('festival_genres', function (Blueprint $table) {
             $table->integer('festival_id');
             $table->integer('genre_id');
-            $table->foreign('festival_id')->references('id')->on('genres')->onDelete('set null');
-            $table->foreign('genre_id')->references('id')->on('festivals')->onDelete('set null');
+            $table->foreign('festival_id')->references('id')->on('genres')->onDelete('cascade');
+            $table->foreign('genre_id')->references('id')->on('festivals')->onDelete('cascade');
             $table->primary(['festival_id', 'genre_id']);
             $table->timestamps();
         });

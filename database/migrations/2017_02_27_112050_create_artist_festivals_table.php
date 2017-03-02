@@ -16,8 +16,8 @@ class CreateArtistFestivalsTable extends Migration
         Schema::create('artist_festivals', function (Blueprint $table) {
             $table->integer('artist_id');
             $table->integer('festival_id');
-            $table->foreign('artist_id')->references('id')->on('festivals')->onDelete('set null');
-            $table->foreign('festival_id')->references('id')->on('artists')->onDelete('set null');
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
+            $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
             $table->primary(['artist_id', 'festival_id']);
             $table->timestamps();
         });
