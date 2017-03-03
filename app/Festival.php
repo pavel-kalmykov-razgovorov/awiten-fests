@@ -9,4 +9,8 @@ class Festival extends Model
     public function artists() {
         return $this->belongsToMany('App\Artist');
     }
+
+    public function genres() {
+        return $this->belongsToMany('App\Genre');
+    }
 }

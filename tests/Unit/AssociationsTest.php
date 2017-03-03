@@ -13,62 +13,10 @@ use App\Genre;
 class AssociationsTest extends TestCase
 {
     /**
-     * Checks the association Sponsor-Team
+     * Checks the association Artist-Festival
      *
      * @return void
      */
-     /*
-    public function testAssociationSponsorTeam()
-    {
-        $sponsor = new Sponsor();
-        $sponsor->name = 'Nvidia';
-        $sponsor->save();
-
-        $team = new Team();
-        $team->name = 'Morning Singers';
-        $sponsor->teams()->save($team);
-
-        $this->assertEquals($team->sponsor->name, 'Nvidia');
-        $this->assertEquals($sponsor->teams[0]->name, 'Morning Singers');
-        
-        $team->delete();
-        $sponsor->delete();
-    }
-    */
-
-    /**
-     * Checks the association Team-Player
-     *
-     * @return void
-     */
-     /*
-    public function testAssociationTeamPlayer()
-    {
-        $sponsor = new Sponsor();
-        $sponsor->name = 'Nvidia';
-        $sponsor->save();
-
-        $team = new Team();
-        $team->name = 'Morning Singers';
-        $team->sponsor()->associate($sponsor);
-        $team->save();
-
-        $player = new Player();
-        $player->name = 'Billy Jean';
-        $player->age = 20;
-        $player->save();
-        $player->teams()->attach($team->id);
-
-        $this->assertEquals($team->players[0]->name, 'Billy Jean');
-        $this->assertEquals($player->teams[0]->name, 'Morning Singers');
-
-        $player->teams()->detach($team->id);
-        $player->delete();
-        $team->delete();
-        $sponsor->delete();
-    }
-    */
-
     public function testAssociationArtistFestival()
     {
         $artist = new Artist();
@@ -87,6 +35,56 @@ class AssociationsTest extends TestCase
         $festival->artists()->detach($artist->id);
         $festival->delete();
         $artist->delete();
+    }
+
+    /**
+     * Checks the association Artist-Genre
+     *
+     * @return void
+     */
+    public function testAssociationArtistGenre()
+    {
+        $artist = new Artist();
+        $artist->name = 'Suicidal Tendencies';
+        $artist->save();
+
+        $genre = new Genre();
+        $genre->genre = 'Rock';
+        $genre->save();
+
+        $genre->artists()->attach($artist->id);
+
+        $this->assertEquals($artist->genres[0]->genre, 'Rock');
+        $this->assertEquals($genre->artists[0]->name, 'Suicidal Tendencies');
+
+        $genre->artists()->detach($artist->id);
+        $genre->delete();
+        $artist->delete();
+    }
+
+    /**
+     * Checks the association Festival-Genre
+     *
+     * @return void
+     */
+    public function testAssociationFestivalGenre()
+    {
+        $festival = new Festival();
+        $festival->name = 'Download Festival';
+        $festival->save();
+
+        $genre = new Genre();
+        $genre->genre = 'Rock';
+        $genre->save();
+
+        $genre->festivals()->attach($festival->id);
+
+        $this->assertEquals($festival->genres[0]->genre, 'Rock');
+        $this->assertEquals($genre->festivals[0]->name, 'Download Festival');
+
+        $genre->artists()->detach($festival->id);
+        $genre->delete();
+        $festival->delete();
     }
 
 }
