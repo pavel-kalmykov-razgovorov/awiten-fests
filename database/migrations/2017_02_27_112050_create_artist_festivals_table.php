@@ -13,7 +13,7 @@ class CreateArtistFestivalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('artist_festivals', function (Blueprint $table) {
+        Schema::create('artist_festival', function (Blueprint $table) {
             $table->integer('artist_id');
             $table->integer('festival_id');
             $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateArtistFestivalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artist_festivals');
+        Schema::dropIfExists('artist_festival');
     }
 }

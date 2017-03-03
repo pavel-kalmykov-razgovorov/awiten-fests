@@ -17,9 +17,9 @@ class CreateArtistsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('soundcloud');
-            $table->string('website');
-            $table->string('country');
+            $table->string('soundcloud')->nullable();
+            $table->string('website')->nullable();
+            $table->string('country')->nullable();
 
         });
     }
