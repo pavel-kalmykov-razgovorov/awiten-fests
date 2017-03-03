@@ -90,7 +90,7 @@ class DataTest extends TestCase
                 ["Pan-Pot", "https://soundcloud.com/pan-pot", "http://pan-pot.net/", "Alemania"],
                 ["Armin van Buuren", "https://soundcloud.com/arminvanbuuren", "http://www.arminvanbuuren.com/", "Holanda"],
                 ["Paul van Dyk", "https://soundcloud.com/paulvandykofficial", "http://www.paulvandyk.com/", "Alemania"],
-                ["http://www.sandervandoorn.com/", "Sander van Doorn", "17", "Holanda"],
+                ["Sander van Doorn","https://soundcloud.com/sandervandoorn", "http://www.sandervandoorn.com/", "Holanda"],
                 ["Don Diablo", "https://soundcloud.com/dondiablo", "http://www.dondiablo.com/", "Holanda"],
                 ["Hardwell", "https://soundcloud.com/hardwell", "https://www.djhardwell.com/", "Holanda"],
                 ["Galantis", "https://soundcloud.com/wearegalantis", "http://www.wearegalantis.com/", "Suecia"],
