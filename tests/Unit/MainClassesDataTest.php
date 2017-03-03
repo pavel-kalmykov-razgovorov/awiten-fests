@@ -10,7 +10,7 @@ use App\Artist;
 use App\Festival;
 use App\Genre;
 
-class DataTest extends TestCase
+class MainClassesDataTest extends TestCase
 {
     /**
      * Checks that some table has the specified entries
@@ -33,27 +33,30 @@ class DataTest extends TestCase
      * @return void
      */
     public function testFestivalsData() {
-        $get_festival_array = function ($name, $address, $date, $province) {
+        $get_festival_array = function ($name, $location, $date, $province) {
             return [
                 'name' => $name,
-                'address' => $address,
+                'location' => $location,
                 'date' => $date,
                 'province' => $province
             ];
         };
 
-        $this->assertEquals(7, Festival::all()->count());
+        $this->assertEquals(10, Festival::all()->count());
         $this->checkTableEntries(
             'festivals',
             $get_festival_array,
             [
-                ["Medusa", "Calle Doctor Marañon Nº21", "17/08/2017", "Valencia"],
-                ["Arenal", "Avd Castellon Nº11", "27/08/2017", "Castellon"],
-                ["Dreambeach", "Avd Jaume I Nº82", "17/07/2017", "Almeria"],
-                ["Barcelona Beach Festival", "Calle Barceloneta", "11/07/2017", "Barcelona"],
-                ["A summer story", "Calle Falsa 123", "14/07/2017", "Madrid"],
-                ["Tomorrowland", "Calle Bredlak Nº12", "17/08/2017", "Boom"],
-                ["Ultra Music Festival", "Green Street", "23/06/2017", "Miami"]
+                ["Medusa Sunbeach Festival", "Cullera", "10/08/2017", "Valencia"],
+                ["Arenal Sound", "Burriana", "02/08/2017", "Castellon"],
+                ["Dreambeach Festival", "Villaricos", "17/07/2017", "Almeria"],
+                ["Awakenings", "Gashouder", "14/04/2017", "Amsterdam"],
+                ["A Summer Story", "Arganda del Rey", "23/06/2017", "Madrid"],
+                ["Aquasella", "Arriondas", "21/07/2017", "Asturias"],
+                ["Wan Festival", "Leganes", "01/01/2018", "Madrid"],
+                ["Tomorrowland", "Schorre Recreation Area", "28/07/2017", "Boom"],
+                ["Ultra Music Festival", "Bayfront Park", "24/03/2017", "Miami"],
+                ["The Jaco Festival", "Las Bitacoras", "25/08/2017", "Alicante"]
             ]
         );
     }
@@ -90,7 +93,7 @@ class DataTest extends TestCase
                 ["Pan-Pot", "https://soundcloud.com/pan-pot", "http://pan-pot.net/", "Alemania"],
                 ["Armin van Buuren", "https://soundcloud.com/arminvanbuuren", "http://www.arminvanbuuren.com/", "Holanda"],
                 ["Paul van Dyk", "https://soundcloud.com/paulvandykofficial", "http://www.paulvandyk.com/", "Alemania"],
-                ["Sander van Doorn","https://soundcloud.com/sandervandoorn", "http://www.sandervandoorn.com/", "Holanda"],
+                ["Sander van Doorn", "https://soundcloud.com/sandervandoorn", "http://www.sandervandoorn.com/", "Holanda"],
                 ["Don Diablo", "https://soundcloud.com/dondiablo", "http://www.dondiablo.com/", "Holanda"],
                 ["Hardwell", "https://soundcloud.com/hardwell", "https://www.djhardwell.com/", "Holanda"],
                 ["Galantis", "https://soundcloud.com/wearegalantis", "http://www.wearegalantis.com/", "Suecia"],
@@ -111,14 +114,15 @@ class DataTest extends TestCase
             return ['genre' => $genre];
         };
 
-        $this->assertEquals(5, Genre::all()->count());
+        $this->assertEquals(6, Genre::all()->count());
         $this->checkTableEntries(
             'genres',
             $get_genre_array,
             [
                 ["Techno"],
+                ["Tech House"],
                 ["EDM"],
-                ["House"],
+                ["Future House"],
                 ["Trance"],
                 ["Hardstyle"]
             ]
