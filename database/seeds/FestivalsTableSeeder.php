@@ -9,6 +9,7 @@ class FestivalsTableSeeder extends Seeder
      *
      * @return void
      */
+     //Probandooo
     public function run()
     {
         DB::table('festivals')->delete();
