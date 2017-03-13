@@ -16,17 +16,18 @@ Route::get('/', function () {
 });
 
 Route::get('festivals', function () {
-    return view('festivals', ['festivals' => \App\Festival::get(['id', 'name'])]);
+    return view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name'])]);
 });
 
-Route::get('festival/{permalink}', function ($permalink) {;
-    return view('festival', ['festival' => \App\Festival::where('permalink', $permalink)]);
-})->where('permalink', '[0-9]+');
+Route::get('festival/{permalink}', function ($permalink) {
+    $festival = \App\Festival::where('permalink', $permalink)->first();
+    return view('festival', ['festival' => $festival]);
+});
 
 Route::get('artists', function () {
-    return view('artists', ['artists' => \App\Artist::get(['id', 'name'])]);
+    return view('artists', ['artists' => \App\Artist::get(['permalink', 'name'])]);
 });
 
 Route::get('artist/{permalink}', function ($permalink) {
-    return view('artist', ['artist' => \App\Artist::where('permalink', $permalink)]);
-})->where('permalink', '[0-9]+');
+    return view('artist', ['artist' => \App\Artist::where('permalink', $permalink)->first()]);
+});
