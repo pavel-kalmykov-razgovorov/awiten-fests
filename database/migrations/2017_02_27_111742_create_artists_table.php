@@ -20,7 +20,7 @@ class CreateArtistsTable extends Migration
             $table->string('soundcloud')->nullable();
             $table->string('website')->nullable();
             $table->string('country')->nullable();
-
+            $table->string('permalink')->unique();
         });
     }
 
