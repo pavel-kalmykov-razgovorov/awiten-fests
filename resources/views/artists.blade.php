@@ -8,37 +8,16 @@
 </head>
 
 <body>
-@if(isset($artists))
-    <h1>Artistas:</h1>
-    <ul>
-        @forelse($artists as $artist)
-            <li>
-                <a href="artists/{{$artist->id}}"> {{$artist->name}}</a>
-            </li>
-        @empty
-            <h2>No hay artistas en la BD</h2>
-        @endforelse
-    </ul>
-    <a href="/">Inicio</a>
-@elseif(isset($artist))
-    <h1>{{$artist->name}}</h1>
-    <ul>
-        <li>SoundCloud: <a href="{{$artist->soundcloud}}">{{$artist->soundcloud}}</a></li>
-        <li>WebSite: <a href="{{$artist->website}}">{{$artist->website}}</a></li>
-        <li>Country: {{$artist->country}}</li>
+<h1>Artistas:</h1>
+<ul>
+    @forelse($artists as $artist)
         <li>
-            Festivales:
-            <ul>
-                @forelse($artist->festivals as $festival)
-                    <li><a href="/festivals/{{$festival->id}}">{{$festival->name}}</a></li>
-                @empty
-                    Ninguno
-                @endforelse
-            </ul>
+            <a href="/artist/{{$artist->id}}"> {{$artist->name}}</a>
         </li>
-    </ul>
-    <a href="/artists">Artistas</a>
-    <a href="/">Inicio</a>
-@endif
+    @empty
+        <h2>No hay artistas en la BD</h2>
+    @endforelse
+</ul>
+<a href="/">Inicio</a>
 </body>
 </html>
