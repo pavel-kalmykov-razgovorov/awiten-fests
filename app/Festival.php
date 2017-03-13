@@ -13,4 +13,10 @@ class Festival extends Model
     public function genres() {
         return $this->belongsToMany('App\Genre');
     }
+    public function news() {
+        return $this->belongsToMany('App\New');
+    }
+    public function photos() {
+        return $this->hasMany('App\Photo');
+    }
 }

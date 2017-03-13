@@ -17,6 +17,8 @@ class CreateFestivalsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
+            $table->string('pathLogo')->nullable();
+            $table->string('pathCartel')->nullable();            
             $table->string('location')->nullable();
             $table->timestamp('date')->nullable();
             $table->string('province')->nullable();
