@@ -17,7 +17,7 @@
         Festivales:
         <ul>
             @forelse($artist->festivals as $festival)
-                <li><a href="/festival/{{$festival->id}}">{{$festival->name}}</a></li>
+                <li><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></li>
             @empty
                 Ninguno
             @endforelse

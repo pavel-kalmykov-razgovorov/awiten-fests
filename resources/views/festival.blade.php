@@ -17,7 +17,7 @@
         Artistas:
         <ul>
             @forelse($festival->artists as $artist)
-                <li><a href="/artist/{{$artist->id}}">{{$artist->name}}</a></li>
+                <li><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></li>
             @empty
                 Ninguno
             @endforelse

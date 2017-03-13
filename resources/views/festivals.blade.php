@@ -11,7 +11,7 @@
 <h1>Festivales:</h1>
 <ul>
     @forelse($festivals as $festival)
-        <li><a href="/festival/{{$festival->id}}">{{$festival->name}}</a></li>
+        <li><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></li>
     @empty
         <h2>No hay festivales en la BD</h2>
     @endforelse

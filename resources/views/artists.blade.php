@@ -12,7 +12,7 @@
 <ul>
     @forelse($artists as $artist)
         <li>
-            <a href="/artist/{{$artist->id}}"> {{$artist->name}}</a>
+            <a href="/artist/{{$artist->permalink}}"> {{$artist->name}}</a>
         </li>
     @empty
         <h2>No hay artistas en la BD</h2>
