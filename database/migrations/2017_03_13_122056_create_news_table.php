@@ -19,6 +19,9 @@ class CreateNewsTable extends Migration
             $table->string('lead');
             $table->string('body');
             $table->timestamps();
+            $table->integer('festival_id')->unsigned();
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
+           
         });
     }
 

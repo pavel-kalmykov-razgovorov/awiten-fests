@@ -23,6 +23,8 @@ class CreateFestivalsTable extends Migration
             $table->timestamp('date')->nullable();
             $table->string('province')->nullable();
             $table->string('permalink')->unique();
+
+            
         });
     }
 
