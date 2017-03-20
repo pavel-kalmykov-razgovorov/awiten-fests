@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Awiten Fests</title>
-</head>
-<body>
+@extends('welcome')
+@section('menu')
 <h1>Nuevo Artista</h1>
 <form action="create" method="post">
     <ul>
@@ -35,7 +28,7 @@
     <input type="button" onclick="location.href='/artists';" value="Cancelar">
     {{ csrf_field() }}
 </form>
-</body>
+@endsection
 <script>
 function addFestivalEntry() {
     document.getElementById('festival-entry').parentNode
@@ -46,4 +39,3 @@ function removeFestivalEntry(elem) {
     elem.parentNode.parentNode.removeChild(elem.parentNode);
 }
 </script>
-</html>

@@ -1,8 +1,24 @@
 @extends('welcome')
-@section('menu')
-	<div class="row container">
-		<h1>Festivales:</h1>
+
+@section('barra')
+<div id="breadcrumb">
+		<div class="container">	
+			<div class="breadcrumb">							
+				<li><a href="index.html">Home</a></li>
+				<li>Portfolio</li>			
+			</div>		
+		</div>	
 	</div>
+@endsection
+
+@section('menu')
+<div class="container">
+	<div class="row">
+	<div class="col-sm-12">
+		<h1 class="text-center">Festivales:</h1>
+	</div>
+	</div>
+</div>
 	<section id="portfolio">	
 	<div class="row">
         <div class="container">

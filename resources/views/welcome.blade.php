@@ -26,14 +26,14 @@
 							<span class="icon-bar"></span>
 						</button>
 						<div class="navbar-brand">
-							<a href="index.html"><h1><span>Awiten</span>Fests</h1></a>
+							<a href="/"><h1><span>Awiten</span>Fests</h1></a>
 						</div>
 					</div>
 					
 					<div class="navbar-collapse collapse">							
 						<div class="menu">
 							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation"><a href="index.html" class="active">Home</a></li>
+								<li role="presentation"><a href="/" class="active">Home</a></li>
 								<li role="presentation"><a href="/festivals">Festivals</a></li>
 								<li role="presentation"><a href="/artists">Artistas</a></li>								
 								<li role="presentation"><a href="portfolio.html">Portfolio</a></li>
@@ -47,19 +47,35 @@
 			</div>	
 		</nav>		
 	</header>
+
+@section('barra')
+	@show
+<div class=”container”>
+@yield('content')
 	
-	<div id="breadcrumb">
-		<div class="container">	
-			<div class="breadcrumb">							
-				<li><a href="index.html">Home</a></li>
-				<li>Portfolio</li>			
-			</div>		
-		</div>	
-	</div>
-	
+		
 @section('menu')
-Contenido del menu
-@show
+<section id="main-slider" class="no-margin">
+        <div class="carousel slide">      
+            <div class="carousel-inner">
+                <div class="item active" style="background-image: url(images/festival-fondo2.jpg)">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h2 class="animation animated-item-1">Bienvenido a <span> Awiten </span> Fests </h2>
+									<strong><p class="text-danger animation animated-item-2" style="color: LawnGreen">Aquí podrás encontrar los mejores festivales de todos los estilos.</p></strong>
+                            		<a class="btn-slide animation animated-item-3" href="/festivals">Buscar Festivales</a>
+                                </div>
+                            </div>                         
+
+                        </div>
+                    </div>
+                </div><!--/.item-->             
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+    </section><!--/#main-slider-->
+	@show
 <div class=”container”>
 @yield('content')
 
