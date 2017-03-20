@@ -62,6 +62,7 @@ Contenido del menu
 @show
 <div class=”container”>
 @yield('content')
+
 </div>
                 <footer>
 		<div class="footer">

@@ -1,9 +1,5 @@
-
-
 @extends('welcome')
-	
-	@section('menu')
-
+@section('menu')
 	<div class="row container">
 		<h1>Festivales:</h1>
 	</div>

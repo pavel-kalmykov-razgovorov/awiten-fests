@@ -17,19 +17,16 @@ Route::get('/', function () {
 });
 
 Route::get('festivals', function () {
-<<<<<<< HEAD
    // $ms = Person::where('name', '=', 'Foo Bar')->first();
    // $persons = Person::order_by('list_order', 'ASC')->get();
    // return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
    $festivals = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
-   $genres = \App\Festival::get(['name']);
+   $genres = \App\Festival::get(['genre']);
     //return view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-   return view('festivals')
+   return view('festival.all')
    ->with('festivals',\App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']))
    ->with('genres',\App\Genre::get(['genre']));
-=======
-    return view('festival.all', ['festivals' => \App\Festival::get(['permalink', 'name'])]);
->>>>>>> 73e27499527a33622930491e423856481c27251d
+   // return view('festival.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
 });
 
 //$festivals = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
@@ -105,8 +102,10 @@ Route::get('artist/{permalink}/delete', function ($permalink) {
     return view('artist.delete', ['artist' => \App\Artist::where('permalink', $permalink)->first()]);
 });
 
+/*
 Route::get('artist/{permalink}/delete/confirm', function ($permalink) {
-    $artist = \App\Artist::where('permalink', $permalink)->first();
-    $deleted = !is_null($artist) ? $artist->delete() : false;
+     $artist = \App\Artist::where('permalink', $permalink)->first();
+     $deleted = !is_null($artist) ? $artist->delete() : false;
     return view('artist.delete-confirm', ['name' => $artist->name ?? null, 'deleted' => $deleted]);
-});
+  });
+  */
