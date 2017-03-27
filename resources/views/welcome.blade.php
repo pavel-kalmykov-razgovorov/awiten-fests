@@ -48,10 +48,7 @@
 		</nav>		
 	</header>
 
-@section('barra')
-	@show
-<div class=”container”>
-@yield('content')
+
 	
 		
 @section('menu')
