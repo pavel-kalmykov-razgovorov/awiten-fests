@@ -1,4 +1,16 @@
 @extends('welcome')
+
+@section('barra')
+<div id="breadcrumb">
+		<div class="container">	
+			<div class="breadcrumb">							
+				<li><a href="index.html">Home</a></li>
+				<li>Festivals</li>			
+			</div>		
+		</div>	
+	</div>
+@endsection
+
 @section('menu')
 <div class="arreglar-margen">
     <h1>Artistas</h1>

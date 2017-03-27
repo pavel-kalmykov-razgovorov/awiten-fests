@@ -1,17 +1,18 @@
 @extends('welcome')
 
-@section('barra')
+
+@section('menu')
 <div id="breadcrumb">
 		<div class="container">	
 			<div class="breadcrumb">							
 				<li><a href="index.html">Home</a></li>
 				<li>Portfolio</li>			
-			</div>		
+			</div>	
+			<form method="GET" action="{{ action('FestivalsController@cambio') }}">
+					<button type="submit">Mostrar de 2 en 2</button>
+			</form>	
 		</div>	
 	</div>
-@endsection
-
-@section('menu')
 <div class="container">
 	<div class="row">
 	<div class="col-sm-12">
@@ -25,12 +26,13 @@
             <div class="center col-md-2">    
 				<ul class="portfolio-filter text-center">
 					<li><a class="btn btn-default active" href="#" data-filter="*">All Genres</a></li>
+					<!--div class="btn-group" data-toggle="buttons"-->
 					@forelse($genres as $genre)
-					<li><a class="btn btn-default" href="#" data-filter=".3">{{$genre->genre}}</a></li>
+					<li><a class="btn btn-default" type="checkbox" autocomplete="off" value="{{$genre->genre}}" href="{{action('FestivalsController@init')}}">{{$genre->genre}}</a></li>
 					@empty
             		<h2>No hay géneros en la BD</h2>
 					@endforelse
-					<li><a class="btn btn-default" href="#" data-filter=".festival-2">Other</a></li>
+					<!--/div-->
 				</ul><!--/#portfolio-filter-->
 			</div>
             <div class="col-md-10">
@@ -53,6 +55,10 @@
 				@endforelse
                 </div>
             </div>
+			<div class="pagination pagination-lg .text-center">
+
+				{{ $festivals->links() }}
+			</div>
         </div>
     </section><!--/#portfolio-item-->
 @endsection

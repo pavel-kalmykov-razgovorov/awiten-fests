@@ -16,19 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('festivals', function () {
-   // $ms = Person::where('name', '=', 'Foo Bar')->first();
-   // $persons = Person::order_by('list_order', 'ASC')->get();
-   // return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
-   $festivals = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
-   $genres = \App\Festival::get(['genre']);
-    //return view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-   return view('festival.all')
-   ->with('festivals',\App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']))
-   ->with('genres',\App\Genre::get(['genre']));
-   // return view('festival.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-});
-
+Route::get('festivals', 'FestivalsController@init');
+Route::get('festivals2', 'FestivalsController@cambio');
 //$festivals = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
 //$festival->genres->get(1)->genre
 
