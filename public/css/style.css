@@ -33,6 +33,11 @@ p {
 	color:#333;
 	font-size:13px;
 }
+.arreglar-margen{
+  margin-top: 90px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
 a {
     text-decoration:none;
     transition: all 0.1s ease-in-out;

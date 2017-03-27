@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('menu')
-
+<div class="arreglar-margen">
 <h1>Detalles Artista</h1>
 <ul>
     <div class="item active" style="background-image: url(images/festival-fondo2.jpg)">
@@ -29,5 +29,6 @@
     <a href="/artists">Artistas</a>
     <a href="/">Inicio</a>
 </p>
+</div>
 
 @endsection
