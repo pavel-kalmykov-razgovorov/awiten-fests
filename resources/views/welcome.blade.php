@@ -7,11 +7,11 @@
 
         <title>Awiten Fests</title>
         <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link href="css/prettyPhoto.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet" />	
+		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+		<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/style.css') }}" rel="stylesheet" />	
 </head>
 <body>
 	<header>		
