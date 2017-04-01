@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Facades\Input;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,73 +26,11 @@ Route::get('festival/{permalink}', function ($permalink) {
 
 
 
-Route::get('artists', function () {
-    return view('artist.all', ['artists' => \App\Artist::get(['permalink', 'name'])]);
-});
-
-Route::get('artist/new', function() {
-    return view('artist.create', ['festivals' => \App\Festival::get(['permalink', 'name'])]);
-});
-
-Route::post('artist/new/create', function() {
-    try {
-        $artist = new \App\Artist;
-        $artist->name = Input::get('name');
-        $artist->soundcloud = Input::get('soundcloud');
-        $artist->website = Input::get('website');
-        $artist->country = Input::get('country');
-        $artist->permalink = str_slug(Input::get('name'));
-        $artist->save();
-    } catch (Exception $e) {
-        return "Error: " . $e;
-    }
-    $festival_ids = [];
-    foreach(array_unique(Input::get('festivals')) as $festival) {
-        $festival_ids[] = \App\Festival::where('permalink', $festival)->first()->id;
-    }
-    $artist->festivals()->attach($festival_ids);
-    return view('artist.create-confirm', ['artist' => $artist]);
-});
-
-Route::get('artist/{permalink}', function ($permalink) {
-    return view('artist.details', ['artist' => \App\Artist::where('permalink', $permalink)->first()]);
-});
-
-Route::get('artist/{permalink}/edit', function($permalink) {
-    return view('artist.edit', [
-        'artist' => \App\Artist::where('permalink', $permalink)->first(),
-        'festivals' => \App\Festival::get(['permalink', 'name'])
-        ]);
-});
-
-Route::post('artist/{permalink}/edit/update', function($permalink) {
-    try {
-        $artist = \App\Artist::where('permalink', $permalink)->first();
-        $artist->name = Input::get('name');
-        $artist->soundcloud = Input::get('soundcloud');
-        $artist->website = Input::get('website');
-        $artist->country = Input::get('country');
-        $artist->permalink = str_slug(Input::get('name'));
-        $artist->save();
-    } catch (Exception $e) {
-        return "Error: " . $e;
-    }
-    $festival_ids = [];
-    foreach(array_unique(Input::get('festivals')) as $festival) {
-        $festival_ids[] = \App\Festival::where('permalink', $festival)->first()->id;
-    }
-    $artist->festivals()->sync($festival_ids);
-    return view('artist.edit-confirm', ['artist' => $artist]);
-});
-
-Route::get('artist/{permalink}/delete', function ($permalink) {
-    return view('artist.delete', ['artist' => \App\Artist::where('permalink', $permalink)->first()]);
-});
-
-/*
-Route::get('artist/{permalink}/delete/confirm', function ($permalink) {
-     $artist = \App\Artist::where('permalink', $permalink)->first();
-     $deleted = !is_null($artist) ? $artist->delete() : false;
-    return view('artist.delete-confirm', ['name' => $artist->name ?? null, 'deleted' => $deleted]);
-  });
-  */
+Route::get('artists', 'ArtistController@All');
+Route::get('artist/new', 'ArtistController@New');
+Route::post('artist/new/create', 'ArtistController@Create');
+Route::get('artist/{permalink}', 'ArtistController@Details');
+Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
+Route::put('artist/{permalink}/edit/update', 'ArtistController@Update');
+Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
+Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');

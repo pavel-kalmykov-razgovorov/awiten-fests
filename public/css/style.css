@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
     Theme Name: Company
     Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -33,11 +32,13 @@ p {
 	color:#333;
 	font-size:13px;
 }
+
 .arreglar-margen{
   margin-top: 90px;
   margin-left: 50px;
   margin-right: 50px;
 }
+
 a {
     text-decoration:none;
     transition: all 0.1s ease-in-out;
@@ -1197,5 +1198,3 @@ a.scrollup:hover{
 	background-color:#ddd;
 	color:#1BBD36;
 }
-=======
->>>>>>> 73e27499527a33622930491e423856481c27251d
