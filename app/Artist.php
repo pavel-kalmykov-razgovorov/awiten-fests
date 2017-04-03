@@ -14,11 +14,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Artist extends Model
 {
+    protected $fillable = ['name', 'soundcloud', 'website', 'country', 'permalink'];
+
     public function festivals() {
         return $this->belongsToMany('App\Festival');
     }
 
     public function genres() {
         return $this->belongsToMany('App\Genre');
+    }
+
+    public function getRouteKey()
+    {
+        return $this->permalink;
     }
 }

@@ -5,13 +5,13 @@
 <ul>
     @forelse($festivals as $festival)
         <li>
-            <a href="/artist/{{$festival->permalink}}"> {{$festival->name}}</a>
+            <a href="{{action('FestivalController@Details', $festival->permalink)}}"> {{$festival->name}}</a>
         </li>
     @empty
         <h2>No hay festivales en la BD</h2>
     @endforelse
 </ul>
 <p>
-    <input type="button" onclick="location.href='{{action('FestivalController@New')}}';" value="Nuevo festival"/>
+    <input type="button" onclick="location.href='{{action('FestivalController@FormNew')}}';" value="Nuevo festival"/>
     <input type="button" onclick="location.href='/';" value="Inicio"/>
 </p>
