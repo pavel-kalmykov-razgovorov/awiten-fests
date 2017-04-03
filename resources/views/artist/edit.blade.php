@@ -32,7 +32,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <input type="button" onclick="removeFestivalEntry(this)" value="x">
+                            <input type="button" onclick="removeArtistEntry(this)" value="x">
                         </li>
                     @endforeach
                 </ul>
@@ -51,7 +51,7 @@
                     <option disabled>No hay festivales registrados</option>
                 @endforelse
             </select>
-            <input type="button" onclick="removeFestivalEntry(this)" value="x">
+            <input type="button" onclick="removeArtistEntry(this)" value="x">
         </li>
     </template>
 @else
@@ -65,7 +65,7 @@
         );
     }
 
-    function removeFestivalEntry(elem) {
+    function removeArtistEntry(elem) {
         elem.parentNode.parentNode.removeChild(elem.parentNode);
     }
 </script>
