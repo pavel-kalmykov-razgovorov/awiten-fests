@@ -31,7 +31,7 @@ Route::get('festival/{permalink}', function ($permalink) {
 
 
 Route::get('artists', 'ArtistController@All');
-Route::get('artist/new', 'ArtistController@New');
+Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');
 Route::get('artist/{permalink}', 'ArtistController@Details');
 Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
@@ -40,7 +40,7 @@ Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
 Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');
 
 Route::get('festivals', 'FestivalController@All');
-Route::get('fesitvals/new', 'FestivalController@New');
+Route::get('fesitvals/new', 'FestivalController@FormNew');
 Route::post('festivals/new/create', 'FestivalController@Create');
 Route::get('festival/{permalink}', 'FestivalController@Details');
 Route::get('festival/{permalink}/edit', 'FestivalController@Edit');
