@@ -25,7 +25,6 @@ class PhotosTableSeeder extends Seeder
                 DB::table('photos')->delete();
                 DB::table('photos')->insert(
                     [
-                        /images/logos/logo-medusa.png
                         ['path' => '/images/festivales/aquasella/aquasella1.jpg', 'name' => 'aquasella1.jpg', 'festival_id' => $aquasella],
                         ['path' => '/images/festivales/aquasella/aquasella2.jpg', 'name' => 'aquasella2.jpg', 'festival_id' => $aquasella],
                         ['path' => '/images/festivales/aquasella/aquasella3.jpg', 'name' => 'aquasella3.jpg', 'festival_id' => $aquasella],
