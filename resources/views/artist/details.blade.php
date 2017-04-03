@@ -1,33 +1,68 @@
-<h1>Detalles Artista</h1>
+@extends('welcome')
+@section('menu')
+<div class="arreglar-margen">
+
+
 @if(session('created'))
     <h3>El artista se ha creado correctamente</h3>
 @endif
 @if(session('updated'))
     <h3>El artista se ha modificado correctamente</h3>
 @endif
-<ul>
-    <li>Nombre: {{$artist->name}}</li>
-    <li>SoundCloud: <a href="{{$artist->soundcloud}}">{{$artist->soundcloud}}</a></li>
-    <li>Sitio Web: <a href="{{$artist->website}}">{{$artist->website}}</a></li>
-    <li>País: {{$artist->country}}</li>
+@if(isset($artist))
+<div>
+    <div class = "fondo-artista">   
+        <div >
+            <div>
+                <img class = "profileHeaderBackground" src={{ asset('images/artistas/' . trim($artist->name) . '.jpg') }} style='height: 100%; width: 100%;'>
+                     <h3  style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
+                <img class = "image-encima" src={{ asset('images/logos2/Soundcloud.png') }} alt="soundcloud" width="82" height="82" align="left">
+             </div>   
+        </div>
+    </div>
+</div>
+    
+        </br>
+    <a href="{{$artist->soundcloud}}">
+        <img src={{ asset('images/logos2/Soundcloud.png') }} alt="soundcloud" width="82" height="82" align="left">
+    </a>
+    <a href="{{$artist->website}}">
+        <img src={{ asset('images/logos2/Pagina.png') }} alt="web" width="82" height="82" align="right">
+    </a>
+        </div>
+    </br>
+    <h3  style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
     <li>
-        Festivales:
-        <ul>
-            @forelse($artist->festivals()->get(['permalink', 'name']) as $festival)
-                <li><a href="{{action('FestivalController@Details', $festival->permalink)}}">{{$festival->name}}</a>
-                </li>
-            @empty
-                Ninguno
-            @endforelse
-        </ul>
-    </li>
-</ul>
-<p>
-    <input type="button" onclick="location.href='{{action('ArtistController@Delete', $permalink)}}';"
-           value="Borrar"/>
-    <input type="button" onclick="location.href='{{action('ArtistController@Edit', $permalink)}}';" value="Editar"/>
-</p>
-<p>
-    <input type="button" onclick="location.href='{{action('ArtistController@All')}}';" value="Artistas"/>
-    <input type="button" onclick="location.href='/';" value="Inicio"/>
-</p>
+        
+        <ul> 
+                @forelse($artist->festivals()->get(['permalink', 'name']) as $festival)
+                    <div class="post-container1">
+
+                <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
+                <div class="post-thumb1"> <img  class = "lista-festivales" src={{ asset('images/logos2/' . trim($festival->name) . '.png') }}></div>
+             
+            <div class="post-content1">
+                <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->date}}</a></h4>
+                <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->location}}</a></h4>
+                
+            </div>
+            </div>
+                
+                @empty
+                    Ninguno
+                @endforelse
+            </ul>
+        </li>
+    
+    <p>
+        <input type="button" onclick="location.href='{{action('ArtistController@Delete', $permalink)}}';"
+               value="Borrar"/>
+        <input type="button" onclick="location.href='{{action('ArtistController@Edit', $permalink)}}';" value="Editar"/>
+    </p>
+@else
+    <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de la
+        base de datos</h3>
+@endif
+
+</div>
+@endsection

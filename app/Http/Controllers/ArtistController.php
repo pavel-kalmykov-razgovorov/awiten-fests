@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
+    private $artists;
+
+    public function init()
+    {
+        
+        $artists = \App\Artist::get()->paginate(4);   
+        return view('artist.all', ['artists' => $artists]);
+      
+    }
+
     public function All()
     {
         return view('artist.all', ['artists' => Artist::get(['permalink', 'name'])]);
@@ -83,4 +93,10 @@ class ArtistController extends Controller
         Artist::where('permalink', $permalink)->delete();
         return redirect()->action('ArtistController@All')->with('deleted', true);
     }
+    
+    
+
+    
+
+    
 }
