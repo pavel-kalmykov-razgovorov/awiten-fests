@@ -16,6 +16,10 @@ Route::get('/', function () {
 
 Route::get('festivals', 'FestivalsController@init');
 Route::get('festivals2', 'FestivalsController@cambio');
+Route::get('festivals3', 'FestivalsController@ordenar');
+Route::get('festivals3', 'FestivalsController@busqueda');
+Route::get('festivals4', 'FestivalsController@busquedaPorGenero');
+
 //$festivals = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
 //$festival->genres->get(1)->genre
 

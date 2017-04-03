@@ -35,10 +35,7 @@
 							<ul class="nav nav-tabs" role="tablist">
 								<li role="presentation"><a href="/" class="active">Home</a></li>
 								<li role="presentation"><a href="/festivals">Festivals</a></li>
-								<li role="presentation"><a href="/artists">Artistas</a></li>								
-								<li role="presentation"><a href="portfolio.html">Portfolio</a></li>
-								<li role="presentation"><a href="blog.html">Blog</a></li>
-								<li role="presentation"><a href="contact.html">Contact</a></li>		
+								<li role="presentation"><a href="/artists">Artistas</a></li>									
 								<div class="links">			
 							</ul>
 						</div>
