@@ -3,8 +3,7 @@
 
 
 
-@section('menu')
-
+@section('mainContent')
 <div class="container">
     <div class="breadcrumb navbar-form">
             <form method="GET" action="{{ action('FestivalsController@cambio') }}">
@@ -94,3 +93,21 @@
         </div>
     </section><!--/#portfolio-item-->
 @endsection
+=======
+<h1>Festivales</h1>
+@if(session('deleted'))
+    <h3>El festival se ha borrado correctamente</h3>
+@endif
+<ul>
+    @forelse($festivals as $festival)
+        <li>
+            <a href="/artist/{{$festival->permalink}}"> {{$festival->name}}</a>
+        </li>
+    @empty
+        <h2>No hay festivales en la BD</h2>
+    @endforelse
+</ul>
+<p>
+    <input type="button" onclick="location.href='{{action('FestivalController@New')}}';" value="Nuevo festival"/>
+    <input type="button" onclick="location.href='/';" value="Inicio"/>
+</p>
