@@ -3,8 +3,7 @@
 
 
 
-@section('menu')
-
+@section('mainContent')
 <div class="container">
     <div class="breadcrumb navbar-form">
             <form method="GET" action="{{ action('FestivalsController@cambio') }}">
