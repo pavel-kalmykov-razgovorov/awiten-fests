@@ -28,9 +28,10 @@ Route::get('festival/{permalink}', function ($permalink) {
     return view('festival.details', ['festival' => $festival]);
 });
 
+Route::get('artists', 'ArtistController@init');
+Route::get('artists-ordenarname', 'ArtistController@ordenar');
 
-
-Route::get('artists', 'ArtistController@All');
+Route::get('artists1', 'ArtistController@All');
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');
 Route::get('artist/{permalink}', 'ArtistController@Details');

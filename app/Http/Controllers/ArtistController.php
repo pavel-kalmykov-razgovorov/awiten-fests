@@ -9,13 +9,29 @@ use Illuminate\Http\Request;
 class ArtistController extends Controller
 {
     private $artists;
+    private $genres;
 
     public function init()
     {
-        
-        $artists = \App\Artist::get()->paginate(4);   
-        return view('artist.all', ['artists' => $artists]);
-      
+        // 		$ms = Person::where('name', '=', 'Foo Bar')->first();
+        // 		$persons = Person::order_by('list_order', 'ASC')->get();
+        // 		return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
+        $artists = \App\Artist::paginate(3);
+        $genres = \App\Genre::get();
+        //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
+        return view('artist.all')
+            ->with('artists', $artists)
+            ->with('genres', $genres);
+        // 		return view('festival-plantilla.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
+    }
+
+    public function ordenar()
+    {
+        $artists = \App\Artist::orderBy('name', 'asc')->paginate(3);
+        $genres = \App\Genre::get();
+        return view('artist.all')
+            ->with('artists', $artists)
+            ->with('genres', $genres);
     }
 
     public function All()
