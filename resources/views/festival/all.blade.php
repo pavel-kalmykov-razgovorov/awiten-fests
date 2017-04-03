@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @extends('welcome')
 
 
@@ -112,4 +111,3 @@
     <input type="button" onclick="location.href='{{action('FestivalController@New')}}';" value="Nuevo festival"/>
     <input type="button" onclick="location.href='/';" value="Inicio"/>
 </p>
->>>>>>> 7d4d381a341169502d20f497a3a81a9502012109
