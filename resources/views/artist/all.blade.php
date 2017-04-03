@@ -5,6 +5,7 @@
 @if(session('deleted'))
     <h3>El artista se ha borrado correctamente</h3>
 @endif
+
 <h1 style="background-color:rgb(90,90,90);color:white; text-align: center">Artistas</h1>   
 <ul>
     @forelse($artists as $artist)
@@ -13,10 +14,11 @@
         </a>
     @empty
         <h2>No hay artistas en la BD</h2>
-        {{ $artist->links() }}
+        
     @endforelse
-    
+    {{ $artists->links() }}
 </ul>
+
 <p>
     <input type="button" onclick="location.href='{{action('ArtistController@New')}}';" value="Nuevo artista"/>
     <input type="button" onclick="location.href='/';" value="Inicio"/>
