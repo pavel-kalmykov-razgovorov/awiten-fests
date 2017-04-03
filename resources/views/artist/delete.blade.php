@@ -9,4 +9,3 @@
 @else
     <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de la
         base de datos</h3>
-@endif
