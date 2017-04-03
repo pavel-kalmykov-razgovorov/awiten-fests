@@ -37,6 +37,7 @@
 								<li role="presentation"><a href="/festivals">Festivals</a></li>
 								<li role="presentation"><a href="/festivals-plantilla">Festivals Plantilla</a></li>
 								<li role="presentation"><a href="/artists">Artistas</a></li>
+								<li role="presentation"><a href="/artists-plantilla">Artistas Plantilla</a></li>
 								<div class="links">			
 							</ul>
 						</div>
