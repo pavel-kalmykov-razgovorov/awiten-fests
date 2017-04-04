@@ -34,11 +34,8 @@
     <input type="button" onclick="location.href='{{action('FestivalController@All')}}';" value="Festivales"/>
     <input type="button" onclick="location.href='/';" value="Inicio"/>
 </p>
-
 <h2>Noticias</h2>
 @forelse($festival->posts as $post)
-   
-    <input type="button" onclick="location.href='{{action('FestivalController@DeletePost', $post->id)}}';" value="Borrar"/>
     <strong>{{$post->title}}</strong>
     <p>{{$post->lead}}</p>
     <p>{{$post->body}}</p>
@@ -46,4 +43,3 @@
 @empty
     <p>No hay noticias de momento</p>
 @endforelse
-
