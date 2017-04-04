@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateArtistsTable extends Migration
 {
@@ -20,6 +20,8 @@ class CreateArtistsTable extends Migration
             $table->string('soundcloud')->nullable();
             $table->string('website')->nullable();
             $table->string('country')->nullable();
+            $table->string('pathProfile')->nullable();
+            $table->string('pathHeader')->nullable();
             $table->string('permalink')->unique();
         });
     }
