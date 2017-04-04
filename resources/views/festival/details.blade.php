@@ -11,7 +11,7 @@
     <li>Ruta cartel: {{$festival->pathCartel}}</li>
     <li>Localizacion: {{$festival->location}}</li>
     <li>Provincia: {{$festival->province}}</li>
-    <li>Fecha: {{$festival->date}}</li>
+    <li>Fecha: {{\Carbon\Carbon::parse($festival->date)->format('d/m/Y')}}</li>
     <li>
         Artistas:
         <ul>

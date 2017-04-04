@@ -37,8 +37,7 @@
 								<li role="presentation"><a href="/festivals">Festivals</a></li>
 								<li role="presentation"><a href="/festivals-plantilla">Festivals Plantilla</a></li>
 								<li role="presentation"><a href="/artists">Artistas</a></li>
-								<li role="presentation"><a href="/artists-plantilla">Artistas Plantilla</a></li>
-								<div class="links">			
+                                {{--<div class="links">--}}
 							</ul>
 						</div>
 					</div>						
@@ -97,19 +96,19 @@
 				</div>
 				
 				<div class="col-md-4 col-md-offset-4">
-					<div class="copyright">
-						&copy; Company Theme. All Rights Reserved.
+                    {{--<div class="copyright">
+                        &copy; Company Theme. All Rights Reserved.
                         <div class="credits">
-                            <!-- 
-                                All the links in the footer should remain intact. 
+                            <!--
+                                All the links in the footer should remain intact.
                                 You can delete the links only if you purchased the pro version.
                                 Licensing information: https://bootstrapmade.com/license/
                                 Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Company
                             -->
                             <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
-					</div>
-				</div>						
+                    </div>--}}
+                </div>
 			</div>
 			<div class="pull-right">
 				<a href="#home" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>

@@ -1,3 +1,4 @@
+{{--
 @extends('welcome')
 
 
@@ -20,7 +21,7 @@
             </form>
     </div>
 </div>
-        
+
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -93,7 +94,8 @@
         </div>
     </section><!--/#portfolio-item-->
 @endsection
-
+=======
+--}}
 <h1>Festivales</h1>
 @if(session('deleted'))
     <h3>El festival se ha borrado correctamente</h3>

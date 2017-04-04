@@ -36,7 +36,7 @@ class ArtistController extends Controller
 
     public function All()
     {
-        return view('artist.all', ['artists' => Artist::get(['permalink', 'name'])]);
+        return view('artist.all', ['artists' => Artist::paginate(2)]);
     }
 
     public function FormNew()
@@ -46,6 +46,7 @@ class ArtistController extends Controller
 
     public function Create(Request $request)
     {
+        $request->session()->flash('temp-festivals', $request->get('festivals-select') ?? []);
         $this->validate($request, ['name' => 'required|unique:artists']);
         //Sabemos que los datos del nuevo artista están correctos
         $artist = new Artist([

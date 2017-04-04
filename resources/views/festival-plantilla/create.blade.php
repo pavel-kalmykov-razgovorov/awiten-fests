@@ -11,7 +11,7 @@
             <li> Fecha: <input type="date" name="date" min="2017-01-01" max="2018-12-31"></li>
             <li>
                 Artistas:
-                <input type="button" onclick="addArtistEntry()" value="Nuevo artista"/>
+                <input type="button" onclick="addEntry()" value="Nuevo artista"/>
                 <ul id="artists-list"></ul>
             </li>
         </ul>
@@ -29,17 +29,17 @@
                     <option value="" disabled>No hay artistes registrados</option>
                 @endforelse
             </select>
-            <input type="button" onclick="removeArtistEntry(this)" value="x">
+            <input type="button" onclick="removeEntry(this)" value="x">
         </li>
     </template>
 @endsection
 <script>
-    function addArtistEntry() {
+    function addEntry() {
         document.querySelector('#artists-list')
             .appendChild(document.importNode(document.querySelector('#artist-entry').content, true));
     }
 
-    function removeArtistEntry(elem) {
+    function removeEntry(elem) {
         elem.parentNode.parentNode.removeChild(elem.parentNode);
     }
 </script>

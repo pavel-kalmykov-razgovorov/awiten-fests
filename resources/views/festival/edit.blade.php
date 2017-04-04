@@ -19,16 +19,16 @@
         <li>Localización: <input type="text" name="location" value="{{$festival->location}}" title="Localización">
         </li>
         <li>Provincia: <input type="text" name="province" value="{{$festival->province}}" title="Provincia"></li>
-        <li>Fecha: <input type="date" name="date" min="2017-01-01" max="2018-12-31" value="{{$festival->date}}"
+        <li>Fecha: <input type="text" name="date" value="{{\Carbon\Carbon::parse($festival->date)->format('d/m/Y')}}"
                           title="Fecha">
         </li>
         <li>
             Artistas:
-            <input type="button" onclick="addArtistEntry()" value="Nuevo artista"/>
+            <input type="button" onclick="addEntry()" value="Nuevo artista"/>
             <ul id="artists-list">
-                @foreach ($festival->artists as $artist_of_festival)
-                    <li id="artist-entry">
-                        <select name="artists-select[]" title="Lista de artistas">
+                @foreach ($festival->artists()->get(['id']) as $artist_of_festival)
+                    <li>
+                        <select name="artists-select[]" title="Lista de Artistas">
                             @foreach ($artists as $artist)
                                 @if($artist_of_festival->id == $artist->id)
                                     <option value="{{$artist->id}}" selected>{{$artist->name}}</option>
@@ -37,13 +37,13 @@
                                 @endif
                             @endforeach
                         </select>
-                        <input type="button" onclick="removeArtistEntry(this)" value="x">
+                        <input type="button" onclick="removeEntry(this)" value="x">
                     </li>
                 @endforeach
             </ul>
         </li>
     </ul>
-    <input type="button" onclick="location.href='{{action('FestivalController@Details', $permalink)}}';"
+    <input type="button" onclick="window.location = '{{action('FestivalController@Details', $permalink)}}'"
            value="Cancelar">
     <input type="submit" value="Editar">
 </form>
@@ -56,17 +56,17 @@
                 <option disabled>No hay artistas registrados</option>
             @endforelse
         </select>
-        <input type="button" onclick="removeArtistEntry(this)" value="x">
+        <input type="button" onclick="removeEntry(this)" value="x">
     </li>
 </template>
 <script>
-    function addArtistEntry() {
-        document.querySelector('#festivals-list').appendChild(
-            document.importNode(document.querySelector('#festival-entry').content, true)
+    function addEntry() {
+        document.querySelector('#artists-list').appendChild(
+            document.importNode(document.querySelector('#artist-entry').content, true)
         );
     }
 
-    function removeArtistEntry(elem) {
+    function removeEntry(elem) {
         elem.parentNode.parentNode.removeChild(elem.parentNode);
     }
 </script>

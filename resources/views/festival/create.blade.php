@@ -11,19 +11,35 @@
     {{method_field('post')}}
     {{csrf_field()}}
     <ul>
-        <li> Nombre: <input type="text" name="name" required title="Nombre"></li>
+        <li> Nombre: <input type="text" name="name" title="Nombre"></li>
         <li> Logo: <input type="file" name="logo" accept="image/gif, image/jpeg, image/png"/>
         <li> Cartel: <input type="file" name="cartel" accept="image/gif, image/jpeg, image/png"/>
         <li> Localización: <input type="text" name="location" title="Localización"></li>
         <li> Provincia: <input type="text" name="province" title="Provincia"></li>
-        <li> Fecha: <input type="date" name="date" min="2017-01-01" max="2018-12-31" title="Fecha"></li>
+        <li> Fecha: <input type="text" name="date" title="Fecha" value="{{\Carbon\Carbon::now()->format('d/m/Y')}}">
+        </li>
         <li>
             Artistas:
-            <input type="button" onclick="addArtistEntry()" value="Nuevo artista"/>
-            <ul id="artists-list"></ul>
+            <input type="button" onclick="addEntry()" value="Nuevo artista"/>
+            <ul id="artists-list">
+                @foreach (array_unique(session('temp-artists') ?? []) as $temp_artist)
+                    <li>
+                        <select name="artists-select[]" title="Artists Options">
+                            @foreach ($artists as $artist)
+                                @if($temp_artist == $artist->id)
+                                    <option value="{{$artist->id}}" selected>{{$artist->name}}</option>
+                                @else
+                                    <option value="{{$artist->id}}">{{$artist->name}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <input type="button" onclick="removeEntry(this)" value="x">
+                    </li>
+                @endforeach
+            </ul>
         </li>
     </ul>
-    <input type="button" onclick="location.href='{{action('ArtistController@All')}}';" value="Cancelar">
+    <input type="button" onclick="window.location = '{{action('FestivalController@All')}}'" value="Cancelar">
     <input type="submit" value="Crear">
 </form>
 <template id="artist-entry">
@@ -35,17 +51,17 @@
                 <option disabled>No hay artistas registrados</option>
             @endforelse
         </select>
-        <input type="button" onclick="removeArtistEntry(this)" value="x">
+        <input type="button" onclick="removeEntry(this)" value="x">
     </li>
 </template>
 <script>
-    function addArtistEntry() {
+    function addEntry() {
         document.querySelector('#artists-list').appendChild(
             document.importNode(document.querySelector('#artist-entry').content, true)
         );
     }
 
-    function removeArtistEntry(elem) {
+    function removeEntry(elem) {
         elem.parentNode.parentNode.removeChild(elem.parentNode);
     }
 </script>

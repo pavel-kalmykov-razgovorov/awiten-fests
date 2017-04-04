@@ -17,11 +17,26 @@
         <li> País: <input type="text" name="country" title="País" value="{{old('country')}}"></li>
         <li>
             Festivales:
-            <input type="button" onclick="addFestivalEntry()" value="Nuevo festival"/>
-            <ul id="festivals-list"></ul>
+            <input type="button" onclick="addEntry()" value="Nuevo festival"/>
+            <ul id="festivals-list">
+                @foreach (array_unique(session('temp-festivals') ?? []) as $temp_festival)
+                    <li>
+                        <select name="festivals-select[]" title="festival-options">
+                            @foreach ($festivals as $festival)
+                                @if($temp_festival == $festival->id)
+                                    <option value="{{$festival->id}}" selected>{{$festival->name}}</option>
+                                @else
+                                    <option value="{{$festival->id}}">{{$festival->name}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <input type="button" onclick="removeEntry(this)" value="x">
+                    </li>
+                @endforeach
+            </ul>
         </li>
     </ul>
-    <input type="button" onclick="location.href='{{action('ArtistController@All')}}';" value="Cancelar">
+    <input type="button" onclick="window.location='{{action('ArtistController@All')}}';" value="Cancelar">
     <input type="submit" value="Crear">
 </form>
 <template id="festival-entry">
@@ -33,17 +48,17 @@
                 <option disabled>No hay festivales registrados</option>
             @endforelse
         </select>
-        <input type="button" onclick="removeArtistEntry(this)" value="x">
+        <input type="button" onclick="removeEntry(this)" value="x">
     </li>
 </template>
 <script>
-    function addFestivalEntry() {
+    function addEntry() {
         document.querySelector('#festivals-list').appendChild(
             document.importNode(document.querySelector('#festival-entry').content, true)
         );
     }
 
-    function removeArtistEntry(elem) {
+    function removeEntry(elem) {
         elem.parentNode.parentNode.removeChild(elem.parentNode);
     }
 </script>

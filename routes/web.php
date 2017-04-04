@@ -23,10 +23,10 @@ Route::get('festivals-plantilla4', 'FestivalController@busquedaPorGenero');
 //$festivals-plantilla = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
 //$festival->genres->get(1)->genre
 
-Route::get('festival/{permalink}', function ($permalink) {
+/*Route::get('festival/{permalink}', function ($permalink) {
     $festival = \App\Festival::where('permalink', $permalink)->first();
     return view('festival.details', ['festival' => $festival]);
-});
+});*/
 
 Route::get('artists', 'ArtistController@init');
 Route::get('artists-ordenarname', 'ArtistController@ordenar');

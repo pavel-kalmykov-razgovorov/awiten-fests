@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\Festival;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -115,18 +116,20 @@ class FestivalController extends Controller
 
     public function Create(Request $request)
     {
-        $this->validate($request, ['name' => 'required|unique:artists']);
+        $request->session()->flash('temp-artists', $request->get('artists-select') ?? []);
+        $this->validate($request, ['name' => 'required|unique:festivals']);
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
             'pathCartel' => $request->get('cartel'),
             'location' => $request->get('location'),
             'province' => $request->get('province'),
-            'date' => $request->get('date'),
+            'date' => Carbon::createFromFormat('d/m/Y', $request->get('date')
+                ?? Carbon::now()->format('d/m/Y')),
             'permalink' => str_slug($request->get('name'))
         ]);
         $festival->save();
-        $festival->artists()->attach(array_unique($request->get('festivals-select') ?? []));
+        $festival->artists()->attach(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('created', true);
     }
 
@@ -159,8 +162,11 @@ class FestivalController extends Controller
         $festival->pathCartel = $request->get('cartel');
         $festival->location = $request->get('location');
         $festival->province = $request->get('province');
-        $festival->date = $request->get('date');
+        $festival->date = Carbon::createFromFormat(
+            'd/m/Y', $request->get('date')
+            ?? Carbon::now()->format('d/m/Y'));
         $festival->permalink = str_slug($request->get('name'));
+        $festival->save();
         $festival->artists()->sync(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('updated', true);
     }
