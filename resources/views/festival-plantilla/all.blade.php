@@ -29,7 +29,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="text-center" style="color: Black">Festivales:</h1>
+                <h1 class="text-center" style="color: Black">Festivales: 111</h1>
             </div>
         </div>
     </div>

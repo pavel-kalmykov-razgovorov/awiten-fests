@@ -13,3 +13,19 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+
+/*
+ @if (count($festival->photos) != 0)
+                <div class="item active">
+                    <img src="{{$festival->photos->get(0)}}" alt="Chania">
+                </div>
+            @endif
+            @for ($i = 1; $i < ($festival->photos); $i++)
+                <div class="item">
+                    <img src="{{$festival->photos->get($i)}}" alt="Chania">
+                </div>
+$festival = App\Festival::where('id',1)->get();
+                 
+            @endfor*/
+
+           
