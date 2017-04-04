@@ -34,7 +34,7 @@ class FestivalGenreTableSeeder extends Seeder
         DB::table('festival_genre')->delete();
         DB::table('festival_genre')->insert(
             [
-                ['festival_id' => $medusa , 'genre_id' => $edm],
+             //   ['festival_id' => $medusa , 'genre_id' => $edm],
                 ['festival_id' => $medusa , 'genre_id' => $techno],
                 ['festival_id' => $medusa , 'genre_id' => $techouse],
                 ['festival_id' => $medusa , 'genre_id' => $future],
@@ -42,7 +42,7 @@ class FestivalGenreTableSeeder extends Seeder
                 ['festival_id' => $medusa , 'genre_id' => $hardstyle],
                 ['festival_id' => $arenal , 'genre_id' => $edm],
                 ['festival_id' => $arenal , 'genre_id' => $future],
-                ['festival_id' => $dreambeach , 'genre_id' => $edm],
+             //   ['festival_id' => $dreambeach , 'genre_id' => $edm],
                 ['festival_id' => $dreambeach , 'genre_id' => $techno],
                 ['festival_id' => $dreambeach , 'genre_id' => $techouse],
                 ['festival_id' => $dreambeach , 'genre_id' => $future],
@@ -50,7 +50,7 @@ class FestivalGenreTableSeeder extends Seeder
                 ['festival_id' => $dreambeach , 'genre_id' => $hardstyle],
                 ['festival_id' => $awakenings , 'genre_id' => $techno],
                 ['festival_id' => $awakenings , 'genre_id' => $techouse],
-                ['festival_id' => $sstory , 'genre_id' => $edm],
+              //  ['festival_id' => $sstory , 'genre_id' => $edm],
                 ['festival_id' => $sstory , 'genre_id' => $techno],
                 ['festival_id' => $sstory , 'genre_id' => $techouse],
                 ['festival_id' => $sstory , 'genre_id' => $hardstyle],
@@ -64,7 +64,7 @@ class FestivalGenreTableSeeder extends Seeder
                 ['festival_id' => $tomorrow , 'genre_id' => $future],
                 ['festival_id' => $tomorrow , 'genre_id' => $trance],
                 ['festival_id' => $tomorrow , 'genre_id' => $hardstyle],
-                ['festival_id' => $umf , 'genre_id' => $edm],
+            //    ['festival_id' => $umf , 'genre_id' => $edm],
                 ['festival_id' => $umf , 'genre_id' => $techno],
                 ['festival_id' => $umf , 'genre_id' => $techouse],
                 ['festival_id' => $umf , 'genre_id' => $future],

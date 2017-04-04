@@ -30,14 +30,14 @@ class FestivalController extends Controller
 
     public function ordenar()
     {
-        $festivals = \App\Festival::orderBy('date', 'asc')->paginate(4);
+        $festivals = \App\Festival::orderBy('date', 'asc')->paginate(65);
         $genres = \App\Genre::get();
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
     }
 
-    public function cambio()
+    public function paginacionDeDosEnDos()
     {
         $festivals = \App\Festival::paginate(2);
         $genres = \App\Genre::get();
@@ -48,58 +48,28 @@ class FestivalController extends Controller
 
     public function busquedaPorGenero(Request $request)
     {
-        //$festivals = \App\Festival::paginate(2);
-        $generos = array("Future");
-        //dd($request);
+        $generos = array();
         $genres = \App\Genre::get();
         foreach ($genres as $genre) {
-            if ($request->has($genre->genre))
-                array_push($generos, $genre->genre);
+            $generoSinEspacios = str_replace(' ','_',$genre->genre);
+            if ($request->has($generoSinEspacios)){
+                array_push($generos, $genre->id);
+            }
         }
-        //dd($generos);
-        $festivals = new \Illuminate\Database\Eloquent\Collection;
-        for ($i = 0; $i < count($generos); $i++) {
-            $festivals = $festivals->merge(\App\Genre::where('genre', $generos[$i])->firstOrFail()->festivals);
-        }
-        \App\Festival::join('festival_genre','festival_genre.festival_id',"=",'festival.id')->where('genre_id','=',2)->get();
-        /*
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $collection = new Collection($festivals);
-        $perPage = 5;
-        $currentPageSearchResults = $collection->slice($currentPage * $perPage, $perPage)->all();
-        */
-        $paginator = new LengthAwarePaginator($festivals, count($festivals),2);
+        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(2);
         return view('festival-plantilla.all')
-            ->with('festivals', $paginator)
+            ->with('festivals', $festivals)
             ->with('genres', $genres);
-        /*
-
-          // $genres = \App\Genre::get(['genre']);
-               $genres = \App\Genre::get();
-        return view('festival-plantilla.all')
-           ->with('festivals',$festivals)
-           ->with('genres',$genres);*/
-        //  <li><a class="btn btn-default" type="checkbox" autocomplete="off" value="{{$genre->genre}}">{{$genre->genre}}</a></li>
-
     }
 
     public function busqueda(Request $request)
     {
         $buscado = $request->input('buscado');
-        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(2);
+        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(65);
         $genres = \App\Genre::get();
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
-
-        /*
-
-           \App\Genre::where('genre',"Techno")->firstOrFail()->festivals;
-           \App\Genre::where('genre',"Trance")->firstOrFail()->festivals;
-           $generos = array("Techno","Trance");
-           \App\Genre::with('festivals')->whereIn('genre',$generos)->unique()->get();
-           */
-
     }
 
     public function All()
@@ -113,6 +83,7 @@ class FestivalController extends Controller
         return view('festival.create', ['artists' => Artist::get(['id', 'name'])]);
     }
 
+/*
     public function Create(Request $request)
     {
         $request->session()->flash('temp-artists', $request->get('artists-select') ?? []);
@@ -131,6 +102,7 @@ class FestivalController extends Controller
         $festival->artists()->attach(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('created', true);
     }
+    */
 
     public function Details($permalink)
     {
@@ -152,6 +124,7 @@ class FestivalController extends Controller
         ]);
     }
 
+/*
     public function Update(Request $request, $permalink)
     {
         //TODO Comprobar que el nuevo nombre no exista ya, pero si es el mismo dejar modificar
@@ -169,7 +142,7 @@ class FestivalController extends Controller
         $festival->artists()->sync(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('updated', true);
     }
-
+*/
     public function Delete($permalink)
     {
         $festival = Festival::where('permalink', $permalink)->firstOrFail();

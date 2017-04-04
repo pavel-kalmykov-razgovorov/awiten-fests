@@ -4,9 +4,17 @@
 @section('mainContent')
     <div class="container">
         <div class="breadcrumb navbar-form">
-            <form method="GET" action="{{ action('FestivalController@cambio') }}">
+            <form method="GET" action="{{ action('FestivalController@paginacionDeDosEnDos') }}">
+              
                 <button type="summit" class="btn btn-info">Mostrar de 2 en 2</button>
             </form>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">Mostrar de 2 en 2</a></li>
+                    <li><a href="#">Mostrar de 4 en 4</a></li>
+                    <li><a href="#">Mostrar de 4 en 4</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
             <form method="GET" action="{{ action('FestivalController@ordenar') }}">
                 <button type="summit" class="btn btn-info">Ordenar por fecha</button>
             </form>
@@ -30,7 +38,6 @@
             <div class="container">
                 <div class="center col-md-2">
                     <ul class="portfolio-filter text-center">
-                        <li><a class="btn btn-default active" href="#" data-filter="*">All Genres</a></li>
                         <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
                             <!--div class="[ col-xs-2 col-sm-2 ]"-->
                                 @forelse($genres as $genre)
@@ -87,8 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination pagination-lg .text-center">
-
+                <div class="pagination pagination-lg .text-center pg-red">
                     {{ $festivals->links() }}
                 </div>
             </div>

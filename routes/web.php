@@ -15,8 +15,8 @@ Route::get('/', function () {
 });
 
 Route::get('festivals-plantilla', 'FestivalController@init');
-Route::get('festivals-plantilla2', 'FestivalController@cambio');
-Route::get('festivals-plantilla3', 'FestivalController@ordenar');
+Route::get('festivals-plantilla2', 'FestivalController@paginacionDeDosEnDos');
+Route::get('festivals-plantilla-ordenado-por-fecha', 'FestivalController@ordenar');
 Route::get('festivals-plantilla3', 'FestivalController@busqueda');
 Route::get('festivals-plantilla4', 'FestivalController@busquedaPorGenero');
 
