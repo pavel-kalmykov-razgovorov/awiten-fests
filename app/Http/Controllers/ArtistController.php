@@ -110,10 +110,4 @@ class ArtistController extends Controller
         Artist::where('permalink', $permalink)->delete();
         return redirect()->action('ArtistController@All')->with('deleted', true);
     }
-    
-    
-
-    
-
-    
 }

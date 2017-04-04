@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('menu')
+@section('mainContent')
 <div class="arreglar-margen">
 
 

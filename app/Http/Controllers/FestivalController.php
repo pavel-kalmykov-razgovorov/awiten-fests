@@ -107,8 +107,7 @@ class FestivalController extends Controller
         return view('festival.all', ['festivals' => Festival::get(['permalink', 'name'])]);
     }
 
-/*
-    public function New()
+
     public function FormNew()
     {
         return view('festival.create', ['artists' => Artist::get(['id', 'name'])]);
@@ -185,5 +184,5 @@ class FestivalController extends Controller
         Festival::where('permalink', $permalink)->delete();
         return redirect()->action('FestivalController@All')->with('deleted', true);
     }
-*/
+
 }
