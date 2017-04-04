@@ -2,10 +2,22 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string name
+ * @property string pathLogo
+ * @property string pathCartel
+ * @property string location
+ * @property string province
+ * @property Carbon date
+ * @property string permalink
+ */
 class Festival extends Model
 {
+    protected $fillable = ['name', 'pathLogo', 'pathCartel', 'location', 'province', 'date', 'permalink'];
+
     public function artists() {
         return $this->belongsToMany('App\Artist');
     }
@@ -13,10 +25,17 @@ class Festival extends Model
     public function genres() {
         return $this->belongsToMany('App\Genre');
     }
+
     public function news() {
         return $this->hasMany('App\New');
     }
+
     public function photos() {
         return $this->hasMany('App\Photo');
+    }
+
+    public function getRouteKey()
+    {
+        return $this->permalink;
     }
 }

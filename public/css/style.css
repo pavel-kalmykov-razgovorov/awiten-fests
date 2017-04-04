@@ -12,7 +12,7 @@
 @import url('animate.css');
 
 .arreglar-margen{
-  margin-top: 90px;
+  margin-top: 100px;
   margin-left: 50px;
   margin-right: 50px;
 }
@@ -1267,4 +1267,109 @@ a.scrollup:hover{
 	opacity:1;
 	background-color:#ddd;
 	color:#1BBD36;
+}
+
+.lista-festivales{
+  width: 250px;
+  height: 150px;
+  align: right;
+}
+
+.lista-artistas-prinicpal{
+  width: 350px;
+  height: 400px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  
+}
+
+.lista-iconos{
+  width: 200px;
+  height: 100px;
+}
+
+.fondo-artista{
+  position: relative;
+margin-left: -30px;
+margin-right: -30px;
+padding: 30px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+box-sizing: border-box;
+overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+height: 260px; 
+}
+
+.container-a{
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+.main_image-a{
+    width: 100%;
+    height: 100%;
+}
+.overlay_image-a{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+
+.profileHeaderBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%; width: 100%
+    background: #e5e5e5;
+        background-color: rgb(229, 229, 229);
+        background-image: none;
+        background-repeat: repeat;
+        background-attachment: scroll;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-size: auto auto;
+}
+
+.post-container1 {
+    margin: 20px 20px 0 0;  
+   
+    overflow: auto
+}
+.post-thumb1 {
+    float: left
+}
+
+.post-content1 {
+   
+  margin-left: 290px;
+  margin-right: 100px;
+  margin-top: 40px;
+}
+.post-title1 {
+    font-weight: normal;
+    font-size: 150%
+}
+
+.sc-media-image, .sc-media-left {
+    float: left;
+}
+.sc-artwork {
+    display: block;
+}
+
+.image__rounded {
+    background: 0 0;
 }

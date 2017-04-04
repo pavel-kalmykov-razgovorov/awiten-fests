@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Artist;
+use App\Festival;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -13,7 +15,7 @@ class FestivalController extends Controller
 
     public function init()
     {
-        // 		$ms = Person::where('name', '=', 'Foo Bar')->first();
+        // 		$ms = Person::where('name', '=', 'Foo Bar')->firstOrFail();
         // 		$persons = Person::order_by('list_order', 'ASC')->get();
         // 		return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
         $festivals = \App\Festival::paginate(4);
@@ -56,7 +58,7 @@ class FestivalController extends Controller
         //dd($generos);
         $festivals = new \Illuminate\Database\Eloquent\Collection;
         for ($i = 0; $i < count($generos); $i++) {
-            $festivals = $festivals->merge(\App\Genre::where('genre', $generos[$i])->first()->festivals);
+            $festivals = $festivals->merge(\App\Genre::where('genre', $generos[$i])->firstOrFail()->festivals);
         }
         \App\Festival::join('festival_genre','festival_genre.festival_id',"=",'festival.id')->where('genre_id','=',2)->get();
         /*
@@ -91,8 +93,8 @@ class FestivalController extends Controller
 
         /*
 
-           \App\Genre::where('genre',"Techno")->first()->festivals;
-           \App\Genre::where('genre',"Trance")->first()->festivals;
+           \App\Genre::where('genre',"Techno")->firstOrFail()->festivals;
+           \App\Genre::where('genre',"Trance")->firstOrFail()->festivals;
            $generos = array("Techno","Trance");
            \App\Genre::with('festivals')->whereIn('genre',$generos)->unique()->get();
            */
@@ -101,42 +103,83 @@ class FestivalController extends Controller
 
     public function All()
     {
-
+        return view('festival.all', ['festivals' => Festival::get(['permalink', 'name'])]);
     }
 
+<<<<<<< HEAD
 /*
     public function New()
+=======
+    public function FormNew()
+>>>>>>> b9ca92267d8aa1cc3cd3714f041c66589bbbc6ba
     {
-
+        return view('festival.create', ['artists' => Artist::get(['id', 'name'])]);
     }
 */
     public function Create(Request $request)
     {
-
+        $this->validate($request, ['name' => 'required|unique:artists']);
+        $festival = new Festival([
+            'name' => $request->get('name'),
+            'pathLogo' => $request->get('logo'),
+            'pathCartel' => $request->get('cartel'),
+            'location' => $request->get('location'),
+            'province' => $request->get('province'),
+            'date' => $request->get('date'),
+            'permalink' => str_slug($request->get('name'))
+        ]);
+        $festival->save();
+        $festival->artists()->attach(array_unique($request->get('festivals-select') ?? []));
+        return redirect()->action('FestivalController@Details', [$festival])->with('created', true);
     }
 
     public function Details($permalink)
     {
-
+        return view('festival.details', [
+            'permalink' => $permalink,
+            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+        ]);
     }
 
     public function Edit($permalink)
     {
+        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        $artists = Artist::get(['id', 'name']);
 
+        return view('festival.edit', [
+            'permalink' => $permalink,
+            'festival' => $festival,
+            'artists' => $artists
+        ]);
     }
 
     public function Update(Request $request, $permalink)
     {
-
+        //TODO Comprobar que el nuevo nombre no exista ya, pero si es el mismo dejar modificar
+        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        $festival->name = $request->get('name');
+        $festival->pathLogo = $request->get('logo');
+        $festival->pathCartel = $request->get('cartel');
+        $festival->location = $request->get('location');
+        $festival->province = $request->get('province');
+        $festival->date = $request->get('date');
+        $festival->permalink = str_slug($request->get('name'));
+        $festival->artists()->sync(array_unique($request->get('artists-select') ?? []));
+        return redirect()->action('FestivalController@Details', [$festival])->with('updated', true);
     }
 
     public function Delete($permalink)
     {
-
+        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        return view('festival.delete', [
+            'permalink' => $permalink,
+            'festival' => $festival
+        ]);
     }
 
     public function DeleteConfirm($permalink)
     {
-
+        Festival::where('permalink', $permalink)->delete();
+        return redirect()->action('FestivalController@All')->with('deleted', true);
     }
 }
