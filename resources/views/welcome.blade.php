@@ -49,7 +49,7 @@
 
 	
 		
-@section('menu')
+@section('mainContent')
 <section id="main-slider" class="no-margin">
         <div class="carousel slide">      
             <div class="carousel-inner">
@@ -60,7 +60,12 @@
                                 <div class="carousel-content">
                                     <h2 class="animation animated-item-1">Bienvenido a <span> Awiten </span> Fests </h2>
 									<strong><p class="text-danger animation animated-item-2" style="color: LawnGreen">Aquí podrás encontrar los mejores festivales de todos los estilos.</p></strong>
-                            		<a class="btn-slide animation animated-item-3" href="/festivals">Buscar Festivales</a>
+                            		<form method="get" action="{{ action('FestivalController@busqueda') }}">
+										<div class="search">
+											<input type="text" class="form-control" name="buscado">
+											<button type="summit" class="btn-buscador btn-warning">Buscar</button>
+										</div>
+									</form>
                                 </div>
                             </div>                         
 

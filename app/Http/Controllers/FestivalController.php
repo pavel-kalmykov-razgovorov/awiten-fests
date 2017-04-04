@@ -46,7 +46,7 @@ class FestivalController extends Controller
     public function busquedaPorGenero(Request $request)
     {
         //$festivals = \App\Festival::paginate(2);
-        $generos = array();
+        $generos = array("Future");
         //dd($request);
         $genres = \App\Genre::get();
         foreach ($genres as $genre) {
@@ -58,15 +58,14 @@ class FestivalController extends Controller
         for ($i = 0; $i < count($generos); $i++) {
             $festivals = $festivals->merge(\App\Genre::where('genre', $generos[$i])->first()->festivals);
         }
+        \App\Festival::join('festival_genre','festival_genre.festival_id',"=",'festival.id')->where('genre_id','=',2)->get();
         /*
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $collection = new Collection($festivals);
         $perPage = 5;
         $currentPageSearchResults = $collection->slice($currentPage * $perPage, $perPage)->all();
         */
-        $paginator = new LengthAwarePaginator($festivals, count($festivals), count($festivals));
-
-
+        $paginator = new LengthAwarePaginator($festivals, count($festivals),2);
         return view('festival-plantilla.all')
             ->with('festivals', $paginator)
             ->with('genres', $genres);
@@ -105,11 +104,12 @@ class FestivalController extends Controller
 
     }
 
+/*
     public function New()
     {
 
     }
-
+*/
     public function Create(Request $request)
     {
 

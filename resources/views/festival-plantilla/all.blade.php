@@ -1,10 +1,7 @@
 @extends('welcome')
 
 
-
-
-@section('menu')
-
+@section('mainContent')
     <div class="container">
         <div class="breadcrumb navbar-form">
             <form method="GET" action="{{ action('FestivalController@cambio') }}">
@@ -16,12 +13,11 @@
             <form method="get" action="{{ action('FestivalController@busqueda') }}">
                 <div class="form-group">
                     <input type="text" class="form-control" name="buscado">
-                    <button type="summit" class="btn btn-warning">Enviar</button>
+                    <button type="summit" class="btn btn-warning">Buscar</button>
                 </div>
             </form>
         </div>
     </div>
-
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -35,8 +31,8 @@
                 <div class="center col-md-2">
                     <ul class="portfolio-filter text-center">
                         <li><a class="btn btn-default active" href="#" data-filter="*">All Genres</a></li>
-                        <form method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
-                            <div class="[ col-xs-12 col-sm-6 ]">
+                        <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
+                            <!--div class="[ col-xs-2 col-sm-2 ]"-->
                                 @forelse($genres as $genre)
                                     <div class="[ form-group ]">
                                         <input type="checkbox" name="{{$genre->genre}}"
@@ -58,7 +54,7 @@
                                     <h2>No hay géneros en la BD</h2>
                                 @endforelse
                                 <button type="summit" class="btn btn-warning">Enviar</button>
-                            </div>
+                            <!--/div-->
                         </form>
                     </ul>
                 </div>
