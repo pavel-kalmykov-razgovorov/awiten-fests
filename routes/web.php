@@ -28,8 +28,10 @@ Route::get('festivals-plantilla4', 'FestivalController@busquedaPorGenero');
     return view('festival.details', ['festival' => $festival]);
 });*/
 
-/*Route::get('artists', 'ArtistController@init');
-Route::get('artists-ordenarname', 'ArtistController@ordenar');*/
+/*Route::get('artists', 'ArtistController@init');*/
+Route::get('artistsSortByName', 'ArtistController@ordenar');
+Route::get('artistsPaginate6', 'ArtistController@en6');
+Route::get('artistsLookFor', 'ArtistController@busqueda');
 
 Route::get('artists', 'ArtistController@All');
 Route::get('artist/new', 'ArtistController@FormNew');
