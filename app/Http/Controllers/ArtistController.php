@@ -34,9 +34,29 @@ class ArtistController extends Controller
             ->with('genres', $genres);
     }
 
+    public function en6()
+    {
+        $artists = \App\Artist::paginate(6);
+        $genres = \App\Genre::get();
+        return view('artist.all')
+            ->with('artists', $artists)
+            ->with('genres', $genres);
+    }
+
+    public function busqueda(Request $request)
+    {
+        $buscado = $request->input('buscado');
+        $artists = \App\Artist::where('name', 'like', '%' . $buscado . '%')->paginate(3);
+        $genres = \App\Genre::get();
+        return view('artist.all')
+            ->with('artists', $artists)
+            ->with('genres', $genres);
+
+    }
+
     public function All()
     {
-        return view('artist.all', ['artists' => Artist::paginate(2)]);
+        return view('artist.all', ['artists' => Artist::paginate(3)]);
     }
 
     public function FormNew()

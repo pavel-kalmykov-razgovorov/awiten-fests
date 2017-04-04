@@ -1,4 +1,7 @@
-<h1>Nuevo Artista</h1>
+@extends('welcome')
+@section('mainContent')
+<div class="arreglar-margen">
+<h1 style="color: black;">Nuevo Artista</h1>
 @if(count($errors) > 0)
     <h3>Hay errores:</h3>
     <ul>
@@ -10,7 +13,7 @@
 <form action="{{action('ArtistController@Create')}}" method="post">
     {{method_field('post')}}
     {{csrf_field()}}
-    <ul>
+    <ul style="color: black;">
         <li> Nombre: <input type="text" name="name" title="Nombre" value="{{old('name')}}"></li>
         <li> Soundcloud: <input type="text" name="soundcloud" title="SoundCloud" value="{{old('soundcloud')}}"></li>
         <li> Sitio Web: <input type="text" name="website" title="Sitio Web" value="{{old('website')}}"></li>
@@ -36,8 +39,8 @@
             </ul>
         </li>
     </ul>
-    <input type="button" onclick="window.location='{{action('ArtistController@All')}}';" value="Cancelar">
-    <input type="submit" value="Crear">
+    <input style="color: black;" type="button" onclick="window.location='{{action('ArtistController@All')}}';" value="Cancelar">
+    <input style="color: black;" type="submit" value="Crear">
 </form>
 <template id="festival-entry">
     <li>
@@ -51,6 +54,8 @@
         <input type="button" onclick="removeEntry(this)" value="x">
     </li>
 </template>
+</div>
+@endsection
 <script>
     function addEntry() {
         document.querySelector('#festivals-list').appendChild(
