@@ -6,7 +6,6 @@ use App\Artist;
 use App\Festival;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class FestivalController extends Controller
@@ -83,7 +82,7 @@ class FestivalController extends Controller
         return view('festival.create', ['artists' => Artist::get(['id', 'name'])]);
     }
 
-/*
+
     public function Create(Request $request)
     {
         $request->session()->flash('temp-artists', $request->get('artists-select') ?? []);
@@ -102,7 +101,7 @@ class FestivalController extends Controller
         $festival->artists()->attach(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('created', true);
     }
-    */
+
 
     public function Details($permalink)
     {
@@ -124,7 +123,7 @@ class FestivalController extends Controller
         ]);
     }
 
-/*
+
     public function Update(Request $request, $permalink)
     {
         //TODO Comprobar que el nuevo nombre no exista ya, pero si es el mismo dejar modificar
@@ -142,7 +141,7 @@ class FestivalController extends Controller
         $festival->artists()->sync(array_unique($request->get('artists-select') ?? []));
         return redirect()->action('FestivalController@Details', [$festival])->with('updated', true);
     }
-*/
+
     public function Delete($permalink)
     {
         $festival = Festival::where('permalink', $permalink)->firstOrFail();

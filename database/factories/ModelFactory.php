@@ -22,3 +22,25 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(\App\Post::class, function (\Faker\Generator $faker) {
+    $medusa = DB::table('festivals')->where('name', 'Medusa Sunbeach Festival')->first()->id;
+    $arenal = DB::table('festivals')->where('name', 'Arenal Sound')->first()->id;
+    $dreambeach = DB::table('festivals')->where('name', 'Dreambeach Festival')->first()->id;
+    $awakenings = DB::table('festivals')->where('name', 'Awakenings')->first()->id;
+    $sstory = DB::table('festivals')->where('name', 'A Summer Story')->first()->id;
+    $aquasella = DB::table('festivals')->where('name', 'Aquasella')->first()->id;
+    $wan = DB::table('festivals')->where('name', 'Wan Festival')->first()->id;
+    $tomorrow = DB::table('festivals')->where('name', 'Tomorrowland')->first()->id;
+    $umf = DB::table('festivals')->where('name', 'Ultra Music Festival')->first()->id;
+    $jaco = DB::table('festivals')->where('name', 'The Jaco Festival')->first()->id;
+    $festival_ids = [$medusa, $arenal, $dreambeach, $awakenings, $sstory, $aquasella, $wan, $tomorrow, $umf, $jaco,];
+    $min = min($festival_ids);
+    $max = max($festival_ids);
+    return [
+        'title' => $faker->sentence(6),
+        'lead' => $faker->sentence(20),
+        'body' => $faker->paragraph(40),
+        'festival_id' => $faker->numberBetween($min, $max),
+    ];
+});

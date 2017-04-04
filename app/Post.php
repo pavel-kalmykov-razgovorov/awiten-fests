@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class New extends Model
+class Post extends Model
 {
-    public function festival() {
+    public function festival()
+    {
         return $this->belongsTo('App\Festival');
-    }  
+    }
 }
