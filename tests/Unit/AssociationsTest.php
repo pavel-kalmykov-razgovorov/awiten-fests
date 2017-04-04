@@ -2,13 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Artist;
 use App\Festival;
 use App\Genre;
+use Tests\TestCase;
 
 class AssociationsTest extends TestCase
 {
@@ -21,10 +18,12 @@ class AssociationsTest extends TestCase
     {
         $artist = new Artist();
         $artist->name = 'Suicidal Tendencies';
+        $artist->permalink = str_slug($artist->name);
         $artist->save();
 
         $festival = new Festival();
         $festival->name = 'Download Festival';
+        $festival->permalink = str_slug($festival->name);
         $festival->save();
 
         $festival->artists()->attach($artist->id);
@@ -46,6 +45,7 @@ class AssociationsTest extends TestCase
     {
         $artist = new Artist();
         $artist->name = 'Suicidal Tendencies';
+        $artist->permalink = str_slug($artist->name);
         $artist->save();
 
         $genre = new Genre();
@@ -71,6 +71,7 @@ class AssociationsTest extends TestCase
     {
         $festival = new Festival();
         $festival->name = 'Download Festival';
+        $festival->permalink = str_slug($festival->name);
         $festival->save();
 
         $genre = new Genre();
