@@ -48,8 +48,9 @@ jQuery(function($) {
 	});	
     
     //Google Map
-    var get_latitude = $('#google-map').data('latitude');
-    var get_longitude = $('#google-map').data('longitude');
+    const $google = $('#google-map');
+    var get_latitude = $google.data('latitude');
+    var get_longitude = $google.data('longitude');
 
     function initialize_google_map() {
         var myLatlng = new google.maps.LatLng(get_latitude, get_longitude);
@@ -64,5 +65,6 @@ jQuery(function($) {
             map: map
         });
     }
-    google.maps.event.addDomListener(window, 'load', initialize_google_map);
+
+    //google.maps.event.addDomListener(window, 'load', initialize_google_map);
 });

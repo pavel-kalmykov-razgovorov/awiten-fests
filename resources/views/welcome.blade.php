@@ -35,9 +35,12 @@
                     <div class="menu">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation"><a href="/" class="active">Home</a></li>
-                            <li role="presentation"><a href="/festivals">Festivals</a></li>
-                            <li role="presentation"><a href="/festivals-plantilla">Festivals Plantilla</a></li>
-                            <li role="presentation"><a href="/artists">Artistas</a></li>
+                            <li role="presentation"><a href="{{action('FestivalController@All')}}">Festivals</a></li>
+                            <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals
+                                    Plantilla</a></li>
+                            <li role="presentation"><a href="{{action('ArtistController@All')}}">Artistas</a></li>
+                            <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">Admin</a>
+                            </li>
                             {{--<div class="links">--}}
                         </ul>
                     </div>
@@ -64,8 +67,8 @@
                                     </p>
                                     <form method="get" action="{{ action('FestivalController@busqueda') }}">
                                         <div class="search">
-                                            <input type="text" class="form-control" name="buscado">
-                                            <button type="summit" class="btn-buscador btn-warning">Buscar</button>
+                                            <input type="text" class="form-control" name="buscado" title="Buscado">
+                                            <button type="submit" class="btn-buscador btn-warning">Buscar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -116,9 +119,8 @@
             </div>
         </div>
         <div class="pull-right">
-            <a href="#home" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>
+            <a href="#" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>
         </div>
-    </div>
     </div>
 </footer>
 </body>

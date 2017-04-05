@@ -54,3 +54,15 @@ Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
 Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
 
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
+
+
+/*ADMIN*/
+Route::get('admin', function () {
+    redirect()->action('AdminController@AvailableEntities');
+});
+Route::get('admin/entities', 'AdminController@AvailableEntities');
+Route::get('admin/artists', 'AdminController@ArtistsList');
+Route::get('admin/festivals', 'AdminController@FestivalsList');
+Route::get('admin/genres', 'AdminController@GenresList');
+Route::get('admin/posts', 'AdminController@PostsList');
+Route::get('admin/photos', 'AdminController@PhotosList');
