@@ -15,7 +15,7 @@
     <li>Nombre: {{$festival->name}}</li>
     <li>Ruta logo: {{$festival->pathLogo}}</li>
     <li>Ruta cartel: {{$festival->pathCartel}}</li>
-
+</ul>
 <div class="container">
     	<div class="row">
 
@@ -78,7 +78,6 @@
 			</div>
 		</div>
 	</div>
-    </div>
         Artistas:
         <ul>
             @forelse($festival->artists as $artist)
@@ -88,8 +87,6 @@
                 Ninguno
             @endforelse
         </ul>
-    </li>
-</ul>
 <p>
     <input type="button" onclick="location.href='{{action('FestivalController@Delete', $permalink)}}';"
            value="Borrar"/>
@@ -117,15 +114,14 @@
  .event-list {
 		list-style: none;
 		font-family: 'Lato', sans-serif;
-		margin: 0px;
-		padding: 0px;
+     margin: 0;
+     padding: 0;
 	}
 	.event-list > li {
 		background-color: rgb(255, 255, 255);
-		box-shadow: 0px 0px 5px rgb(51, 51, 51);
-		box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
-		padding: 0px;
-		margin: 0px 0px 20px;
+        box-shadow: 0 0 5px rgba(51, 51, 51, 0.7);
+        padding: 0;
+        margin: 0 0 20px;
 	}
 	.event-list > li > time {
 		display: inline-block;
@@ -164,12 +160,12 @@
 	.event-list > li > .info > .title {
 		font-size: 17pt;
 		font-weight: 700;
-		margin: 0px;
+        margin: 0;
 	}
 	.event-list > li > .info > .desc {
 		font-size: 13pt;
 		font-weight: 300;
-		margin: 0px;
+        margin: 0;
 	}
     }
 </style>
