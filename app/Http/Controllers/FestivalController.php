@@ -13,6 +13,7 @@ class FestivalController extends Controller
     private $festivals;
     private $genres;
 
+
     public function init()
     {
         // 		$ms = Person::where('name', '=', 'Foo Bar')->firstOrFail();
@@ -105,11 +106,16 @@ class FestivalController extends Controller
 
     public function Details($permalink)
     {
+        $variableFest = Festival::where('permalink', $permalink)->firstOrFail();
+        $variableFest->setRelation('posts', $variableFest->posts()->paginate(2));
         return view('festival.details', [
             'permalink' => $permalink,
-            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+            'festival' => $variableFest 
         ]);
     }
+
+
+    
 
     public function Edit($permalink)
     {

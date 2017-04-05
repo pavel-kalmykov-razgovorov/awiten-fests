@@ -33,7 +33,7 @@
                 <div class="item">
                     <img src="{{$festival->photos->get($i)->path}}">
                 </div>
-                @endfor
+			@endfor
   </div>
   <!-- Left and right controls -->
   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -98,8 +98,10 @@
 @empty
     <p>No hay noticias de momento</p>
 @endforelse
+{!! $festival->posts->render() !!}
 </div>
-@endsection
+
+
 <style type="text/css">
 	@media (min-width: 768px) {
 		.carousel-inner {
