@@ -30,9 +30,11 @@
         <h2>No hay artistas en la BD</h2>
         
     @endforelse
-    {{ $artists->links() }}
+    
 </ul>
-
+<ul>
+    {{ $artists->links() }}
+</ul style="padding-left: 62px;">
 <p>
     <input type="button" onclick="location.href='{{action('ArtistController@FormNew')}}';" value="Nuevo artista"/>
     <input type="button" onclick="location.href='/';" value="Inicio"/>
