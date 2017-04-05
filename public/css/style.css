@@ -11,6 +11,38 @@
 /* ==== overwrite bootstrap standard ==== */
 @import url('animate.css');
 
+
+ .boton{
+        font-size:16px;
+        font-weight:bold;
+        color:white;
+        background:#000000;
+        border:0px;
+        width:200px;
+        height:34px;
+        border-radius:7px;
+       }
+
+ .boton2{
+        font-size:16px;
+        color:darkblue;
+        background:white;
+        border-color:darkblue;
+        width:150px;
+        height:30px;
+        border-radius:10px;
+       }
+
+ .boton3{
+        font-size:16px;
+        color:darkblue;
+        background:white;
+        border-color:darkblue;
+        width:100px;
+        height:30px;
+        border-radius:10px;
+       }
+
 .arreglar-margen{
   margin-top: 100px;
   margin-left: 50px;
@@ -153,7 +185,7 @@ a:hover {
 
 .breadcrumb { 
   list-style: none;
-  background-color: #1BBD36;
+  background-color: #000000;
   border-radius: 0px;
   padding:3px 10px;
   margin-top: 90px;
@@ -1249,7 +1281,7 @@ ul.sidebar-gallery {
 }
 
 a.scrollup{
-    color:#fff;
+  color:#fff;
 	height:40px;
 	width:40px;
 	font-size:12px;
@@ -1282,7 +1314,7 @@ a.scrollup:hover{
   padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  
+  text-align:center;
 }
 
 .lista-iconos{
