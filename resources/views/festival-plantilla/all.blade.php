@@ -29,7 +29,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="text-center" style="color: Black">Festivales: 111</h1>
+                <h1 class="text-center" style="color: Black">Festivales:</h1>
             </div>
         </div>
     </div>
@@ -40,11 +40,14 @@
                     <ul class="portfolio-filter text-center">
                         <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
                             <!--div class="[ col-xs-2 col-sm-2 ]"-->
+                            <div class="well-sm">Generos Musicales</div>
                                 @forelse($genres as $genre)
                                     <div class="[ form-group ]">
-                                        <input type="checkbox" name="{{$genre->genre}}"
-                                               id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"
-                                               value="{{$genre->genre}}"/>
+                                        @if(!empty(session('generos-marcados')) && in_array($genre->id,session('generos-marcados')))
+                                            <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
+                                        @else
+                                        <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
+                                        @endif
                                         <div class="[ btn-group ]">
                                             <label for="fancy-checkbox-success-{{$genre->genre}}"
                                                    class="[ btn btn-success ]">
@@ -60,7 +63,7 @@
                                 @empty
                                     <h2>No hay géneros en la BD</h2>
                                 @endforelse
-                                <button type="summit" class="btn btn-warning">Enviar</button>
+                                <button type="summit" class="btn btn-warning">Busqueda por Genero</button>
                             <!--/div-->
                         </form>
                     </ul>
@@ -94,10 +97,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination pagination-lg .text-center pg-red">
-                    {{ $festivals->links() }}
-                </div>
             </div>
         </div>
     </section><!--/#portfolio-item-->
+    <div class="text-center">
+        <div class="pagination pagination-lg">
+            {{ $festivals->links() }}
+        </div>
+    </div>
 @endsection
+

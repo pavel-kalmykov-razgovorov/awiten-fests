@@ -39,7 +39,11 @@
                             <div class="[ col-xs-12 col-sm-6 ]">
                                 @forelse($genres as $genre)
                                 <div class="[ form-group ]">
+                                    if(in_array($genre->id,session('generos-marcados')))
+                                    <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="on" value="{{$genre->genre}}" />
+                                    else
                                     <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
+                                    endif
                                     <div class="[ btn-group ]">
                                         <label for="fancy-checkbox-success-{{$genre->genre}}" class="[ btn btn-success ]">
                                         <span class="[ glyphicon glyphicon-ok ]"></span>

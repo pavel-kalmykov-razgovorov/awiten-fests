@@ -15,9 +15,6 @@ class FestivalController extends Controller
 
     public function init()
     {
-        // 		$ms = Person::where('name', '=', 'Foo Bar')->firstOrFail();
-        // 		$persons = Person::order_by('list_order', 'ASC')->get();
-        // 		return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
         $festivals = \App\Festival::paginate(4);
         $genres = \App\Genre::get();
         //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
@@ -56,9 +53,12 @@ class FestivalController extends Controller
             }
         }
         $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(2);
+        $request->session()->flash('generos-marcados', $generos);
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
+
+            
     }
 
     public function busqueda(Request $request)
