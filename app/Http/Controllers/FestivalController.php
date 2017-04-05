@@ -123,6 +123,12 @@ class FestivalController extends Controller
         ]);
     }
 
+    public function DeletePost($idpost)
+    {
+        \App\Post::find($idpost)->delete();
+        return redirect()->action('FestivalController@All');
+    }
+
 
     public function Update(Request $request, $permalink)
     {
