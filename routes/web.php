@@ -33,6 +33,8 @@ Route::get('artistsSortByName', 'ArtistController@ordenar');
 Route::get('artistsPaginate6', 'ArtistController@en6');
 Route::get('artistsLookFor', 'ArtistController@busqueda');
 
+
+
 Route::get('artists', 'ArtistController@All');
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');
@@ -50,3 +52,5 @@ Route::get('festival/{permalink}/edit', 'FestivalController@Edit');
 Route::put('festival/{permalink}/edit/update', 'FestivalController@Update');
 Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
 Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
+
+Route::get('deletePost/{id}', 'FestivalController@DeletePost');
