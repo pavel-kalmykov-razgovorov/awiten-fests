@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Artist;
 use App\Festival;
 use Carbon\Carbon;
+use App\Post;
 use Illuminate\Http\Request;
 
 
@@ -168,5 +169,16 @@ class FestivalController extends Controller
         Festival::where('permalink', $permalink)->delete();
         return redirect()->action('FestivalController@All')->with('deleted', true);
     }
+
+    public function MostrarNoticia($idpost)
+    {
+        return view('festival.mostrarNoticia', [
+            'post' => Post::where('id', $idpost)->first(),
+            
+
+        ]);
+    }
+
+    
 
 }

@@ -54,3 +54,4 @@ Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
 Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
 
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
+Route::get('festival/mostrarPost/{id}', 'FestivalController@MostrarNoticia');

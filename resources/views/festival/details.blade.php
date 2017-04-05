@@ -93,7 +93,10 @@
 @forelse($festival->posts as $post)
     <strong>{{$post->title}}</strong>
     <p>{{$post->lead}}</p>
-    <p>{{$post->body}}</p>
+    <p>{{ str_limit($post->body, 300) }}</p>
+	<input type="button" style="color: black" onclick="location.href='{{action('FestivalController@MostrarNoticia', $post->id)}}';"
+           value="Leer más"/>
+	
     <hr>
 @empty
     <p>No hay noticias de momento</p>
