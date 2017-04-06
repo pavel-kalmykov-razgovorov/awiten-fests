@@ -6,7 +6,7 @@
 			<div class="breadcrumb">	
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="get" action="{{ action('FestivalController@busquedaConCambios') }}">
+                        <form method="get" action="{{ action('FestivalController@busquedaConParametros') }}">
                             <div class="input-group add-on btn-group">
                                 <div class="col col-md-3">
                                     <input type="text" class="form-control" name="buscado" placeholder="Introduce el festival">
@@ -20,8 +20,8 @@
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="ordenado">
-                                    <option value="asc" selected>Asc</option>
-                                    <option value="desc">Desc</option>
+                                    <option value="asc" selected>Fecha Asc</option>
+                                    <option value="desc">Fecha Desc</option>
                                     </select>
                                  </div>
                                 <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i></button>
@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-sm-12">
                 @if(count($festivals) != 0)
-                    <h1 class="text-center" style="color: Black">Festivales:</h1>
+                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center">Festivales</h1>
                 @else
                     <div class="alert alert-danger">
                      <h1>   No se han encontrado festivales.</h1>
@@ -46,7 +46,6 @@
         </div>
     </div>
     @if(count($festivals) != 0)
-    <section id="portfolio">
         <div class="row">
             <div class="container">
                 <div class="center col-md-2">
@@ -85,10 +84,9 @@
                         <div class="center col-md-12">
                             <div class="portfolio-items">
                                 @foreach($festivals as $festival)
-                                    <div class="portfolio-item festival-{{$festival->id}} col-md-4 col-sm-6">
+                                    <div class="portfolio-item festival col-md-4 col-sm-6">
                                         <div class="recent-work-wrap">
-                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
-                                                <img class="img-responsive imagen-festival" src="{{$festival->pathLogo}}" ></a>
+                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto"><img class="img-responsive imagen-festival" src="{{$festival->pathLogo}}" ></a>
                                             <div class="overlay">
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
@@ -106,7 +104,6 @@
                 </div>
             </div>
         </div>
-    </section>
     <div class="text-center">
         <div class="pagination pagination-lg">
                 {{ $festivals->links() }}

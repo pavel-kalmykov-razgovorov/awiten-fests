@@ -5,7 +5,7 @@
 			<div class="breadcrumb">	
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="get" action="{{ action('ArtistController@busquedaConCambios') }}">
+                        <form method="get" action="{{ action('ArtistController@busquedaConParametros') }}">
                             <div class="input-group add-on btn-group">
                                 <div class="col col-md-3">
                                     <input type="text" class="form-control" name="buscado" placeholder="Introduce el festival">
@@ -35,7 +35,8 @@
 @if(session('deleted'))
     <h3>El artista se ha borrado correctamente</h3>
 @endif
-
+<div class="row">
+            <div class="container">
     @if(count($artists) != 0)
         <div>
             <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center">Artistas</h1>
@@ -45,9 +46,13 @@
             <h1>   No se han encontrado artistas.</h1>
         </div>
     @endif
+    </div>
+    </div>
 
 <ul>
 @if(count($artists) != 0)
+<div class="row">
+            <div class="container">
     <div class="center col-md-2">
         <ul class="portfolio-filter text-center">
             <form class="text-left" method="get" action="{{ action('ArtistController@busquedaPorGenero') }}">
@@ -84,16 +89,24 @@
                 <div class="portfolio-items">
                     @foreach($artists as $artist)
                         <div class="portfolio-item col-md-4 col-sm-6">
-                            <a href="{{action('ArtistController@Details', $artist->permalink)}}">
-                                <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
-                            </a>
-                            <div class="text-center">
-                                <h3><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></h3>
+                            <div class="recent-work-wrap">
+                                <a href="{{action('ArtistController@Details', $artist->permalink)}}">
+                                    <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
+                                </a>
+                                <div class="overlay">
+                                    <div class="recent-work-inner">
+                                        <div class="portfolio-caption">
+                                            <h3><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach    
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </div>
 </ul>

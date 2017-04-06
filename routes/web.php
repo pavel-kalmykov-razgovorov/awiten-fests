@@ -15,14 +15,13 @@ Route::get('/', function () {
 });
 
 Route::get('festivals-plantilla', 'FestivalController@init');
-Route::get('festivals-plantilla-busqueda', 'FestivalController@busqueda');
-Route::get('festivals-plantilla-busqueda-por-genero', 'FestivalController@busquedaPorGenero');
-Route::get('festivals-plantilla-busqueda-parametrizada', 'FestivalController@busquedaConCambios');
+Route::get('festivalsLookFor', 'FestivalController@busqueda');
+Route::get('festivalsLookForGenre', 'FestivalController@busquedaPorGenero');
+Route::get('festivalsLookForParametrized', 'FestivalController@busquedaConParametros');
 
 Route::get('artistsLookFor', 'ArtistController@busqueda');
-Route::get('artistsLookForParametrized', 'ArtistController@busquedaConCambios');
-Route::get('festivals-plantilla-busqueda-por-genero', 'ArtistController@busquedaPorGenero');
-
+Route::get('artistsLookForParametrized', 'ArtistController@busquedaConParametros');
+Route::get('artistsLookForGenre', 'ArtistController@busquedaPorGenero');
 Route::get('artists', 'ArtistController@init');
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');

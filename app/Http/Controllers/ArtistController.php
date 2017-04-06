@@ -40,7 +40,7 @@ class ArtistController extends Controller
             
     }
 
-     public function busquedaConCambios(Request $request){
+     public function busquedaConParametros(Request $request){
          $buscado = $request->input('buscado');
          $porPag = $request->input('paginadoA');
          $orden = $request->input('ordenado');

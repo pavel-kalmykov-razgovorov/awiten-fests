@@ -53,7 +53,7 @@ class FestivalController extends Controller
             ->with('genres', $genres);
     }
 
-    public function busquedaConCambios(Request $request){
+    public function busquedaConParametros(Request $request){
          $buscado = $request->input('buscado');
          $porPag = $request->input('paginadoA');
          $orden = $request->input('ordenado');
