@@ -32,9 +32,9 @@ class ArtistController extends Controller
             }
         }
         $request->session()->flash('generos-marcados', $generos);
-        $artists = \App\Artist::join('artist_genre',"artist.artist_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
+        $artists = \App\Artist::join('artist_genre',"artist_genre.artist_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
         $artists->appends($request->except('page'));
-        return view('artists.all')
+        return view('artist.all')
             ->with('artists', $artists)
             ->with('genres', $genres);
             

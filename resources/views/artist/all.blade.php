@@ -19,8 +19,8 @@
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="ordenado">
-                                    <option value="asc" selected>Asc</option>
-                                    <option value="desc">Desc</option>
+                                    <option value="asc" selected>Nombre Asc</option>
+                                    <option value="desc">Nombre Desc</option>
                                     </select>
                                  </div>
                                 <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i></button>
@@ -47,28 +47,33 @@
     @endif
 
 <ul>
+@if(count($artists) != 0)
     <div class="center col-md-2">
         <ul class="portfolio-filter text-center">
             <form class="text-left" method="get" action="{{ action('ArtistController@busquedaPorGenero') }}">
                 <div class="well-sm">Generos Musicales</div>
                     @forelse($genres as $genre)
-                         <div class="[ form-group ]">
-                            @if(!empty(session('generos-marcados')) && in_array($genre->id,session('generos-marcados')))
-                                <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
-                            @else
-                                <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
-                            @endif
-                            <div class="[ btn-group ]">
-                                <label for="fancy-checkbox-success-{{$genre->genre}}" class="[ btn btn-success ]">
-                                <span class="[ glyphicon glyphicon-ok ]"></span>
-                                <span> </span>
-                                </label>
-                                <label for="fancy-checkbox-success-{{$genre->genre}}"class="[ btn btn-success active ]"> {{$genre->genre}}</label>
-                            </div>
-                         </div>
-                    @empty
-                         <h2>No hay géneros en la BD</h2>
-                    @endforelse
+                                    <div class="[ form-group ]">
+                                        @if(!empty(session('generos-marcados')) && in_array($genre->id,session('generos-marcados')))
+                                            <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
+                                        @else
+                                        <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
+                                        @endif
+                                        <div class="[ btn-group ]">
+                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                                   class="[ btn btn-success ]">
+                                                <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                <span> </span>
+                                            </label>
+                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                                   class="[ btn btn-success active ]">
+                                                {{$genre->genre}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <h2>No hay géneros en la BD</h2>
+                         @endforelse
                     <button type="summit" class="btn btn-warning">Busqueda por Genero</button>
             </form>
         </ul>
@@ -82,8 +87,9 @@
                             <a href="{{action('ArtistController@Details', $artist->permalink)}}">
                                 <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
                             </a>
-                            
-                            <h3><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></h3>
+                            <div class="text-center">
+                                <h3><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></h3>
+                            </div>
                         </div>
                     @endforeach    
                 </div>
@@ -91,9 +97,11 @@
         </div>
     </div>
 </ul>
-<ul>
-    {{ $artists->links() }}
-</ul style="padding-left: 62px;">
+<div class="text-center">
+        <div class="pagination pagination-lg">
+                {{ $artists->links() }}
+        </div>
+    </div>
 <p>
     <br>
     <div class="navbar-form">
@@ -102,5 +110,5 @@
         <br><br><br>
     </div>
 </p>
-
+@endif
 @endsection

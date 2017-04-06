@@ -23,7 +23,7 @@ Route::get('artistsLookFor', 'ArtistController@busqueda');
 Route::get('artistsLookForParametrized', 'ArtistController@busquedaConCambios');
 Route::get('festivals-plantilla-busqueda-por-genero', 'ArtistController@busquedaPorGenero');
 
-Route::get('artists', 'ArtistController@All');
+Route::get('artists', 'ArtistController@init');
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');
 Route::get('artist/{permalink}', 'ArtistController@Details');
