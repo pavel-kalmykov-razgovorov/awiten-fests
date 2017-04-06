@@ -1,38 +1,51 @@
 @extends('welcome')
 
-
 @section('mainContent')
-    <div class="container">
-        <div class="breadcrumb navbar-form">
-            <form method="GET" action="{{ action('FestivalController@paginacionDeDosEnDos') }}">
-              
-                <button type="summit" class="btn btn-info">Mostrar de 2 en 2</button>
-            </form>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Mostrar de 2 en 2</a></li>
-                    <li><a href="#">Mostrar de 4 en 4</a></li>
-                    <li><a href="#">Mostrar de 4 en 4</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            <form method="GET" action="{{ action('FestivalController@ordenar') }}">
-                <button type="summit" class="btn btn-info">Ordenar por fecha</button>
-            </form>
-            <form method="get" action="{{ action('FestivalController@busqueda') }}">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="buscado">
-                    <button type="summit" class="btn btn-warning">Buscar</button>
+  <div id="breadcrumb">
+		<div class="container">	
+			<div class="breadcrumb">	
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="get" action="{{ action('FestivalController@busquedaConCambios') }}">
+                            <div class="input-group add-on btn-group">
+                                <div class="col col-md-3">
+                                    <input type="text" class="form-control" name="buscado" placeholder="Introduce el festival">
+                                </div>
+                                <div class="col col-md-3">
+                                    <select class="form-control" name="paginadoA">
+                                    <option value="3"> 3 por pagina</option>
+                                    <option value="6" selected>6 por pagina</option>
+                                    <option value="9">9 por pagina</option>
+                                    </select>
+                                </div>
+                                <div class="col col-md-3">
+                                    <select class="form-control" name="ordenado">
+                                    <option value="asc" selected>Asc</option>
+                                    <option value="desc">Desc</option>
+                                    </select>
+                                 </div>
+                                <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </form>
                 </div>
-            </form>
-        </div>
-    </div>
+                </div>
+			</div>		
+		</div>	
+	</div>
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="text-center" style="color: Black">Festivales:</h1>
+                @if(count($festivals) != 0)
+                    <h1 class="text-center" style="color: Black">Festivales:</h1>
+                @else
+                    <div class="alert alert-danger">
+                     <h1>   No se han encontrado festivales.</h1>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
+    @if(count($festivals) != 0)
     <section id="portfolio">
         <div class="row">
             <div class="container">
@@ -91,7 +104,7 @@
                                         </div>
                                     </div><!--/.portfolio-item-->
                                 @empty
-                                    <h2>No hay festivales en la BD</h2>
+                                    <p><h2>No hay festivales en la BD</h2></p>
                                 @endforelse
                             </div>
                         </div>
@@ -102,8 +115,9 @@
     </section><!--/#portfolio-item-->
     <div class="text-center">
         <div class="pagination pagination-lg">
-            {{ $festivals->links() }}
+                {{ $festivals->links() }}
         </div>
     </div>
+    @endif
 @endsection
 

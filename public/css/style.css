@@ -11,12 +11,14 @@
 /* ==== overwrite bootstrap standard ==== */
 @import url('animate.css');
 
+
 .well-sm{
   color:white;
   background:red;
   margin: 5px;
 
 }
+
  .boton{
         font-size:16px;
         font-weight:bold;
@@ -180,7 +182,7 @@ a:hover {
   border-radius:30px;
   margin-left:-10px;
 }
-
+/*
 #breadcrumb {
 	background-color: #1BBD36;
   margin-top: 90px;
@@ -205,6 +207,26 @@ a:hover {
   margin-right: 50px;
    font-weight:700;
 }
+*/
+
+#breadcrumb {
+	background-color: #1BBD36;
+	margin-top: 100px;
+  padding: 15px;
+}
+
+.breadcrumb { 
+  list-style: none;
+  background-color: #1BBD36;
+  border-radius: 0px;
+  padding:3px 10px;
+}
+
+.breadcrumb li {
+   text-transform:uppercase;
+   margin-top:125px;
+   font-weight:600;
+}
 
 /*===========================
   Menu and Navigation
@@ -212,6 +234,7 @@ a:hover {
 .navigation  {
 	background-color:#fff;
 	padding:0;
+  margin:10px;
 }
 
 .navbar-brand h1 {
@@ -774,7 +797,7 @@ ul.social-network li a {
 .portfolio-items, 
 .portfolio-filter {
   list-style: none outside none;
-  margin: 0 0 40px 0;
+  margin: -5px;
   padding: 0;
 }
 
@@ -808,15 +831,15 @@ ul.social-network li a {
 
 .portfolio-items > li {
   float: left;
-  padding: 0;
+  padding: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .portfolio-item {
-	margin: 10;
-	padding: 20;
+	margin: 0px;
+	padding: 10;
 }
 
 .overlay {

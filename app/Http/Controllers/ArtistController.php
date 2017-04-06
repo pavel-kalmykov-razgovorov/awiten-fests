@@ -13,9 +13,6 @@ class ArtistController extends Controller
 
     public function init()
     {
-        // 		$ms = Person::where('name', '=', 'Foo Bar')->first();
-        // 		$persons = Person::order_by('list_order', 'ASC')->get();
-        // 		return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
         $artists = \App\Artist::paginate(3);
         $genres = \App\Genre::get();
         //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);

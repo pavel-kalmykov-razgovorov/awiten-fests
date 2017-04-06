@@ -1,8 +1,4 @@
-{{--
 @extends('welcome')
-
-
-
 
 @section('mainContent')
 <div class="container">
@@ -98,8 +94,6 @@
         </div>
     </section><!--/#portfolio-item-->
 @endsection
-=======
---}}
 <h1>Festivales</h1>
 @if(session('deleted'))
     <h3>El festival se ha borrado correctamente</h3>

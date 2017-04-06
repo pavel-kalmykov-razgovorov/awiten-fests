@@ -12,30 +12,11 @@ class FestivalController extends Controller
 {
     private $festivals;
     private $genres;
+    private $url;
 
     public function init()
     {
-        $festivals = \App\Festival::paginate(4);
-        $genres = \App\Genre::get();
-        //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-        return view('festival-plantilla.all')
-            ->with('festivals', $festivals)
-            ->with('genres', $genres);
-        // 		return view('festival-plantilla.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-    }
-
-    public function ordenar()
-    {
-        $festivals = \App\Festival::orderBy('date', 'asc')->paginate(65);
-        $genres = \App\Genre::get();
-        return view('festival-plantilla.all')
-            ->with('festivals', $festivals)
-            ->with('genres', $genres);
-    }
-
-    public function paginacionDeDosEnDos()
-    {
-        $festivals = \App\Festival::paginate(2);
+        $festivals = \App\Festival::paginate(3);
         $genres = \App\Genre::get();
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
@@ -46,30 +27,46 @@ class FestivalController extends Controller
     {
         $generos = array();
         $genres = \App\Genre::get();
+        $url = null;
         foreach ($genres as $genre) {
             $generoSinEspacios = str_replace(' ','_',$genre->genre);
             if ($request->has($generoSinEspacios)){
                 array_push($generos, $genre->id);
             }
         }
-        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(2);
         $request->session()->flash('generos-marcados', $generos);
+        $Apartir = strlen($request->Url());
+        $url =  substr($request->fullUrl(),$Apartir+1);
+        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(4);
+        $festivals->appends($request->except('page'));
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
-
             
     }
 
     public function busqueda(Request $request)
     {
         $buscado = $request->input('buscado');
-        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(65);
+        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(3);
         $genres = \App\Genre::get();
+        $festivals->appends($request->except('page'));
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
     }
+    public function busquedaConCambios(Request $request){
+         $buscado = $request->input('buscado');
+         $porPag = $request->input('paginadoA');
+         $orden = $request->input('ordenado');
+        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->orderBy('date', $orden)->paginate($porPag);
+        $genres = \App\Genre::get();
+        $festivals->appends($request->except('page'));
+        return view('festival-plantilla.all')
+            ->with('festivals', $festivals)
+            ->with('genres', $genres);
+    }
+
 
     public function All()
     {

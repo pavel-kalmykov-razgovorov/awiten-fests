@@ -15,10 +15,9 @@ Route::get('/', function () {
 });
 
 Route::get('festivals-plantilla', 'FestivalController@init');
-Route::get('festivals-plantilla2', 'FestivalController@paginacionDeDosEnDos');
-Route::get('festivals-plantilla-ordenado-por-fecha', 'FestivalController@ordenar');
-Route::get('festivals-plantilla3', 'FestivalController@busqueda');
-Route::get('festivals-plantilla4', 'FestivalController@busquedaPorGenero');
+Route::get('festivals-plantilla-busqueda', 'FestivalController@busqueda');
+Route::get('festivals-plantilla-busqueda-por-genero', 'FestivalController@busquedaPorGenero');
+Route::get('festivals-plantilla-busqueda-parametrizada', 'FestivalController@busquedaConCambios');
 
 //$festivals-plantilla = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
 //$festival->genres->get(1)->genre
