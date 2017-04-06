@@ -12,7 +12,6 @@ class FestivalController extends Controller
 {
     private $festivals;
     private $genres;
-    private $url;
 
     public function init()
     {
@@ -35,8 +34,6 @@ class FestivalController extends Controller
             }
         }
         $request->session()->flash('generos-marcados', $generos);
-        $Apartir = strlen($request->Url());
-        $url =  substr($request->fullUrl(),$Apartir+1);
         $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(4);
         $festivals->appends($request->except('page'));
         return view('festival-plantilla.all')
@@ -55,6 +52,7 @@ class FestivalController extends Controller
             ->with('festivals', $festivals)
             ->with('genres', $genres);
     }
+
     public function busquedaConCambios(Request $request){
          $buscado = $request->input('buscado');
          $porPag = $request->input('paginadoA');

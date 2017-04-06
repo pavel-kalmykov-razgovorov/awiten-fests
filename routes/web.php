@@ -19,20 +19,9 @@ Route::get('festivals-plantilla-busqueda', 'FestivalController@busqueda');
 Route::get('festivals-plantilla-busqueda-por-genero', 'FestivalController@busquedaPorGenero');
 Route::get('festivals-plantilla-busqueda-parametrizada', 'FestivalController@busquedaConCambios');
 
-//$festivals-plantilla = \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id']);
-//$festival->genres->get(1)->genre
-
-/*Route::get('festival/{permalink}', function ($permalink) {
-    $festival = \App\Festival::where('permalink', $permalink)->first();
-    return view('festival.details', ['festival' => $festival]);
-});*/
-
-/*Route::get('artists', 'ArtistController@init');*/
-Route::get('artistsSortByName', 'ArtistController@ordenar');
-Route::get('artistsPaginate6', 'ArtistController@en6');
 Route::get('artistsLookFor', 'ArtistController@busqueda');
-
-
+Route::get('artistsLookForParametrized', 'ArtistController@busquedaConCambios');
+Route::get('festivals-plantilla-busqueda-por-genero', 'ArtistController@busquedaPorGenero');
 
 Route::get('artists', 'ArtistController@All');
 Route::get('artist/new', 'ArtistController@FormNew');

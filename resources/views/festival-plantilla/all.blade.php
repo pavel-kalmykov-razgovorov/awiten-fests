@@ -52,7 +52,6 @@
                 <div class="center col-md-2">
                     <ul class="portfolio-filter text-center">
                         <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
-                            <!--div class="[ col-xs-2 col-sm-2 ]"-->
                             <div class="well-sm">Generos Musicales</div>
                                 @forelse($genres as $genre)
                                     <div class="[ form-group ]">
@@ -85,34 +84,29 @@
                     <div class="row">
                         <div class="center col-md-12">
                             <div class="portfolio-items">
-                                @forelse($festivals as $festival)
+                                @foreach($festivals as $festival)
                                     <div class="portfolio-item festival-{{$festival->id}} col-md-4 col-sm-6">
                                         <div class="recent-work-wrap">
                                             <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
-                                                <img class="img-responsive" src="{{$festival->pathLogo}}" alt="400"
-                                                     width="400"></a>
+                                                <img class="img-responsive imagen-festival" src="{{$festival->pathLogo}}" ></a>
                                             <div class="overlay">
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
-                                                        <h3>
-                                                            <a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a>
-                                                        </h3>
+                                                        <h3><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h3>
                                                         <p class="text-muted"> {{$festival->date}} </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><!--/.portfolio-item-->
-                                @empty
-                                    <p><h2>No hay festivales en la BD</h2></p>
-                                @endforelse
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!--/#portfolio-item-->
+    </section>
     <div class="text-center">
         <div class="pagination pagination-lg">
                 {{ $festivals->links() }}

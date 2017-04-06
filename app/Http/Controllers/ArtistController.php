@@ -15,40 +15,41 @@ class ArtistController extends Controller
     {
         $artists = \App\Artist::paginate(3);
         $genres = \App\Genre::get();
-        //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-        return view('artist.all')
-            ->with('artists', $artists)
-            ->with('genres', $genres);
-        // 		return view('festival-plantilla.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-    }
-
-    public function ordenar()
-    {
-        $artists = \App\Artist::orderBy('name', 'asc')->paginate(3);
-        $genres = \App\Genre::get();
         return view('artist.all')
             ->with('artists', $artists)
             ->with('genres', $genres);
     }
 
-    public function en6()
+    public function busquedaPorGenero(Request $request)
     {
-        $artists = \App\Artist::paginate(6);
+        $generos = array();
         $genres = \App\Genre::get();
-        return view('artist.all')
+        $url = null;
+        foreach ($genres as $genre) {
+            $generoSinEspacios = str_replace(' ','_',$genre->genre);
+            if ($request->has($generoSinEspacios)){
+                array_push($generos, $genre->id);
+            }
+        }
+        $request->session()->flash('generos-marcados', $generos);
+        $artists = \App\Artist::join('artist_genre',"artist.artist_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
+        $artists->appends($request->except('page'));
+        return view('artists.all')
             ->with('artists', $artists)
             ->with('genres', $genres);
+            
     }
 
-    public function busqueda(Request $request)
-    {
-        $buscado = $request->input('buscado');
-        $artists = \App\Artist::where('name', 'like', '%' . $buscado . '%')->paginate(3);
+     public function busquedaConCambios(Request $request){
+         $buscado = $request->input('buscado');
+         $porPag = $request->input('paginadoA');
+         $orden = $request->input('ordenado');
+        $artists = \App\Artist::where('name', 'like', '%' . $buscado . '%')->orderBy('name', $orden)->paginate($porPag);
         $genres = \App\Genre::get();
+        $artists->appends($request->except('page'));
         return view('artist.all')
             ->with('artists', $artists)
             ->with('genres', $genres);
-
     }
 
     public function All()

@@ -1335,9 +1335,14 @@ a.scrollup:hover{
   align: right;
 }
 
-.lista-artistas-prinicpal{
+.imagen-festival{
+  width: 450px;
+  height: 300px;
+}
+
+.imagen-artista{
   width: 350px;
-  height: 400px;
+  height: 350px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 20px;
