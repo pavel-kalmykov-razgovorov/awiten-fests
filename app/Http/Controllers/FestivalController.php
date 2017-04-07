@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Artist;
 use App\Festival;
 use Carbon\Carbon;
+use App\Post;
 use Illuminate\Http\Request;
 
 
@@ -12,6 +13,7 @@ class FestivalController extends Controller
 {
     private $festivals;
     private $genres;
+
 
     public function init()
     {
@@ -100,11 +102,16 @@ class FestivalController extends Controller
 
     public function Details($permalink)
     {
+        $variableFest = Festival::where('permalink', $permalink)->firstOrFail();
+        $variableFest->setRelation('posts', $variableFest->posts()->paginate(2));
         return view('festival.details', [
             'permalink' => $permalink,
-            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+            'festival' => $variableFest 
         ]);
     }
+
+
+    
 
     public function Edit($permalink)
     {
@@ -157,5 +164,16 @@ class FestivalController extends Controller
         Festival::where('permalink', $permalink)->delete();
         return redirect()->action('FestivalController@All')->with('deleted', true);
     }
+
+    public function MostrarNoticia($idpost)
+    {
+        return view('festival.mostrarNoticia', [
+            'post' => Post::where('id', $idpost)->first(),
+            
+
+        ]);
+    }
+
+    
 
 }
