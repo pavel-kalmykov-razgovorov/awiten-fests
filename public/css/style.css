@@ -19,6 +19,73 @@
 
 }
 
+@media (min-width: 768px) { /*Para poner las fechas*/
+		.carousel-inner {
+			height: 500px;
+		}
+		.carousel-inner img {
+			height: 100%;
+			width: 100%;
+		}
+		.event-list {
+			list-style: none;
+			font-family: 'Lato', sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.event-list > li {
+			background-color: rgb(255, 255, 255);
+			box-shadow: 0 0 5px rgba(51, 51, 51, 0.7);
+			padding: 0;
+			margin: 0 0 20px;
+		}
+		.event-list > li > time {
+			display: inline-block;
+			width: 100%;
+			color: rgb(255, 255, 255);
+			background-color: rgb(197, 44, 50);
+			padding: 5px;
+			text-align: center;
+			text-transform: uppercase;
+		}
+		.event-list > li:nth-child(even) > time {
+			background-color: rgb(165, 82, 167);
+		}
+		.event-list > li > time > span {
+			display: none;
+		}
+		.event-list > li > time > .day {
+			display: block;
+			font-size: 56pt;
+			font-weight: 100;
+			line-height: 1;
+		}
+		.event-list > li time > .month {
+			display: block;
+			font-size: 24pt;
+			font-weight: 900;
+			line-height: 1;
+		}
+		.event-list > li > img {
+			width: 100%;
+		}
+		.event-list > li > .info {
+			padding-top: 5px;
+			text-align: center;
+		}
+		.event-list > li > .info > .title {
+			font-size: 17pt;
+			font-weight: 700;
+			margin: 0;
+		}
+		.event-list > li > .info > .desc {
+			font-size: 13pt;
+			font-weight: 300;
+			margin: 0;
+		}
+    }
+
+
  .boton{
         font-size:16px;
         font-weight:bold;

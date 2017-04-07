@@ -1,14 +1,6 @@
 @extends('welcome')
 @section('mainContent')
 <div class="arreglar-margen">
-
-
-@if(session('created'))
-    <h3>El artista se ha creado correctamente</h3>
-@endif
-@if(session('updated'))
-    <h3>El artista se ha modificado correctamente</h3>
-@endif
 @if(isset($artist))
 <div>
     <div class = "fondo-artista">   
@@ -52,11 +44,6 @@
             </ul>
         </li>
     
-    <p>
-        <input type="button" onclick="location.href='{{action('ArtistController@Delete', $permalink)}}';"
-               value="Borrar"/>
-        <input type="button" onclick="location.href='{{action('ArtistController@Edit', $permalink)}}';" value="Editar"/>
-    </p>
 @else
     <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de la
         base de datos</h3>

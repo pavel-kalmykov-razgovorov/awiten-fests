@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('festivals-plantilla', 'FestivalController@init');
+Route::get('festivals', 'FestivalController@init');
 Route::get('festivalsLookFor', 'FestivalController@busqueda');
 Route::get('festivalsLookForGenre', 'FestivalController@busquedaPorGenero');
 Route::get('festivalsLookForParametrized', 'FestivalController@busquedaConParametros');
@@ -31,7 +31,6 @@ Route::put('artist/{permalink}/edit/update', 'ArtistController@Update');
 Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
 Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');
 
-Route::get('festivals', 'FestivalController@All');
 Route::get('fesitvals/new', 'FestivalController@FormNew');
 Route::post('festivals/new/create', 'FestivalController@Create');
 Route::get('festival/{permalink}', 'FestivalController@Details');

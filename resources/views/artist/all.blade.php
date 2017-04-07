@@ -59,7 +59,7 @@
                 <div class="well-sm">Generos Musicales</div>
                     @forelse($genres as $genre)
                                     <div class="[ form-group ]">
-                                        @if(!empty(session('generos-marcados')) && in_array($genre->id,session('generos-marcados')))
+                                        @if(!empty(session('generos-marcados-artista')) && in_array($genre->id,session('generos-marcados-artista')))
                                             <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
                                         @else
                                         <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
@@ -111,17 +111,9 @@
     </div>
 </ul>
 <div class="text-center">
-        <div class="pagination pagination-lg">
-                {{ $artists->links() }}
-        </div>
+    <div class="pagination pagination-lg">
+            {{ $artists->links() }}
     </div>
-<p>
-    <br>
-    <div class="navbar-form">
-        <input type="button" class="boton2" onclick="location.href='{{action('ArtistController@FormNew')}}';" value="Nuevo artista"/>
-        <input type="button" class="boton3" onclick="location.href='/';" value="Inicio"/>
-        <br><br><br>
-    </div>
-</p>
+</div>
 @endif
 @endsection
