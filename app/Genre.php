@@ -4,13 +4,27 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string permalink
+ */
 class Genre extends Model
 {
-   public function artists() {
+    protected $fillable = ['name', 'permalink'];
+
+    public function artists()
+    {
         return $this->belongsToMany('App\Artist');
     }
 
-    public function festivals() {
+    public function festivals()
+    {
         return $this->belongsToMany('App\Festival');
     }
+
+    public function getRouteKey()
+    {
+        return $this->permalink;
+    }
+
+
 }
