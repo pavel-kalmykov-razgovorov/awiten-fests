@@ -8,7 +8,7 @@ use App\Genre;
 use Illuminate\Http\Request;
 use Schema;
 
-class ArtistController extends Controller
+class ArtistController extends Controller implements AdministrableController
 {
     private $artists;
     private $genres;
@@ -71,21 +71,37 @@ class ArtistController extends Controller
 
     public function Create(Request $request)
     {
-        $request->session()->flash('temp-festivals', $request->get('festivals-select') ?? []);
-        $this->validate($request, ['name' => 'required|unique:artists']);
+        $genres_id = $request->get('genres', []);
+        $genres = Genre::get(['id', 'name']);
+        foreach ($genres as $genre) {
+            $genre->checked = '';
+            foreach ($genres_id as $genre_id) {
+                if ($genre_id == $genre->id) {
+                    $genre->checked = 'checked';
+                    break;
+                }
+            }
+        }
+        $request->session()->flash('genres', $genres);
+        $request->session()->flash('festivals', $request->get('festivals', []));
+        $this->validate($request, [
+            'name' => 'required',
+            'permalink' => 'required|unique:artists'
+        ]);
         //Sabemos que los datos del nuevo artista están correctos
         $artist = new Artist([
             'name' => $request->get('name'),
             'soundcloud' => $request->get('soundcloud'),
             'website' => $request->get('website'),
             'country' => $request->get('country'),
-            'permalink' => str_slug($request->get('name'))
+            'permalink' => $request->get('permalink')
         ]);
-        $artist->save();
+        $artist->saveOrFail();
         //Al nuevo artista le pongo como sus festivales los que recibe de los select
         //OJO: usamos array_unique por si en el formulario hubiese dos select con el mismo festival
-        $artist->festivals()->attach(array_unique($request->get('festivals-select') ?? []));
-        return redirect()->action('ArtistController@Details', [$artist])->with('created', true);
+        $artist->festivals()->sync($request->get('festivals'));
+        $artist->genres()->sync($genres_id);
+        return redirect()->action('ArtistController@DetailsAdmin', [$artist])->with('created', true);
     }
 
     public function Details($permalink)
@@ -107,8 +123,9 @@ class ArtistController extends Controller
 
     public function Edit($permalink)
     {
-        $genres = Genre::get(['id', 'name']);
         $artist = Artist::where('permalink', $permalink)->first();
+        $festivals = Festival::get(['id', 'name']);
+        $genres = Genre::get(['id', 'name']);
         foreach ($genres as $genre) {
             $genre->checked = '';
             foreach ($artist->genres as $artist_genre) {
@@ -121,22 +138,27 @@ class ArtistController extends Controller
         return view('artist.edit', [
             'permalink' => $permalink,
             'artist' => $artist,
-            'festivals' => Festival::get(['id', 'name']),
+            'festivals' => $festivals,
             'genres' => $genres,
         ]);
     }
 
     public function Update(Request $request, $permalink)
     {
-        //TODO Comprobar que el nuevo nombre no exista ya, pero si es el mismo dejar modificar
+        if ($request->get('permalink', '') != $permalink) {
+            $this->validate($request, [
+                'name' => 'required',
+                'permalink' => 'required|unique:artists'
+            ]);
+        }
         $artist = Artist::where('permalink', $permalink)->first();
         $artist->name = $request->get('name');
         $artist->soundcloud = $request->get('soundcloud');
         $artist->website = $request->get('website');
         $artist->country = $request->get('country');
-        $artist->permalink = str_slug($request->get('name'));
-        $artist->save();
-        $artist->festivals()->sync(array_unique($request->get('festivals-select') ?? []));
+        $artist->permalink = $request->get('permalink');
+        $artist->saveOrFail();
+        $artist->festivals()->sync($request->get('festivals'));
         $artist->genres()->sync($request->get('genres'));
         return redirect()->action('ArtistController@DetailsAdmin', [$artist])->with('updated', true);
     }

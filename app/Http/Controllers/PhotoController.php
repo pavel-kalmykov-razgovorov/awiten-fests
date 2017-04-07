@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Photo;
 use Illuminate\Http\Request;
 
-class PostController extends Controller implements AdministrableController
+class PhotoController extends Controller implements AdministrableController
 {
-
     public function FormNew()
     {
         return "Not yet implemented";
@@ -35,7 +34,8 @@ class PostController extends Controller implements AdministrableController
 
     public function DeleteConfirm($permalink)
     {
-        return redirect()->action('AdminController@PostsList')
-            ->with('deleted', Post::where('permalink', $permalink)->delete());
+        return redirect()->action('AdminController@PhotosList')
+            ->with('deleted', Photo::where('permalink', $permalink)->delete());
+
     }
 }

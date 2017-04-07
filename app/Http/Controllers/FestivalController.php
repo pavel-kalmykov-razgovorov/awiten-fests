@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\Festival;
+use App\Genre;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Schema;
 
 
-class FestivalController extends Controller
+class FestivalController extends Controller implements AdministrableController
 {
     private $festivals;
     private $genres;
@@ -51,12 +52,12 @@ class FestivalController extends Controller
         $generos = array();
         $genres = \App\Genre::get();
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ','_',$genre->genre);
-            if ($request->has($generoSinEspacios)){
+            $generoSinEspacios = str_replace(' ', '_', $genre->genre);
+            if ($request->has($generoSinEspacios)) {
                 array_push($generos, $genre->id);
             }
         }
-        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(2);
+        $festivals = \App\Festival::join('festival_genre', "festival_genre.festival_id", "=", "id")->whereIn('genre_id', $generos)->groupBy("id")->paginate(2);
         return view('festival-plantilla.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
@@ -80,26 +81,45 @@ class FestivalController extends Controller
 
     public function FormNew()
     {
-        return view('festival.create', ['artists' => Artist::get(['id', 'name'])]);
+        return view('festival.create', [
+            'artists' => Artist::get(['id', 'name']),
+            'genres' => Genre::get(['id', 'name']),
+        ]);
     }
 
 
     public function Create(Request $request)
     {
-        $request->session()->flash('temp-artists', $request->get('artists-select') ?? []);
-        $this->validate($request, ['name' => 'required|unique:festivals']);
+        $genres_id = $request->get('genres', []);
+        $genres = Genre::get(['id', 'name']);
+        foreach ($genres as $genre) {
+            $genre->checked = '';
+            foreach ($genres_id as $genre_id) {
+                if ($genre_id == $genre->id) {
+                    $genre->checked = 'checked';
+                    break;
+                }
+            }
+        }
+        $request->session()->flash('genres', $genres);
+        $request->session()->flash('artists', $request->get('artists', []));
+        $this->validate($request, [
+            'name' => 'required',
+            'permalink' => 'required|unique:festivals'
+        ]);
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
             'pathCartel' => $request->get('cartel'),
             'location' => $request->get('location'),
             'province' => $request->get('province'),
-            'date' => Carbon::createFromFormat('d/m/Y', $request->get('date')
-                ?? Carbon::now()->format('d/m/Y')),
-            'permalink' => str_slug($request->get('name'))
+            'date' => Carbon::createFromFormat('d/m/Y',
+                $request->get('date') ?? Carbon::now()->format('d/m/Y')),
+            'permalink' => $request->get('permalink')
         ]);
-        $festival->save();
-        $festival->artists()->attach(array_unique($request->get('artists-select') ?? []));
+        $festival->saveOrFail();
+        $festival->artists()->sync($request->get('artists'));
+        $festival->genres()->sync($genres_id);
         return redirect()->action('FestivalController@DetailsAdmin', [$festival])->with('created', true);
     }
 
@@ -113,22 +133,34 @@ class FestivalController extends Controller
 
     public function DetailsAdmin($permalink)
     {
+        $festival = Festival::where('permalink', $permalink)->firstOrFail();
         return view('festival.details-admin', [
             'column_names' => Schema::getColumnListing(strtolower(str_plural('festivals'))),
             'permalink' => $permalink,
-            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+            'festival' => $festival
         ]);
     }
 
     public function Edit($permalink)
     {
         $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        $festival->date = Carbon::parse($festival->date)->format('d/m/Y');
         $artists = Artist::get(['id', 'name']);
-
+        $genres = Genre::get(['id', 'name']);
+        foreach ($genres as $genre) {
+            $genre->checked = '';
+            foreach ($festival->genres as $festival_genre) {
+                if ($festival_genre->id == $genre->id) {
+                    $genre->checked = 'checked';
+                    break;
+                }
+            }
+        }
         return view('festival.edit', [
             'permalink' => $permalink,
             'festival' => $festival,
-            'artists' => $artists
+            'artists' => $artists,
+            'genres' => $genres
         ]);
     }
 
@@ -141,20 +173,25 @@ class FestivalController extends Controller
 
     public function Update(Request $request, $permalink)
     {
-        //TODO Comprobar que el nuevo nombre no exista ya, pero si es el mismo dejar modificar
+        if ($request->get('permalink', '') != $permalink) {
+            $this->validate($request, [
+                'name' => 'required',
+                'permalink' => 'required|unique:festivals'
+            ]);
+        }
         $festival = Festival::where('permalink', $permalink)->firstOrFail();
         $festival->name = $request->get('name');
         $festival->pathLogo = $request->get('logo');
         $festival->pathCartel = $request->get('cartel');
         $festival->location = $request->get('location');
         $festival->province = $request->get('province');
-        $festival->date = Carbon::createFromFormat(
-            'd/m/Y', $request->get('date')
-            ?? Carbon::now()->format('d/m/Y'));
-        $festival->permalink = str_slug($request->get('name'));
-        $festival->save();
-        $festival->artists()->sync(array_unique($request->get('artists-select') ?? []));
-        return redirect()->action('FestivalController@Details', [$festival])->with('updated', true);
+        $festival->date = Carbon::createFromFormat('d/m/Y',
+            $request->get('date') ?? Carbon::now()->format('d/m/Y'));
+        $festival->permalink = $request->get('permalink');
+        $festival->saveOrFail();
+        $festival->artists()->sync($request->get('artists'));
+        $festival->genres()->sync($request->get('genres'));
+        return redirect()->action('FestivalController@DetailsAdmin', [$festival])->with('updated', true);
     }
 
     public function Delete($permalink)
@@ -168,8 +205,8 @@ class FestivalController extends Controller
 
     public function DeleteConfirm($permalink)
     {
-        Festival::where('permalink', $permalink)->delete();
-        return redirect()->action('FestivalController@All')->with('deleted', true);
+        return redirect()->action('FestivalController@All')
+            ->with('deleted', Festival::where('permalink', $permalink)->delete());
     }
 
 }
