@@ -35,10 +35,8 @@
                     <div class="menu">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation"><a href="/" class="active">Home</a></li>
-                            <li role="presentation"><a href="{{action('FestivalController@All')}}">Festivals</a></li>
-                            <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals
-                                    Plantilla</a></li>
-                            <li role="presentation"><a href="{{action('ArtistController@All')}}">Artistas</a></li>
+                            <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals</a></li>
+                            <li role="presentation"><a href="{{action('ArtistController@init')}}">Artistas</a></li>
                             <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">Admin</a>
                             </li>
                             {{--<div class="links">--}}
