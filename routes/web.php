@@ -69,14 +69,35 @@ Route::get('admin/genres', 'AdminController@GenresList');
 Route::get('admin/posts', 'AdminController@PostsList');
 Route::get('admin/photos', 'AdminController@PhotosList');
 
-//Create
+//Add
 Route::get('admin/artists/add', 'ArtistController@FormNew');
 Route::get('admin/festivals/add', 'FestivalController@FormNew');
+Route::get('admin/genres/add', 'GenreController@FormNew');
+Route::get('admin/posts/add', 'PostController@FormNew');
+Route::get('admin/photos/add', 'PhotoController@FormNew');
+
+//Create
+Route::post('admin/genres/create', 'GenreController@Create');
+
 
 //Details
 Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
 Route::get('admin/festivals/details/{permalink}', 'FestivalController@DetailsAdmin');
+Route::get('admin/genres/details/{permalink}', 'GenreController@DetailsAdmin');
+Route::get('admin/posts/details/{permalink}', 'PostController@DetailsAdmin');
+Route::get('admin/photos/details/{permalink}', 'PhotoController@DetailsAdmin');
 
 //Edit
 Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
 Route::get('admin/festivals/edit/{permalink}', 'FestivalController@Edit');
+Route::get('admin/genres/edit/{permalink}', 'GenreController@Edit');
+Route::get('admin/posts/edit/{permalink}', 'PostController@Edit');
+Route::get('admin/photos/edit/{permalink}', 'PhotoController@Edit');
+
+//Update
+Route::put('admin/genres/update/{permalink}', 'GenreController@Update');
+
+//Delete
+Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
+Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
+Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
