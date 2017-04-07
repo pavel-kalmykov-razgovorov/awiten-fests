@@ -14,6 +14,7 @@ body {
 .sub-header {
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    font-size: xx-large;
 }
 
 /*
@@ -106,4 +107,42 @@ body {
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
+}
+
+.models-table tbody tr {
+    cursor: pointer;
+}
+
+/*
+ * Create, Details, Edit... forms
+ */
+#festivals-add-button, #artists-add-button {
+    margin-bottom: 1em;
+}
+
+#festivals-list, #artists-list {
+    padding: 0;
+}
+
+#festivals-list li, #artists-list li {
+    margin-bottom: .5em;
+}
+
+.valign-top {
+    vertical-align: top;
+}
+
+li.arrow-list-glyph {
+    display: block;
+}
+
+li.arrow-list-glyph:before {
+    /*Using a Bootstrap glyphicon as the bullet point*/
+    content: "\e080";
+    font-family: 'Glyphicons Halflings', serif;
+    font-size: 9px;
+    float: left;
+    margin-top: 4px;
+    margin-left: -17px;
+    color: #bcbcbc;
 }

@@ -18,11 +18,16 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset('css/admin.css')}}" rel="stylesheet">
+    <link href="{{asset('css/awesome-bootstrap-checkbox.css')}}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap-confirmation.min.js') }}" type="text/javascript"></script>
     <![endif]-->
 </head>
 
@@ -101,13 +106,17 @@
         </div>
     </div>
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.prettyPhoto.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.isotope.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/wow.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/functions.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle=confirmation]').confirmation({
+            rootSelector: '[data-toggle=confirmation]'
+        });
+    });
+</script>
 </body>
 </html>
