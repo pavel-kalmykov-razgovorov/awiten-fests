@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePhotosTable extends Migration
 {
@@ -15,13 +15,11 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('path');
             $table->string('name');
-            $table->timestamps();
-            $table->integer('festival_id')->unsigned();
-            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
-           
-            
+            $table->integer('festival_id')->unsigned()->references('id')->on('festivals')->onDelete('cascade');
+            $table->string('permalink')->unique();
         });
     }
 

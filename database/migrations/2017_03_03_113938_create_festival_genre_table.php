@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFestivalGenreTable extends Migration
 {
@@ -16,10 +16,10 @@ class CreateFestivalGenreTable extends Migration
         Schema::create('festival_genre', function (Blueprint $table) {
             $table->integer('festival_id');
             $table->integer('genre_id');
-            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
-            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
-            $table->primary(['festival_id', 'genre_id']);
             $table->timestamps();
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
+            $table->primary(['festival_id', 'genre_id']);
         });
     }
 

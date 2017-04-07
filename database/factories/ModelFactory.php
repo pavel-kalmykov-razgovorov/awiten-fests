@@ -37,10 +37,12 @@ $factory->define(\App\Post::class, function (\Faker\Generator $faker) {
     $festival_ids = [$medusa, $arenal, $dreambeach, $awakenings, $sstory, $aquasella, $wan, $tomorrow, $umf, $jaco,];
     $min = min($festival_ids);
     $max = max($festival_ids);
+    $title = $faker->sentence(6);
     return [
-        'title' => $faker->sentence(6),
+        'title' => $title,
         'lead' => $faker->sentence(20),
         'body' => $faker->paragraph(40),
         'festival_id' => $faker->numberBetween($min, $max),
+        'permalink' => str_slug($title),
     ];
 });

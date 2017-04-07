@@ -24,12 +24,12 @@ class FestivalGenreTableSeeder extends Seeder
         $jaco = DB::table('festivals')->where('name', 'The Jaco Festival')->first()->id;
 
         // Id generos
-        $techno = DB::table('genres')->where('genre', 'Techno')->first()->id;
-        $techouse = DB::table('genres')->where('genre', 'Tech House')->first()->id;
-        $edm = DB::table('genres')->where('genre', 'EDM')->first()->id;
-        $future = DB::table('genres')->where('genre', 'Future House')->first()->id;        
-        $trance = DB::table('genres')->where('genre', 'Trance')->first()->id;
-        $hardstyle = DB::table('genres')->where('genre', 'Hardstyle')->first()->id;
+        $techno = DB::table('genres')->where('name', 'Techno')->first()->id;
+        $techouse = DB::table('genres')->where('name', 'Tech House')->first()->id;
+        $edm = DB::table('genres')->where('name', 'EDM')->first()->id;
+        $future = DB::table('genres')->where('name', 'Future House')->first()->id;
+        $trance = DB::table('genres')->where('name', 'Trance')->first()->id;
+        $hardstyle = DB::table('genres')->where('name', 'Hardstyle')->first()->id;
 
         DB::table('festival_genre')->delete();
         DB::table('festival_genre')->insert(

@@ -15,13 +15,13 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('title');
             $table->string('lead');
             $table->string('body');
-            $table->timestamps();
-            $table->integer('festival_id')->unsigned();
-            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
-
+            $table->integer('festival_id')->unsigned()
+                ->references('id')->on('festivals')->onDelete('cascade');
+            $table->string('permalink')->unique();
         });
     }
 

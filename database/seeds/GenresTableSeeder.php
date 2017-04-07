@@ -14,12 +14,12 @@ class GenresTableSeeder extends Seeder
         DB::table('genres')->delete();
         DB::table('genres')->insert(
             [
-                ['genre' => 'Techno'],
-                ['genre' => 'Tech House'],
-                ['genre' => 'EDM'],
-                ['genre' => 'Future House'],
-                ['genre' => 'Trance'],
-                ['genre' => 'Hardstyle']
+                ['name' => 'Techno', 'permalink' => 'techno'],
+                ['name' => 'Tech House', 'permalink' => 'tech-house'],
+                ['name' => 'EDM', 'permalink' => 'edm'],
+                ['name' => 'Future House', 'permalink' => 'future-house'],
+                ['name' => 'Trance', 'permalink' => 'trance'],
+                ['name' => 'Hardstyle', 'permalink' => 'hardstyle']
             ]
         );
     }
