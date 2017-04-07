@@ -34,7 +34,7 @@
             <ul>
                 @foreach($artist->festivals as $artist_festival)
                     <li class="arrow-list-glyph">
-                        <a href="{{action('FestivalController@Details', $artist_festival->permalink)}}">{{$artist_festival->name}}</a>
+                        <a href="{{action('FestivalController@DetailsAdmin', $artist_festival->permalink)}}">{{$artist_festival->name}}</a>
                     </li>
                 @endforeach
             </ul>

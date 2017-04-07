@@ -116,6 +116,10 @@ body {
 /*
  * Create, Details, Edit... forms
  */
+#permalink {
+    border: 0;
+}
+
 #festivals-add-button, #artists-add-button {
     margin-bottom: 1em;
 }

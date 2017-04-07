@@ -19,14 +19,7 @@
     <ul class="list-group">
         @foreach($column_names as $column_name)
             <li class="list-group-item">
-                <strong>{{$column_name}}:</strong>
-                @if(filter_var($festival->$column_name, FILTER_VALIDATE_URL))
-                    <a href="{{$festival->$column_name}}">
-                        {{$festival->$column_name ?? "[null]"}}
-                    </a>
-                @else
-                    {{$festival->$column_name ?? "[null]"}}
-                @endif
+                <strong>{{$column_name}}:</strong> {{$festival->$column_name ?? "[null]"}}
             </li>
         @endforeach
         <li class="list-group-item">
@@ -34,7 +27,7 @@
             <ul>
                 @foreach($festival->artists as $festival_artist)
                     <li class="arrow-list-glyph">
-                        <a href="{{action('ArtistController@Details', $festival_artist->permalink)}}">{{$festival_artist->name}}</a>
+                        <a href="{{action('ArtistController@DetailsAdmin', $festival_artist->permalink)}}">{{$festival_artist->name}}</a>
                     </li>
                 @endforeach
             </ul>

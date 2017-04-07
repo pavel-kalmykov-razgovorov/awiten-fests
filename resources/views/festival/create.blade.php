@@ -22,6 +22,11 @@
                 <div class="col-md-4">
                     <input type="text" id="name" name="name" placeholder="Nombre del festival (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{old('name')}}">
+                    <span class="help-block">
+                        <input class="form-control input-sm" type="text" id="permalink" name="permalink"
+                               title="Permalink" value="{{old('permalink') ?? 'permalink asociado al festival'}}"
+                               readonly>
+                    </span>
                 </div>
             </div>
             <div class="form-group">
@@ -68,15 +73,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="artists-add-button" class="col-md-4 control-label">Festivales</label>
+                <label for="artists-add-button" class="col-md-4 control-label">Artistas</label>
                 <div class="col-md-4">
                     <input class="btn btn-default" id="artists-add-button" type="button" onclick="addEntry()"
                            value="Nuevo artista"/>
                     <ul id="artists-list">
-                        @foreach (array_unique(session('temp-artists') ?? []) as $temp_artist)
+                        @foreach (array_unique(session('artists') ?? []) as $temp_artist)
                             <li class="list-unstyled">
                                 <div class="input-group">
-                                    <select class="form-control" name="artists-select[]" title="Opciones de artista">
+                                    <select class="form-control" name="artists[]" title="Opciones de artista">
                                         @foreach ($artists as $artist)
                                             @if($temp_artist == $artist->id)
                                                 <option value="{{$artist->id}}" selected>{{$artist->name}}</option>
@@ -96,10 +101,22 @@
                     </ul>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="add-button"> </label>
+            <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
                 <div class="col-md-4">
-                    <button id="add-button" name="add-button" class="btn btn-success">Añadir</button>
+                    @if(session('genres')) <?php $genres = session('genres'); ?> @endif
+                    @foreach($genres as $genre)
+                        <div class="checkbox checkbox-inline">
+                            <input type="checkbox" name="genres[]" id="genre-{{$genre->id}}"
+                                   value="{{$genre->id}}" {{$genre->checked ?? ''}}>
+                            <label for="genre-{{$genre->id}}">{{$genre->name}}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="save-button"> </label>
+                <div class="col-md-4">
+                    <button id="save-button" name="save-button" class="btn btn-success">Añadir</button>
                 </div>
             </div>
         </fieldset>
@@ -107,7 +124,7 @@
     <template id="artist-entry">
         <li class="list-unstyled">
             <div class="input-group">
-                <select class="form-control" name="artists-select[]" title="Lista de Artistas">
+                <select class="form-control" name="artists[]" title="Lista de Artistas">
                     @forelse ($artists as $artist)
                         <option value="{{$artist->id}}">{{$artist->name}}</option>
                     @empty
@@ -140,6 +157,9 @@
             });
             $('#pathCartel').change(function () {
                 $('#pathCartelFilename').html($('#pathCartel').val().replace(/C:\\fakepath\\/i, ''));
+            });
+            $('input[name=name]').on('input', function (e) {
+                $('#permalink').val(slugify($('input[name=name]').val()));
             });
         });
     </script>

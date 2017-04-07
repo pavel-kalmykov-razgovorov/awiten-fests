@@ -22,6 +22,11 @@
                 <div class="col-md-4">
                     <input type="text" id="name" name="name" placeholder="Nombre del artista (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{old('name')}}">
+                    <span class="help-block">
+                        <input class="form-control input-sm" type="text" id="permalink" name="permalink"
+                               title="Permalink" value="{{old('permalink') ?? 'permalink asociado al artista'}}"
+                               readonly>
+                    </span>
                 </div>
             </div>
             <div class="form-group">
@@ -73,10 +78,10 @@
                     <input class="btn btn-default" id="festivals-add-button" type="button" onclick="addEntry()"
                            value="Nuevo festival"/>
                     <ul id="festivals-list">
-                        @foreach (array_unique(session('temp-festivals') ?? []) as $temp_festival)
+                        @foreach (array_unique(session('festivals') ?? []) as $temp_festival)
                             <li class="list-unstyled">
                                 <div class="input-group">
-                                    <select class="form-control" name="festivals-select[]" title="Opciones de festival">
+                                    <select class="form-control" name="festivals[]" title="Opciones de festival">
                                         @foreach ($festivals as $festival)
                                             @if($temp_festival == $festival->id)
                                                 <option value="{{$festival->id}}" selected>{{$festival->name}}</option>
@@ -96,6 +101,18 @@
                     </ul>
                 </div>
             </div>
+            <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
+                <div class="col-md-4">
+                    @if(session('genres')) <?php $genres = session('genres'); ?> @endif
+                    @foreach($genres as $genre)
+                        <div class="checkbox checkbox-inline">
+                            <input type="checkbox" name="genres[]" id="genre-{{$genre->id}}"
+                                   value="{{$genre->id}}" {{$genre->checked ?? ''}}>
+                            <label for="genre-{{$genre->id}}">{{$genre->name}}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="add-button"> </label>
                 <div class="col-md-4">
@@ -107,7 +124,7 @@
     <template id="festival-entry">
         <li class="list-unstyled">
             <div class="input-group">
-                <select class="form-control" name="festivals-select[]" title="Opciones de festival">
+                <select class="form-control" name="festivals[]" title="Opciones de festival">
                     @forelse ($festivals as $festival)
                         <option value="{{$festival->id}}">{{$festival->name}}</option>
                     @empty
@@ -139,6 +156,9 @@
             });
             $('#pathHeader').change(function () {
                 $('#pathHeaderFilename').html($('#pathHeader').val().replace(/C:\\fakepath\\/i, ''));
+            });
+            $('input[name=name]').on('input', function (e) {
+                $('#permalink').val(slugify($('input[name=name]').val()));
             });
         });
     </script>

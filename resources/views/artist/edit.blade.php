@@ -22,6 +22,11 @@
                 <div class="col-md-4">
                     <input type="text" id="name" name="name" placeholder="Nombre del artista (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{$artist->name}}">
+                    <span class="help-block">
+                        <input class="form-control input-sm" type="text" id="permalink" name="permalink"
+                               title="Permalink" value="{{$artist->permalink}}"
+                               readonly>
+                    </span>
                 </div>
             </div>
             <div class="form-group">
@@ -76,7 +81,7 @@
                         @foreach ($artist->festivals as $artist_festival)
                             <li class="list-unstyled">
                                 <div class="input-group">
-                                    <select class="form-control" name="festivals-select[]" title="Opciones de festival">
+                                    <select class="form-control" name="festivals[]" title="Opciones de festival">
                                         @foreach ($festivals as $festival)
                                             @if($artist_festival->id == $festival->id)
                                                 <option value="{{$festival->id}}" selected>{{$festival->name}}</option>
@@ -108,9 +113,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="singlebutton"> </label>
+                <label class="col-md-4 control-label" for="save-button"> </label>
                 <div class="col-md-4">
-                    <button id="singlebutton" name="singlebutton" class="btn btn-success">Guardar Cambios</button>
+                    <button id="save-button" name="save-button" class="btn btn-success">Guardar Cambios</button>
                 </div>
             </div>
         </fieldset>
@@ -118,7 +123,7 @@
     <template id="festival-entry">
         <li class="list-unstyled">
             <div class="input-group">
-                <select class="form-control" name="festivals-select[]" title="Opciones de festival">
+                <select class="form-control" name="festivals[]" title="Opciones de festival">
                     @forelse ($festivals as $festival)
                         <option value="{{$festival->id}}">{{$festival->name}}</option>
                     @empty
@@ -151,6 +156,9 @@
             });
             $('#pathHeader').change(function () {
                 $('#pathHeaderFilename').html($('#pathHeader').val().replace(/C:\\fakepath\\/i, ''));
+            });
+            $('input[name=name]').on('input', function (e) {
+                $('#permalink').val(slugify($('input[name=name]').val()));
             });
         });
     </script>
