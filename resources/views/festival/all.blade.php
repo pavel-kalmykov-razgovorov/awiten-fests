@@ -1,115 +1,113 @@
-{{--
 @extends('welcome')
 
-
-
-
 @section('mainContent')
-<div class="container">
-    <div class="breadcrumb navbar-form">
-            <form method="GET" action="{{ action('FestivalsController@cambio') }}">
-                <button type="summit" class="btn btn-info">Mostrar de 2 en 2</button>
-            </form>
-            <form method="GET" action="{{ action('FestivalsController@ordenar') }}">
-                <button type="summit" class="btn btn-info">Ordenar por fecha</button>
-            </form>
-            <form method="get" action="{{ action('FestivalsController@busqueda') }}">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="buscado">
-                    <button type="summit" class="btn btn-warning">Enviar</button>
+  <div id="breadcrumb">
+		<div class="container">	
+			<div class="breadcrumb">	
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="get" action="{{ action('FestivalController@busquedaConParametros') }}">
+                            <div class="input-group add-on btn-group">
+                                <div class="col col-md-3">
+                                    <input type="text" class="form-control" name="buscado" placeholder="Introduce el festival">
+                                </div>
+                                <div class="col col-md-3">
+                                    <select class="form-control" name="paginadoA">
+                                    <option value="3"> 3 por pagina</option>
+                                    <option value="6" selected>6 por pagina</option>
+                                    <option value="9">9 por pagina</option>
+                                    </select>
+                                </div>
+                                <div class="col col-md-3">
+                                    <select class="form-control" name="ordenado">
+                                    <option value="asc" selected>Fecha Asc</option>
+                                    <option value="desc">Fecha Desc</option>
+                                    </select>
+                                 </div>
+                                <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </form>
                 </div>
-            </form>
-    </div>
-</div>
-
+                </div>
+			</div>		
+		</div>	
+	</div>
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="text-center" style="color: Black">Festivales:</h1>
+                @if(count($festivals) != 0)
+                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center">Festivales</h1>
+                @else
+                    <div class="alert alert-danger">
+                     <h1>   No se han encontrado festivales.</h1>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-    <section id="portfolio">
+    @if(count($festivals) != 0)
         <div class="row">
             <div class="container">
                 <div class="center col-md-2">
                     <ul class="portfolio-filter text-center">
-                        <li><a class="btn btn-default active" href="#" data-filter="*">All Genres</a></li>
-                        <form method="get" action="{{ action('FestivalsController@busquedaPorGenero') }}">
-                            <div class="[ col-xs-12 col-sm-6 ]">
+                        <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
+                            <div class="well-sm">Generos Musicales</div>
                                 @forelse($genres as $genre)
-                                <div class="[ form-group ]">
-                                    <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
-                                    <div class="[ btn-group ]">
-                                        <label for="fancy-checkbox-success-{{$genre->genre}}" class="[ btn btn-success ]">
-                                        <span class="[ glyphicon glyphicon-ok ]"></span>
-                                        <span> </span>
-                                        </label>
-                                        <label for="fancy-checkbox-success-{{$genre->genre}}" class="[ btn btn-success active ]">
-                                            {{$genre->genre}}
-                                        </label>
+                                    <div class="[ form-group ]">
+                                        @if(!empty(session('generos-marcados-festival')) && in_array($genre->id,session('generos-marcados-festival')))
+                                            <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
+                                        @else
+                                        <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
+                                        @endif
+                                        <div class="[ btn-group ]">
+                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                                   class="[ btn btn-success ]">
+                                                <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                <span> </span>
+                                            </label>
+                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                                   class="[ btn btn-success active ]">
+                                                {{$genre->genre}}
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
                                 @empty
                                     <h2>No hay géneros en la BD</h2>
                                 @endforelse
-                                <button type="summit" class="btn btn-warning">Enviar</button>
-                             </div>
+                                <button type="summit" class="btn btn-warning">Busqueda por Genero</button>
+                            <!--/div-->
                         </form>
                     </ul>
                 </div>
                 <div class="col-md-10">
                     <div class="row">
                         <div class="center col-md-12">
-                    <div class="portfolio-items">
-                        @forelse($festivals as $festival)
-                            <div class="portfolio-item festival-{{$festival->id}} col-md-4 col-sm-6">
-                                <div class="recent-work-wrap">
-                                    <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
-                                        <img class="img-responsive" src="{{$festival->pathLogo}}" alt="400" width="400"></a>
-                                    <div class="overlay">
-                                        <div class="recent-work-inner">
+                            <div class="portfolio-items">
+                                @foreach($festivals as $festival)
+                                    <div class="portfolio-item festival col-md-4 col-sm-6">
+                                        <div class="recent-work-wrap">
+                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto"><img class="img-responsive imagen-festival" src="{{$festival->pathLogo}}" ></a>
+                                            <div class="overlay">
+                                                <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
-                                                        <h3>
-                                                            <a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a>
-                                                        </h3>
-                                                            <p class="text-muted"> {{$festival->date}} </p>
+                                                        <h3><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h3>
+                                                        <p class="text-muted"> {{$festival->date}} </p>
                                                     </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div><!--/.portfolio-item-->
-                        @empty
-                            <h2>No hay festivales en la BD</h2>
-                        @endforelse
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="pagination pagination-lg .text-center">
-
-                    {{ $festivals->links() }}
                 </div>
             </div>
         </div>
-    </section><!--/#portfolio-item-->
+    <div class="text-center">
+        <div class="pagination pagination-lg">
+                {{ $festivals->links() }}
+        </div>
+    </div>
+    @endif
 @endsection
-=======
---}}
-<h1>Festivales</h1>
-@if(session('deleted'))
-    <h3>El festival se ha borrado correctamente</h3>
-@endif
-<ul>
-    @forelse($festivals as $festival)
-        <li>
-            <a href="{{action('FestivalController@Details', $festival->permalink)}}"> {{$festival->name}}</a>
-        </li>
-    @empty
-        <h2>No hay festivales en la BD</h2>
-    @endforelse
-</ul>
-<p>
-    <input type="button" onclick="location.href='{{action('FestivalController@FormNew')}}';" value="Nuevo festival"/>
-    <input type="button" onclick="location.href='/';" value="Inicio"/>
-</p>

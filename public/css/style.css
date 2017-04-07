@@ -11,6 +11,112 @@
 /* ==== overwrite bootstrap standard ==== */
 @import url('animate.css');
 
+
+.well-sm{
+  color:white;
+  background:red;
+  margin: 5px;
+
+}
+
+@media (min-width: 768px) { /*Para poner las fechas*/
+		.carousel-inner {
+			height: 500px;
+		}
+		.carousel-inner img {
+			height: 100%;
+			width: 100%;
+		}
+		.event-list {
+			list-style: none;
+			font-family: 'Lato', sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.event-list > li {
+			background-color: rgb(255, 255, 255);
+			box-shadow: 0 0 5px rgba(51, 51, 51, 0.7);
+			padding: 0;
+			margin: 0 0 20px;
+		}
+		.event-list > li > time {
+			display: inline-block;
+			width: 100%;
+			color: rgb(255, 255, 255);
+			background-color: rgb(197, 44, 50);
+			padding: 5px;
+			text-align: center;
+			text-transform: uppercase;
+		}
+		.event-list > li:nth-child(even) > time {
+			background-color: rgb(165, 82, 167);
+		}
+		.event-list > li > time > span {
+			display: none;
+		}
+		.event-list > li > time > .day {
+			display: block;
+			font-size: 56pt;
+			font-weight: 100;
+			line-height: 1;
+		}
+		.event-list > li time > .month {
+			display: block;
+			font-size: 24pt;
+			font-weight: 900;
+			line-height: 1;
+		}
+		.event-list > li > img {
+			width: 100%;
+		}
+		.event-list > li > .info {
+			padding-top: 5px;
+			text-align: center;
+		}
+		.event-list > li > .info > .title {
+			font-size: 17pt;
+			font-weight: 700;
+			margin: 0;
+		}
+		.event-list > li > .info > .desc {
+			font-size: 13pt;
+			font-weight: 300;
+			margin: 0;
+		}
+    }
+
+
+ .boton{
+        font-size:16px;
+        font-weight:bold;
+        color:white;
+        background:#000000;
+        border:0px;
+        width:200px;
+        height:34px;
+        border-radius:7px;
+       }
+
+ .boton2{
+        font-size:16px;
+        color:darkblue;
+        background:white;
+        border-color:darkblue;
+        width:150px;
+        height:30px;
+        border-radius:10px;
+       }
+
+ .boton3{
+        font-size:16px;
+        color:darkblue;
+        background:white;
+        border-color:darkblue;
+        width:100px;
+        height:30px;
+        border-radius:10px;
+       }
+
 .arreglar-margen{
   margin-top: 100px;
   margin-left: 50px;
@@ -143,7 +249,7 @@ a:hover {
   border-radius:30px;
   margin-left:-10px;
 }
-
+/*
 #breadcrumb {
 	background-color: #1BBD36;
   margin-top: 90px;
@@ -153,8 +259,8 @@ a:hover {
 
 .breadcrumb { 
   list-style: none;
-  background-color: #1BBD36;
-    border-radius: 0;
+  background-color: #000000;
+  border-radius: 0px;
   padding:3px 10px;
   margin-top: 90px;
   margin-left: 50px;
@@ -168,6 +274,26 @@ a:hover {
   margin-right: 50px;
    font-weight:700;
 }
+*/
+
+#breadcrumb {
+	background-color: #1BBD36;
+	margin-top: 100px;
+  padding: 15px;
+}
+
+.breadcrumb {
+  list-style: none;
+  background-color: #1BBD36;
+  border-radius: 0px;
+  padding:3px 10px;
+}
+
+.breadcrumb li {
+   text-transform:uppercase;
+   margin-top:125px;
+   font-weight:600;
+}
 
 /*===========================
   Menu and Navigation
@@ -175,6 +301,7 @@ a:hover {
 .navigation  {
 	background-color:#fff;
 	padding:0;
+  margin:10px;
 }
 
 .navbar-brand h1 {
@@ -733,7 +860,7 @@ ul.social-network li a {
 .portfolio-items, 
 .portfolio-filter {
   list-style: none outside none;
-  margin: 0 0 40px 0;
+  margin: -5px;
   padding: 0;
 }
 
@@ -767,15 +894,15 @@ ul.social-network li a {
 
 .portfolio-items > li {
   float: left;
-  padding: 0;
+  padding: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .portfolio-item {
-    margin: 10px;
-    padding: 20px;
+	margin: 0px;
+	padding: 10;
 }
 
 .overlay {
@@ -1240,7 +1367,7 @@ ul.sidebar-gallery {
 }
 
 a.scrollup{
-    color:#fff;
+  color:#fff;
 	height:40px;
 	width:40px;
 	font-size:12px;
@@ -1266,14 +1393,19 @@ a.scrollup:hover{
     text-align: right;
 }
 
-.lista-artistas-prinicpal{
-  width: 350px;
-  height: 400px;
+.imagen-festival{
+  width: 450px;
+  height: 300px;
+}
+
+.imagen-artista{
+  width: 300px;
+  height: 300px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  
+  text-align:center;
 }
 
 .lista-iconos{

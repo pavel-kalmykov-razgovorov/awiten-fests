@@ -6,6 +6,7 @@ use App\Artist;
 use App\Festival;
 use App\Genre;
 use Carbon\Carbon;
+use App\Post;
 use Illuminate\Http\Request;
 use Schema;
 
@@ -15,34 +16,12 @@ class FestivalController extends Controller implements AdministrableController
     private $festivals;
     private $genres;
 
+
     public function init()
     {
-        // 		$ms = Person::where('name', '=', 'Foo Bar')->firstOrFail();
-        // 		$persons = Person::order_by('list_order', 'ASC')->get();
-        // 		return $view->with('data', ['ms' => $ms, 'persons' => $persons]));
-        $festivals = \App\Festival::paginate(4);
+        $festivals = \App\Festival::paginate(3);
         $genres = \App\Genre::get();
-        //r		eturn view('festivals', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-        return view('festival-plantilla.all')
-            ->with('festivals', $festivals)
-            ->with('genres', $genres);
-        // 		return view('festival-plantilla.all', ['festivals' => \App\Festival::get(['permalink', 'name', 'pathLogo', 'date','id'])]);
-    }
-
-    public function ordenar()
-    {
-        $festivals = \App\Festival::orderBy('date', 'asc')->paginate(65);
-        $genres = \App\Genre::get();
-        return view('festival-plantilla.all')
-            ->with('festivals', $festivals)
-            ->with('genres', $genres);
-    }
-
-    public function paginacionDeDosEnDos()
-    {
-        $festivals = \App\Festival::paginate(2);
-        $genres = \App\Genre::get();
-        return view('festival-plantilla.all')
+        return view('festival.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
     }
@@ -51,27 +30,45 @@ class FestivalController extends Controller implements AdministrableController
     {
         $generos = array();
         $genres = \App\Genre::get();
+        $url = null;
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ', '_', $genre->genre);
-            if ($request->has($generoSinEspacios)) {
+            $generoSinEspacios = str_replace(' ','_',$genre->genre);
+            if ($request->has($generoSinEspacios)){
                 array_push($generos, $genre->id);
             }
         }
-        $festivals = \App\Festival::join('festival_genre', "festival_genre.festival_id", "=", "id")->whereIn('genre_id', $generos)->groupBy("id")->paginate(2);
-        return view('festival-plantilla.all')
+        $request->session()->flash('generos-marcados-festival', $generos);
+        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
+        $festivals->appends($request->except('page'));
+        return view('festival.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
+
     }
 
     public function busqueda(Request $request)
     {
         $buscado = $request->input('buscado');
-        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(65);
+        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->paginate(3);
         $genres = \App\Genre::get();
-        return view('festival-plantilla.all')
+        $festivals->appends($request->except('page'));
+        return view('festival.all')
             ->with('festivals', $festivals)
             ->with('genres', $genres);
     }
+
+    public function busquedaConParametros(Request $request){
+         $buscado = $request->input('buscado');
+         $porPag = $request->input('paginadoA');
+         $orden = $request->input('ordenado');
+        $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->orderBy('date', $orden)->paginate($porPag);
+        $genres = \App\Genre::get();
+        $festivals->appends($request->except('page'));
+        return view('festival.all')
+            ->with('festivals', $festivals)
+            ->with('genres', $genres);
+    }
+
 
     public function All()
     {
@@ -125,9 +122,13 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Details($permalink)
     {
+        $variableFest = Festival::where('permalink', $permalink)->firstOrFail();
+        $artists = $variableFest->artists()->simplePaginate(3);
+        $variableFest->setRelation('posts', $variableFest->posts()->paginate(4));
         return view('festival.details', [
             'permalink' => $permalink,
-            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+            'festival' => $variableFest,
+            'artistas' => $artists
         ]);
     }
 
@@ -208,5 +209,16 @@ class FestivalController extends Controller implements AdministrableController
         return redirect()->action('FestivalController@All')
             ->with('deleted', Festival::where('permalink', $permalink)->delete());
     }
+
+    public function MostrarNoticia($idpost)
+    {
+        return view('festival.mostrarNoticia', [
+            'post' => Post::where('id', $idpost)->first(),
+
+
+        ]);
+    }
+
+
 
 }
