@@ -30,9 +30,8 @@ class FestivalController extends Controller implements AdministrableController
     {
         $generos = array();
         $genres = \App\Genre::get();
-        $url = null;
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ','_',$genre->genre);
+            $generoSinEspacios = str_replace(' ','_',$genre->name);
             if ($request->has($generoSinEspacios)){
                 array_push($generos, $genre->id);
             }
@@ -102,7 +101,8 @@ class FestivalController extends Controller implements AdministrableController
         $request->session()->flash('artists', $request->get('artists', []));
         $this->validate($request, [
             'name' => 'required',
-            'permalink' => 'required|unique:festivals'
+            'permalink' => 'required|unique:festivals',
+            'date' => 'date_format:d/m/Y'
         ]);
         $festival = new Festival([
             'name' => $request->get('name'),
@@ -206,16 +206,14 @@ class FestivalController extends Controller implements AdministrableController
 
     public function DeleteConfirm($permalink)
     {
-        return redirect()->action('FestivalController@All')
-            ->with('deleted', Festival::where('permalink', $permalink)->delete());
+        return redirect()->action('AdminController@FestivalsList')
+        ->with('deleted', Festival::where('permalink', $permalink)->delete());
     }
 
     public function MostrarNoticia($idpost)
     {
         return view('festival.mostrarNoticia', [
             'post' => Post::where('id', $idpost)->first(),
-
-
         ]);
     }
 

@@ -60,19 +60,19 @@
                     @forelse($genres as $genre)
                                     <div class="[ form-group ]">
                                         @if(!empty(session('generos-marcados-artista')) && in_array($genre->id,session('generos-marcados-artista')))
-                                            <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off"  checked="checked" value="{{$genre->genre}}" />
+                                            <input type="checkbox" name="{{$genre->name}}" id="fancy-checkbox-success-{{$genre->name}}" autocomplete="off"  checked="checked" value="{{$genre->name}}" />
                                         @else
-                                        <input type="checkbox" name="{{$genre->genre}}" id="fancy-checkbox-success-{{$genre->genre}}" autocomplete="off" value="{{$genre->genre}}" />
+                                        <input type="checkbox" name="{{$genre->name}}" id="fancy-checkbox-success-{{$genre->name}}" autocomplete="off" value="{{$genre->name}}" />
                                         @endif
                                         <div class="[ btn-group ]">
-                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                            <label for="fancy-checkbox-success-{{$genre->name}}"
                                                    class="[ btn btn-success ]">
                                                 <span class="[ glyphicon glyphicon-ok ]"></span>
                                                 <span> </span>
                                             </label>
-                                            <label for="fancy-checkbox-success-{{$genre->genre}}"
+                                            <label for="fancy-checkbox-success-{{$genre->name}}"
                                                    class="[ btn btn-success active ]">
-                                                {{$genre->genre}}
+                                                {{$genre->name}}
                                             </label>
                                         </div>
                                     </div>

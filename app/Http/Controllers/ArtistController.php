@@ -26,9 +26,8 @@ class ArtistController extends Controller implements AdministrableController
     {
         $generos = array();
         $genres = \App\Genre::get();
-        $url = null;
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ','_',$genre->genre);
+            $generoSinEspacios = str_replace(' ','_',$genre->name);
             if ($request->has($generoSinEspacios)){
                 array_push($generos, $genre->id);
             }
