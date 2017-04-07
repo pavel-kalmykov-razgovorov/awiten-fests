@@ -36,7 +36,6 @@ Route::get('artistsLookFor', 'ArtistController@busqueda');
 
 
 Route::get('artists', 'ArtistController@All');
-Route::get('artist/new', 'ArtistController@FormNew');
 Route::post('artist/new/create', 'ArtistController@Create');
 Route::get('artist/{permalink}', 'ArtistController@Details');
 Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
@@ -56,13 +55,28 @@ Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConf
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
 
 
-/*ADMIN*/
+/*
+ * ADMIN
+ */
 Route::get('admin', function () {
     redirect()->action('AdminController@AvailableEntities');
 });
+//List
 Route::get('admin/entities', 'AdminController@AvailableEntities');
 Route::get('admin/artists', 'AdminController@ArtistsList');
 Route::get('admin/festivals', 'AdminController@FestivalsList');
 Route::get('admin/genres', 'AdminController@GenresList');
 Route::get('admin/posts', 'AdminController@PostsList');
 Route::get('admin/photos', 'AdminController@PhotosList');
+
+//Create
+Route::get('admin/artists/add', 'ArtistController@FormNew');
+Route::get('admin/festivals/add', 'FestivalController@FormNew');
+
+//Details
+Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
+Route::get('admin/festivals/details/{permalink}', 'FestivalController@DetailsAdmin');
+
+//Edit
+Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
+Route::get('admin/festivals/edit/{permalink}', 'FestivalController@Edit');

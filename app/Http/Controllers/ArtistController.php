@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\Festival;
+use App\Genre;
 use Illuminate\Http\Request;
+use Schema;
 
 class ArtistController extends Controller
 {
@@ -61,7 +63,10 @@ class ArtistController extends Controller
 
     public function FormNew()
     {
-        return view('artist.create', ['festivals' => Festival::get(['id', 'name'])]);
+        return view('artist.create', [
+            'festivals' => Festival::get(['id', 'name']),
+            'genres' => Genre::get(['id', 'name']),
+        ]);
     }
 
     public function Create(Request $request)
@@ -91,15 +96,33 @@ class ArtistController extends Controller
         ]);
     }
 
+    public function DetailsAdmin($permalink)
+    {
+        return view('artist.details-admin', [
+            'column_names' => Schema::getColumnListing(strtolower(str_plural('artists'))),
+            'permalink' => $permalink,
+            'artist' => Artist::where('permalink', $permalink)->first()
+        ]);
+    }
+
     public function Edit($permalink)
     {
+        $genres = Genre::get(['id', 'name']);
         $artist = Artist::where('permalink', $permalink)->first();
-        $festivals = Festival::get(['id', 'name']);
-
+        foreach ($genres as $genre) {
+            $genre->checked = '';
+            foreach ($artist->genres as $artist_genre) {
+                if ($artist_genre->id == $genre->id) {
+                    $genre->checked = 'checked';
+                    break;
+                }
+            }
+        }
         return view('artist.edit', [
             'permalink' => $permalink,
             'artist' => $artist,
-            'festivals' => $festivals,
+            'festivals' => Festival::get(['id', 'name']),
+            'genres' => $genres,
         ]);
     }
 
@@ -114,7 +137,8 @@ class ArtistController extends Controller
         $artist->permalink = str_slug($request->get('name'));
         $artist->save();
         $artist->festivals()->sync(array_unique($request->get('festivals-select') ?? []));
-        return redirect()->action('ArtistController@Details', [$artist])->with('updated', true);
+        $artist->genres()->sync($request->get('genres'));
+        return redirect()->action('ArtistController@DetailsAdmin', [$artist])->with('updated', true);
     }
 
     public function Delete($permalink)
@@ -127,7 +151,6 @@ class ArtistController extends Controller
 
     public function DeleteConfirm($permalink)
     {
-        Artist::where('permalink', $permalink)->delete();
-        return redirect()->action('ArtistController@All')->with('deleted', true);
+        return redirect()->action('AdminController@ArtistsList')->with('deleted', Artist::where('permalink', $permalink)->delete());
     }
 }

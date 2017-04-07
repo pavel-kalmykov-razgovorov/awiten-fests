@@ -6,6 +6,7 @@ use App\Artist;
 use App\Festival;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Schema;
 
 
 class FestivalController extends Controller
@@ -99,13 +100,21 @@ class FestivalController extends Controller
         ]);
         $festival->save();
         $festival->artists()->attach(array_unique($request->get('artists-select') ?? []));
-        return redirect()->action('FestivalController@Details', [$festival])->with('created', true);
+        return redirect()->action('FestivalController@DetailsAdmin', [$festival])->with('created', true);
     }
-
 
     public function Details($permalink)
     {
         return view('festival.details', [
+            'permalink' => $permalink,
+            'festival' => Festival::where('permalink', $permalink)->firstOrFail()
+        ]);
+    }
+
+    public function DetailsAdmin($permalink)
+    {
+        return view('festival.details-admin', [
+            'column_names' => Schema::getColumnListing(strtolower(str_plural('festivals'))),
             'permalink' => $permalink,
             'festival' => Festival::where('permalink', $permalink)->firstOrFail()
         ]);
