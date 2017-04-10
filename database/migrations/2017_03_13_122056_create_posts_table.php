@@ -19,8 +19,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('lead');
             $table->string('body');
-            $table->integer('festival_id')->unsigned()
-                ->references('id')->on('festivals')->onDelete('cascade');
+            $table->integer('festival_id')->unsigned();
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
             $table->string('permalink')->unique();
         });
     }

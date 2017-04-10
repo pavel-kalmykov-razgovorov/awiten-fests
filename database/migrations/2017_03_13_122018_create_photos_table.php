@@ -18,7 +18,8 @@ class CreatePhotosTable extends Migration
             $table->timestamps();
             $table->string('path');
             $table->string('name');
-            $table->integer('festival_id')->unsigned()->references('id')->on('festivals')->onDelete('cascade');
+            $table->integer('festival_id')->unsigned();
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
             $table->string('permalink')->unique();
         });
     }
