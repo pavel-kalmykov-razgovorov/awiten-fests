@@ -94,3 +94,6 @@ Route::put('admin/posts/update/{permalink}', 'PostController@Update');
 Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
 Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
 Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
+
+//Asistance confirmation
+Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');

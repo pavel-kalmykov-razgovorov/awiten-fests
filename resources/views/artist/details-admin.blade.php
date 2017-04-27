@@ -35,6 +35,17 @@
                 @foreach($artist->festivals as $artist_festival)
                     <li class="arrow-list-glyph">
                         <a href="{{action('FestivalController@DetailsAdmin', $artist_festival->permalink)}}">{{$artist_festival->name}}</a>
+                        @if($artist_festival->pivot->confirmed == null)
+                            <span class="label label-default">No confirmado</span>
+                            <a href="{{action('ArtistController@ConfirmAssistance', [$permalink, $artist_festival->permalink, 'true'])}}"
+                               class="btn btn-success btn-xxs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                            <a href="{{action('ArtistController@ConfirmAssistance', [$permalink, $artist_festival->permalink, 'false'])}}"
+                               class="btn btn-danger btn-xxs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                        @elseif($artist_festival->pivot->confirmed == true)
+                            <span class="label label-success">Confirmado</span>
+                        @else
+                            <span class="label label-danger">Rechazado</span>
+                        @endif
                     </li>
                 @endforeach
             </ul>
@@ -60,6 +71,10 @@
        data-btn-ok-class="btn-success"
        data-title="Estás seguro?" data-content="No podrás recuperarlo">Borrar</a>
     <script>
+        function confirmAssistance(festival, confirmation) {
+            console.log(festival);
+            console.log(confirmation);
+        }
         $(function () {
             $('#home').removeClass('active');
             $('#artists').addClass('active');

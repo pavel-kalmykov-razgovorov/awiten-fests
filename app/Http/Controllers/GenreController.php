@@ -71,8 +71,6 @@ class GenreController extends Controller implements AdministrableController
         $genre->name = $request->get('name');
         $genre->permalink = $request->get('permalink');
         $genre->save();
-        $genre->artists()->sync($request->get('artists'));
-        $genre->festivals()->sync($request->get('festivals'));
         return redirect()->action('GenreController@DetailsAdmin', [$genre])->with('updated', true);
     }
 

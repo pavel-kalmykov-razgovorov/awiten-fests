@@ -17,7 +17,7 @@ class Artist extends Model
     protected $fillable = ['name', 'soundcloud', 'website', 'country', 'permalink'];
 
     public function festivals() {
-        return $this->belongsToMany('App\Festival');
+        return $this->belongsToMany('App\Festival')->withPivot('confirmed');
     }
 
     public function genres() {
