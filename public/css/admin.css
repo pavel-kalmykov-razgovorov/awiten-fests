@@ -150,3 +150,10 @@ li.arrow-list-glyph:before {
     margin-left: -17px;
     color: #bcbcbc;
 }
+
+.btn-xxs, .btn-group-xxs > .btn {
+    padding: 2px 3px;
+    font-size: 10px;
+    line-height: 1;
+    border-radius: 3px;
+}

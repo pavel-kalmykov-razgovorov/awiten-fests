@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.17 on 2017-04-04.
+ * Generated for Laravel 5.4.17 on 2017-04-27.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1884,9 +1884,9 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User
+         * @return \App\User 
          * @throws \Illuminate\Auth\AuthenticationException
-         * @static
+         * @static 
          */
         public static function authenticate()
         {
@@ -11036,7 +11036,7 @@ namespace Illuminate\Support\Facades {
          * @param array|string $views
          * @param \Closure|string $callback
          * @return array
-         * @static
+         * @static 
          */
         public static function creator($views, $callback)
         {
@@ -11061,7 +11061,7 @@ namespace Illuminate\Support\Facades {
          * @param array|string $views
          * @param \Closure|string $callback
          * @return array
-         * @static
+         * @static 
          */
         public static function composer($views, $callback)
         {
