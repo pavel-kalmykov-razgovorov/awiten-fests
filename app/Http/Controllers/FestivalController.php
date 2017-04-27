@@ -157,17 +157,25 @@ class FestivalController extends Controller implements AdministrableController
                 }
             }
         }
+        $artists_ids = Festival::where('permalink', $permalink)
+            ->firstOrFail()
+            ->artists()
+            ->get(['id'])
+            ->map(function ($item, $key) {
+                return $item->id;
+            });
         return view('festival.edit', [
             'permalink' => $permalink,
             'festival' => $festival,
             'artists' => $artists,
-            'genres' => $genres
+            'genres' => $genres,
+            'artists_ids' => $artists_ids
         ]);
     }
 
     public function DeletePost($idpost)
     {
-        \App\Post::find($idpost)->delete();
+        Post::find($idpost)->delete();
         return redirect()->action('FestivalController@All');
     }
 

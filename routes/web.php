@@ -42,7 +42,6 @@ Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConf
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
 Route::get('festival/mostrarPost/{id}', 'FestivalController@MostrarNoticia');
 
-
 /*
  * ADMIN
  */
@@ -78,12 +77,18 @@ Route::get('admin/photos/details/{permalink}', 'PhotoController@DetailsAdmin');
 //Edit
 Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
 Route::get('admin/festivals/edit/{permalink}', 'FestivalController@Edit');
+/*Route::get('admin/festivals/edit/{permalink}/artists', function ($permalink) {
+    return '<pre>' . \App\Festival::where('permalink', $permalink)
+            ->firstOrFail()->artists()->get(['id'])
+            ->map(function ($item, $key) { return $item->id; }) . '</pre>';
+});*/
 Route::get('admin/genres/edit/{permalink}', 'GenreController@Edit');
 Route::get('admin/posts/edit/{permalink}', 'PostController@Edit');
 Route::get('admin/photos/edit/{permalink}', 'PhotoController@Edit');
 
 //Update
 Route::put('admin/genres/update/{permalink}', 'GenreController@Update');
+Route::put('admin/posts/update/{permalink}', 'PostController@Update');
 
 //Delete
 Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');

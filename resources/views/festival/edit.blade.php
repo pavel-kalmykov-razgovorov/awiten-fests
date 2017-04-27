@@ -74,36 +74,18 @@
             <div class="form-group">
                 <label for="artists-add-button" class="col-md-4 control-label">Artistas</label>
                 <div class="col-md-4">
-                    <input class="btn btn-default" id="artists-add-button" type="button" onclick="addEntry()"
-                           value="Nuevo artista"/>
-                    <ul id="artists-list">
-                        @foreach ($festival->artists as $festival_artist)
-                            <li class="list-unstyled">
-                                <div class="input-group">
-                                    <select class="form-control" name="artists[]" title="Opciones de artista">
-                                        @foreach ($artists as $artist)
-                                            @if($festival_artist->id == $artist->id)
-                                                <option value="{{$artist->id}}" selected>{{$artist->name}}</option>
-                                            @else
-                                                <option value="{{$artist->id}}">{{$artist->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger" onclick="removeEntry(this)">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </li>
+                    <select class="selectpicker" name="artists[]" multiple title="Artistas" data-size="10"
+                            data-dropup-auto="false" data-selected-text-format="count" data-live-search="true">
+                        @foreach($artists as $artist)
+                            <option value="{{$artist->id}}">{{$artist->name}}</option>
                         @endforeach
-                    </ul>
+                    </select>
                 </div>
             </div>
             <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
                 <div class="col-md-4">
                     @foreach($genres as $genre)
-                        <div class="checkbox checkbox-inline">
+                        <div class="checkbox">
                             <input type="checkbox" name="genres[]" id="genre-{{$genre->id}}"
                                    value="{{$genre->id}}" {{$genre->checked}}>
                             <label for="genre-{{$genre->id}}">{{$genre->name}}</label>
@@ -119,34 +101,7 @@
             </div>
         </fieldset>
     </form>
-    <template id="artist-entry">
-        <li class="list-unstyled">
-            <div class="input-group">
-                <select class="form-control" name="artists[]" title="Lista de Artistas">
-                    @forelse ($artists as $artist)
-                        <option value="{{$artist->id}}">{{$artist->name}}</option>
-                    @empty
-                        <option disabled>No hay artistas registrados</option>
-                    @endforelse
-                </select>
-                <span class="input-group-btn">
-                    <button class="btn btn-danger" onclick="removeEntry(this)">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                </span>
-            </div>
-        </li>
-    </template>
     <script type="text/javascript">
-        function addEntry() {
-            document.querySelector('#artists-list').appendChild(
-                document.importNode(document.querySelector('#artist-entry').content, true)
-            );
-        }
-
-        function removeEntry(elem) {
-            elem.parentNode.parentNode.parentNode.remove();
-        }
         $(function () {
             $('#home').removeClass('active');
             $('#festivals').addClass('active');
@@ -159,6 +114,7 @@
             $('input[name=name]').on('input', function (e) {
                 $('#permalink').val(slugify($('input[name=name]').val()));
             });
+            $('.selectpicker').selectpicker('val', {!! $artists_ids !!});
         });
     </script>
 @endsection
