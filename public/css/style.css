@@ -19,6 +19,10 @@
 
 }
 
+.texto-comun{
+  color:black;
+}
+
 @media (min-width: 768px) { /*Para poner las fechas*/
 		.carousel-inner {
 			height: 500px;

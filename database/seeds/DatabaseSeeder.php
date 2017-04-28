@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FestivalGenreTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(PhotosTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }
