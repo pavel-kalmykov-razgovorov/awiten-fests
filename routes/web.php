@@ -10,12 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
-Route::get('/home', 'HomeController@index');
+
 
 Route::get('festivals', 'FestivalController@init');
 Route::get('festivalsLookFor', 'FestivalController@busqueda');
@@ -97,5 +99,12 @@ Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function() {
+    return view('home');
+})->middleware('forUsers');
+Route::get('/home-admin', function() {
+    return view('admin2');
+})->middleware('forAdmins');
+Route::get('/noPermision', function() {
+    return view('noPermision');
+});
