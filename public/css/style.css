@@ -1422,6 +1422,14 @@ margin-right: -30px;
 overflow: hidden;
     height: 260px;
 }
+.fondo-nombre{
+  background: black;
+  font-family: Verdana;
+  text-align: left;
+  display: inline;
+  color: white;
+  margin-left: 15px;
+}
 
 .container-a{
     position: relative;
