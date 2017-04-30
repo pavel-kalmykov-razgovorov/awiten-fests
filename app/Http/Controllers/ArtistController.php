@@ -27,24 +27,25 @@ class ArtistController extends Controller implements AdministrableController
         $generos = array();
         $genres = \App\Genre::get();
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ','_',$genre->name);
-            if ($request->has($generoSinEspacios)){
+            $generoSinEspacios = str_replace(' ', '_', $genre->name);
+            if ($request->has($generoSinEspacios)) {
                 array_push($generos, $genre->id);
             }
         }
         $request->session()->flash('generos-marcados-artista', $generos);
-        $artists = \App\Artist::join('artist_genre',"artist_genre.artist_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
+        $artists = \App\Artist::join('artist_genre', "artist_genre.artist_id", "=", "id")->whereIn('genre_id', $generos)->groupBy("id")->paginate(3);
         $artists->appends($request->except('page'));
         return view('artist.all')
             ->with('artists', $artists)
             ->with('genres', $genres);
-            
+
     }
 
-     public function busquedaConParametros(Request $request){
-         $buscado = $request->input('buscado');
-         $porPag = $request->input('paginadoA');
-         $orden = $request->input('ordenado');
+    public function busquedaConParametros(Request $request)
+    {
+        $buscado = $request->input('buscado');
+        $porPag = $request->input('paginadoA');
+        $orden = $request->input('ordenado');
         $artists = \App\Artist::where('name', 'like', '%' . $buscado . '%')->orderBy('name', $orden)->paginate($porPag);
         $genres = \App\Genre::get();
         $artists->appends($request->except('page'));
@@ -155,7 +156,6 @@ class ArtistController extends Controller implements AdministrableController
         $artist->country = $request->get('country');
         $artist->permalink = $request->get('permalink');
         $artist->saveOrFail();
-        $artist->festivals()->sync($request->get('festivals'));
         $artist->genres()->sync($request->get('genres'));
         return redirect()->action('ArtistController@DetailsAdmin', [$artist])->with('updated', true);
     }
@@ -171,5 +171,16 @@ class ArtistController extends Controller implements AdministrableController
     public function DeleteConfirm($permalink)
     {
         return redirect()->action('AdminController@ArtistsList')->with('deleted', Artist::where('permalink', $permalink)->delete());
+    }
+
+    public function ConfirmAssistance($artistPermalink, $festivalPermalink, $confirmation)
+    {
+        $confirmation = filter_var($confirmation, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
+            ->updateExistingPivot(
+                Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
+                ['confirmed' => $confirmation]);
+        //TODO implementar envio de correo de respuesta
+        return redirect()->back();
     }
 }

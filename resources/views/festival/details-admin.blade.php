@@ -28,6 +28,13 @@
                 @foreach($festival->artists as $festival_artist)
                     <li class="arrow-list-glyph">
                         <a href="{{action('ArtistController@DetailsAdmin', $festival_artist->permalink)}}">{{$festival_artist->name}}</a>
+                        @if($festival_artist->pivot->confirmed == null)
+                            <span class="label label-default">No confirmado</span>
+                        @elseif($festival_artist->pivot->confirmed == true)
+                            <span class="label label-success">Confirmado</span>
+                        @else
+                            <span class="label label-danger">Rechazado</span>
+                        @endif
                     </li>
                 @endforeach
             </ul>

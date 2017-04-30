@@ -8,7 +8,7 @@
     <meta name="author" content="">
     {{--<link rel="icon" href="../../favicon.ico">--}}
 
-    <title>@yield('title') - Awiten Fests Admin</title>
+    <title>@yield('title') Awiten Fests Admin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -18,16 +18,25 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset('css/admin.css')}}" rel="stylesheet">
+
+    <!-- Awesome Bootstrap Checkbox -->
+    <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/awesome-bootstrap-checkbox.css')}}" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap-confirmation.min.js') }}" type="text/javascript"></script>
+
+    <!--Bootstrap select -->
+    <link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet">
+    <script src="{{asset('js/bootstrap-select.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/i18n/defaults-es_ES.js')}}" type="text/javascript"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/bootstrap-confirmation.min.js') }}" type="text/javascript"></script>
     <![endif]-->
 </head>
 
@@ -75,33 +84,6 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             @section('content')
                 <h1 class="page-header">Inicio</h1>
-
-                {{--<div class="row placeholders">
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                             width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>Label</h4>
-                        <span class="text-muted">Something else</span>
-                    </div>
-                </div>--}}
             @show
         </div>
     </div>
@@ -117,8 +99,32 @@
             rootSelector: '[data-toggle=confirmation]'
         });
     });
+
     function slugify(text) {
         return text.toString().toLowerCase()
+            .replace(/έ/g, 'ε')
+            .replace(/[ύϋΰ]/g, 'υ')
+            .replace(/ό/g, 'ο')
+            .replace(/ώ/g, 'ω')
+            .replace(/ά/g, 'α')
+            .replace(/[ίϊΐ]/g, 'ι')
+            .replace(/ή/g, 'η')
+            .replace(/\n/g, ' ')
+            .replace(/á/g, 'a')
+            .replace(/é/g, 'e')
+            .replace(/í/g, 'i')
+            .replace(/ó/g, 'o')
+            .replace(/ú/g, 'u')
+            .replace(/ê/g, 'e')
+            .replace(/î/g, 'i')
+            .replace(/ô/g, 'o')
+            .replace(/è/g, 'e')
+            .replace(/ï/g, 'i')
+            .replace(/ü/g, 'u')
+            .replace(/ã/g, 'a')
+            .replace(/õ/g, 'o')
+            .replace(/ç/g, 'c')
+            .replace(/ì/g, 'i')
             .replace(/\s+/g, '-')           // Replace spaces with -
             .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -

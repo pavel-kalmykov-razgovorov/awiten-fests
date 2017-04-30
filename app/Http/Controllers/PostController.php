@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Festival;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PostController extends Controller implements AdministrableController
 {
@@ -20,17 +22,40 @@ class PostController extends Controller implements AdministrableController
 
     public function DetailsAdmin($permalink)
     {
-        return "Not yet implemented";
+        $post = Post::where('permalink', $permalink)->firstOrFail();
+        return view('post.details-admin', [
+            'column_names' => Schema::getColumnListing(strtolower(str_plural('post'))),
+            'permalink' => $permalink,
+            'post' => Post::where('permalink', $permalink)->firstOrFail()
+        ]);
     }
 
     public function Edit($permalink)
     {
-        return "Not yet implemented";
+        $post = Post::where('permalink', $permalink)->first();
+        $festivals = Festival::get(['id', 'name']);
+        return view('post.edit', [
+            'permalink' => $permalink,
+            'post' => $post,
+            'festivals' => $festivals,
+        ]);
     }
 
     public function Update(Request $request, $permalink)
     {
-        return "Not yet implemented";
+        if ($request->get('permalink', '') != $permalink) {
+            $this->validate($request, [
+                'title' => 'required',
+                'permalink' => 'required|unique:posts',
+            ]);
+        }
+        $post = Post::where('permalink', $permalink)->firstOrFail();
+        $post->title = $request->get('title');
+        $post->lead = $request->get('lead');
+        $post->body = $request->get('body');
+        $post->festival()->associate($request->get('festival_id'));
+        $post->save();
+        return redirect()->action('PostController@DetailsAdmin', [$post])->with('updated', true);
     }
 
     public function DeleteConfirm($permalink)

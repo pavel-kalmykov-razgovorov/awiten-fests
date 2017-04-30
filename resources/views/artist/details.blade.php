@@ -6,9 +6,21 @@
     <div class = "fondo-artista">   
         <div >
             <div>
-                <img style='height: 100%; width: 100%;' class = "profileHeaderBackground" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'fondo.jpg') }}">
-                     <h3  style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
-                <img class = "image-encima" src={{ asset('images/logos2/Soundcloud.png') }} alt="soundcloud" width="82" height="82" align="left">
+                <img style='height: 100%; width: 100%; z-index: -99;' class = "profileHeaderBackground" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'fondo.jpg') }}">
+                     <div>
+                        <img src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}"  width="182" height="182" align="left">
+                        <div><h3 class = "fondo-nombre">{{$artist->name}} </h3></div>
+                        </br>
+                        <div><h3 class = "fondo-nombre">{{$artist->country}} </h3></div>
+                        </br>
+                        <div class = "fondo-nombre">
+                            @forelse($artist->genres()->get(['name']) as $genre)
+                                {{$genre->name}} 
+                            @empty
+                                Ninguno
+                            @endforelse
+                        </div>
+                    </div>
              </div>   
         </div>
     </div>

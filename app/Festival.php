@@ -19,7 +19,7 @@ class Festival extends Model
     protected $fillable = ['name', 'pathLogo', 'pathCartel', 'location', 'province', 'date', 'permalink'];
 
     public function artists() {
-        return $this->belongsToMany('App\Artist');
+        return $this->belongsToMany('App\Artist')->withPivot('confirmed');
     }
 
     public function genres() {
