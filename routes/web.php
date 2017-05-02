@@ -53,12 +53,12 @@ Route::get('admin', function () {
 });
 
 //List
-Route::get('admin/entities', 'AdminController@AvailableEntities')->middleware('auth');
-Route::get('admin/artists', 'AdminController@ArtistsList')->middleware('auth');
-Route::get('admin/festivals', 'AdminController@FestivalsList')->middleware('auth');
-Route::get('admin/genres', 'AdminController@GenresList')->middleware('auth');
-Route::get('admin/posts', 'AdminController@PostsList')->middleware('auth');
-Route::get('admin/photos', 'AdminController@PhotosList')->middleware('auth');
+Route::get('admin/entities', 'AdminController@AvailableEntities');
+Route::get('admin/artists', 'AdminController@ArtistsList');
+Route::get('admin/festivals', 'AdminController@FestivalsList');
+Route::get('admin/genres', 'AdminController@GenresList');
+Route::get('admin/posts', 'AdminController@PostsList');
+Route::get('admin/photos', 'AdminController@PhotosList');
 
 //Add
 Route::get('admin/artists/add', 'ArtistController@FormNew');
@@ -101,8 +101,6 @@ Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
 Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
 Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
 
-<<<<<<< HEAD
-
 
 Auth::routes();
 Route::get('/home', function() {
@@ -114,7 +112,10 @@ Route::get('/home-admin', function() {
 Route::get('/noPermision', function() {
     return view('noPermision');
 });
-=======
+Route::get('/registradoOk', function() {
+    return view('registradoOK');
+});
+Route::get('/confirmation/{token}', 'Auth\RegisterController@confirmation');
+
 //Asistance confirmation
 Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');
->>>>>>> 4e6a709c8517952bcfba7dea072101cadc4e487b

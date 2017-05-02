@@ -6,6 +6,9 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Mail;
+use App\Mail\NewUserWelcome;
 
 class RegisterController extends Controller
 {
@@ -67,7 +70,53 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'username' => $data['username']
+            'username' => $data['username'],
+            'token' => str_random(25),
         ]);
+    }
+
+    protected function register(Request $request){
+        //$this->validator($request->all())->validate();
+
+        $data = $this->create($request->all())->toArray();
+        $data['token'] = str_random(25);
+
+        $user = User::find($data['id']);
+        $user->token = $data['token'];
+
+/*
+        Mail::send('mails.confirmation', $data, function($message) use ($data){
+            $message->to($data['email']);
+            $message->subject('Registration Confirmation');
+        });
+*/
+        $url = 'http://localhost:8000/confirmation/' . $data['token'];
+        $content = [ 'url' => $url, 'button' => 'Aqui'];
+        Mail::to($data['email'])->send(new NewUserWelcome($content));
+
+        $user->save();
+        return redirect('/registradoOk');
+        /*
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+        */
+    }
+
+    public function confirmation($token){
+        $user = User::where('token', $token)->first();
+
+        if(!is_null($user)){
+            $user->confirmed = 1;
+            $user->token = '';
+            $user->save();
+            return redirect('login')->with('status', 'Tu activación está completada');
+        }
+        return redirect('/login')->with('status','Algo ha ido mal');
     }
 }
