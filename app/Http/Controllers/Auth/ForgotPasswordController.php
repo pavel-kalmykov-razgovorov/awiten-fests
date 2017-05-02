@@ -30,11 +30,7 @@ class ForgotPasswordController extends Controller
        // $this->middleware('guest');
     }
 
-     public function toMail()
-    {
-        return (new MailMessage)
-            ->line('Recibes este correo porque recibimos una solicitud de reestablecimiento de contraseña para su cuenta')
-            ->action('Reestablecer Contraseña', url('password/reset', $this->token)) // <- this url
-            ->line('Si no solicitó reestablecer la contraseña, no responda a este mensaje.');
-    }
+   
+
+    
 }
