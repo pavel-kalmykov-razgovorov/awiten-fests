@@ -24,7 +24,7 @@ class CreatePhotosTable extends Migration
         });
     }
 
-    /**
+/**
      * Reverse the migrations.
      *
      * @return void
