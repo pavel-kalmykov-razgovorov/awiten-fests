@@ -2,7 +2,7 @@
 
 @section('mainContent')
   <div id="breadcrumb">
-		<div class="container">	
+		<div class="container hidden-xs">	
 			<div class="breadcrumb">	
                 <div class="row">
                     <div class="col-md-12">
@@ -48,7 +48,7 @@
     @if(count($festivals) != 0)
         <div class="row">
             <div class="container">
-                <div class="center col-md-2">
+                <div class="center col-md-2 hidden-xs">
                     <ul class="portfolio-filter text-center">
                         <form class="text-left" method="get" action="{{ action('FestivalController@busquedaPorGenero') }}">
                             <div class="well-sm">Generos Musicales</div>
@@ -91,7 +91,7 @@
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
                                                         <h3><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h3>
-                                                        <p class="text-muted"> {{$festival->date}} </p>
+                                                        <p class="text-muted hidden-xs"> {{$festival->date}} </p>
                                                     </div>
                                                 </div>
                                             </div>

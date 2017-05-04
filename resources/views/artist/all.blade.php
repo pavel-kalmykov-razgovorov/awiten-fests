@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('mainContent')
 <div id="breadcrumb">
-		<div class="container">	
+		<div class="container hidden-xs">	
 			<div class="breadcrumb">	
                 <div class="row">
                     <div class="col-md-12">
@@ -53,7 +53,7 @@
 @if(count($artists) != 0)
 <div class="row">
             <div class="container">
-    <div class="center col-md-2">
+    <div class="center col-md-2 hidden-xs">
         <ul class="portfolio-filter text-center">
             <form class="text-left" method="get" action="{{ action('ArtistController@busquedaPorGenero') }}">
                 <div class="well-sm">Generos Musicales</div>

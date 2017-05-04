@@ -11,9 +11,9 @@
                         <img src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}"  width="182" height="182" align="left">
                         <div><h3 class = "fondo-nombre">{{$artist->name}} </h3></div>
                         </br>
-                        <div><h3 class = "fondo-nombre">{{$artist->country}} </h3></div>
+                        <div class = "hidden-xs"><h3 class = "fondo-nombre">{{$artist->country}} </h3></div>
                         </br>
-                        <div class = "fondo-nombre">
+                        <div class = "fondo-nombre hidden-xs">
                             @forelse($artist->genres()->get(['name']) as $genre)
                                 {{$genre->name}} 
                             @empty
@@ -44,7 +44,7 @@
                     <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
                     <div class="post-thumb1"> <img  class = "lista-festivales" src="{{ asset('images/festivales/' . trim($festival->permalink) . '/' . 'logo.png') }}"></div>
              
-                    <div class="post-content1">
+                    <div class="post-content1 hidden-xs">
                       <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->date}}</a></h4>
                       <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->location}}</a></h4>
                     </div>

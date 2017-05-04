@@ -35,7 +35,7 @@
                     <div class="menu">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation"><a href="/" class="active">Home</a></li>
-                            <li role="presentation"><a href="/home">Home</a></li>
+                            <!--<li role="presentation"><a href="/home">Home</a></li>-->
                             <li role="presentation"><a href="/home-admin">Admin-Home</a></li>
                             <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals</a></li>
                             <li role="presentation"><a href="{{action('ArtistController@init')}}">Artistas</a></li>
