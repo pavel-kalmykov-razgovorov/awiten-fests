@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         if (config('database.default' ) == 'sqlite') {
             $db = app()->make('db');
             $db->connection()->getPdo()->exec("PRAGMA foreign_keys = ON" );
+            \Carbon\Carbon::setLocale(config('app.locale')); // poner las fechas en castellano
         }
     }
 

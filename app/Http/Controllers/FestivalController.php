@@ -18,7 +18,7 @@ class FestivalController extends Controller implements AdministrableController
 
 
     public function init()
-    {
+    {  
         $festivals = \App\Festival::paginate(3);
         $genres = \App\Genre::get();
         return view('festival.all')

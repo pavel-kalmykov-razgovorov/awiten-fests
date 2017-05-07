@@ -12,9 +12,9 @@
 					<ul class="event-list">
 						<li>
 							<time datetime="{{\Carbon\Carbon::parse($festival->date)->format('d/m/Y')}}">
-								<span class="day">{{\Carbon\Carbon::parse($festival->date)->format('d')}}</span>
-								<span class="month">{{\Carbon\Carbon::parse($festival->date)->format('m/Y')}}</span>
-								<span class="year">{{\Carbon\Carbon::parse($festival->date)->format('Y')}}</span>
+								<span class="day">{{$festival->date->format('j')}}</span>
+								<span class="month">{{$festival->date->format('F')}}</span>
+								<span class="year">{{$festival->date->format('Y')}}</span>
 								<span class="time">ALL DAY</span>
 							</time>
 							<div class="info">

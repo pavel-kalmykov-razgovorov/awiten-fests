@@ -1,6 +1,7 @@
 @extends('welcome')
 
 @section('mainContent')
+               
   <div id="breadcrumb">
 		<div class="container hidden-xs">	
 			<div class="breadcrumb">	
@@ -84,14 +85,18 @@
                         <div class="center col-md-12">
                             <div class="portfolio-items">
                                 @foreach($festivals as $festival)
-                                    <div class="portfolio-item festival col-md-4 col-sm-6">
+                                    <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
                                         <div class="recent-work-wrap">
                                             <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto"><img class="img-responsive imagen-festival" src="{{$festival->pathLogo}}" ></a>
                                             <div class="overlay">
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
-                                                        <h3><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h3>
-                                                        <p class="text-muted hidden-xs"> {{$festival->date}} </p>
+                                                        <h3><a href="/festival/{{$festival->permalink}}"><strong>{{$festival->name}}</strong></a></h3>
+                                                        <p class="text-muted hidden-xs"> 
+                                                            <div class="alert alert-success">
+                                                            {{$festival->date->format('l j \\d\\e F Y')}}
+                                                            </div> 
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>

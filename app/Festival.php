@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Jenssegers\Date\Date;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,5 +39,13 @@ class Festival extends Model
     public function getRouteKey()
     {
         return $this->permalink;
+    }
+
+    public function getDateAttribute($date){
+        return new Date($date);
+    }
+
+     public function getCreatedAdAttribute($date){
+        return new Date($date);
     }
 }
