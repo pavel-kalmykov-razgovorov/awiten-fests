@@ -6,7 +6,11 @@
     <div class = "fondo-artista">   
         <div >
             <div>
-                <img style='height: 100%; width: 100%; z-index: -99;' class = "profileHeaderBackground" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'fondo.jpg') }}">
+            <picture>
+                <source media="(min-width: 410px)" srcset="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'fondo.jpg') }}">
+                
+                <img  style='height: 100%; width: 100%; z-index: -99;' class = "profileHeaderBackground">
+            </picture>
                      <div>
                         <img src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}"  width="182" height="182" align="left">
                         <div><h3 class = "fondo-nombre">{{$artist->name}} </h3></div>
@@ -25,7 +29,6 @@
         </div>
     </div>
 </div>
-
 </br>
     <a href="{{$artist->soundcloud}}">
         <img src={{ asset('images/logos2/Soundcloud.png') }} alt="soundcloud" width="82" height="82" align="left">

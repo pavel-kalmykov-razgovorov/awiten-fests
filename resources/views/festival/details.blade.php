@@ -8,7 +8,7 @@
 					<h1>{{$festival->name}}</h1>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 hidden-xs">
 					<ul class="event-list">
 						<li>
 							<time datetime="{{\Carbon\Carbon::parse($festival->date)->format('d/m/Y')}}">
@@ -25,7 +25,7 @@
 					</ul>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row hidden-xs">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
 					@if ($festival->photos()->count() != 0)
@@ -57,7 +57,7 @@
 			</a>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row hidden-xs">
 		<div class="col-md-10">
 			<h2>Artistas Invitados</h2>
 			@forelse($artistas as $artist)
@@ -87,6 +87,25 @@
 			</div>
     	</div>
 	</div>
+
+<div class="row visible-xs">
+			<h2>Artistas Invitados</h2>
+			@forelse($artistas as $artist)
+							
+                    <div> <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}" style="width: 100%; height: 100%">
+										<h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a></h4>
+										</div>
+								
+
+			
+			@empty
+				<div class="alert alert-danger">
+					<h1>No hay artistas aún.</1>
+				</div>
+			@endforelse
+			
+	</div>
+
 	<div class="row">
       <div class="panel panel-default">
         <div class="panel-heading text-center">

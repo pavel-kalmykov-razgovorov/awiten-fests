@@ -106,6 +106,28 @@
                 </div>
             </div>
         </div>
+        <div class="row visible-xs">
+            <div class="center col-md-12">
+                <div class="portfolio-items">
+                    @foreach($artists as $artist)
+                        <div class="portfolio-item col-md-4 col-sm-6 hidden-xs">
+                            <div class="recent-work-wrap">
+                                <a href="{{action('ArtistController@Details', $artist->permalink)}}">
+                                    <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
+                                </a>
+                                <div class="overlay">
+                                    <div class="recent-work-inner">
+                                        <div class="portfolio-caption">
+                                            <h3><a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach    
+                </div>
+            </div>
+        </div>
         </div>
         </div>
     </div>
