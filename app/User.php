@@ -33,4 +33,16 @@ class User extends Authenticatable
     {
       $this->notify(new MyResetPassword($token));
     }
+
+    public function isAdmin(){
+        return $this->typeOfUser == 'admin';
+    }
+
+    public function isPromoter(){
+        return $this->typeOfUser == 'promoter';
+    }
+
+    public function isManager(){
+        return $this->typeOfUser == 'manager';
+    }
 }

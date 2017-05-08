@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 use Auth;
 use Closure;
 
-class OnlyForUsers
+class OnlyForAdmin
 {
-
     /**
      * Handle an incoming request.
      *
@@ -16,11 +15,11 @@ class OnlyForUsers
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->check()){
-          return redirect('/noPermision');
-        }else if(Auth::guest()){
-          return redirect('/login');
-        }
+      if(Auth::guest()){
+        return redirect('/login');
+      } else if(!Auth::user()->isAdmin()){
+        return redirect('/noPermision');
+      }
         return $next($request);
     }
 }

@@ -105,10 +105,11 @@ Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
 Auth::routes();
 Route::get('/home', function() {
     return view('home');
-})->middleware('forUsers');
+})->middleware('forManager');
 Route::get('/home-admin', function() {
     return view('admin2');
-})->middleware('forAdmins');
+})->middleware('forAdmin');
+//->middleware('forPromoter');
 Route::get('/noPermision', function() {
     return view('noPermision');
 });
