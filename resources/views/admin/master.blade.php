@@ -95,11 +95,18 @@
             <ul class="nav nav-sidebar">
                 <li id="home" class="active"><a href="{{action('AdminController@AvailableEntities')}}">Inicio<span
                                 class="sr-only">(current)</span></a></li>
-                <li id="artists"><a href="{{action('AdminController@ArtistsList')}}">Artistas</a></li>
-                <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">Festivales</a></li>
-                <li id="genres"><a href="{{action('AdminController@GenresList')}}">Géneros</a></li>
-                <li id="posts"><a href="{{action('AdminController@PostsList')}}">Noticias de festival</a></li>
-                <li id="photos"><a href="{{action('AdminController@PhotosList')}}">Fotos de festival</a></li>
+                @if (Auth::check() && Auth::user()->isAdmin())
+                    <li id="artists"><a href="/">Usuarios</a></li>
+                    <li id="genres"><a href="{{action('AdminController@GenresList')}}">Géneros</a></li>
+                @endif
+                @if (Auth::check() && Auth::user()->isManager())
+                    <li id="artists"><a href="{{action('AdminController@ArtistsList')}}">Artistas</a></li>
+                @endif
+                @if (Auth::check() && Auth::user()->isPromoter())
+                    <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">Festivales</a></li>    
+                    <li id="posts"><a href="{{action('AdminController@PostsList')}}">Noticias de festival</a></li>
+                    <li id="photos"><a href="{{action('AdminController@PhotosList')}}">Fotos de festival</a></li>
+                @endif
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

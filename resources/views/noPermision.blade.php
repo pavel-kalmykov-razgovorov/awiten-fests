@@ -1,6 +1,7 @@
-@extends('welcome')
+@extends('admin.master')
+@section('title', 'Sin Permisos')
 
-@section('mainContent')
+@section('content')
 <div class="arreglar-margen">
 <div class="container">
     <div class="row">

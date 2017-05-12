@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 
 Auth::routes();
-
-
 Route::get('festivals', 'FestivalController@init');
 Route::get('festivalsLookFor', 'FestivalController@busqueda');
 Route::get('festivalsLookForGenre', 'FestivalController@busquedaPorGenero');
@@ -28,6 +26,7 @@ Route::get('artistsLookFor', 'ArtistController@busqueda');
 Route::get('artistsLookForParametrized', 'ArtistController@busquedaConParametros');
 Route::get('artistsLookForGenre', 'ArtistController@busquedaPorGenero');
 Route::get('artists', 'ArtistController@init');
+
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::get('artist/{permalink}', 'ArtistController@Details');
 Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
@@ -54,53 +53,56 @@ Route::get('admin', function () {
 
 //List
 Route::get('admin/entities', 'AdminController@AvailableEntities');
-Route::get('admin/artists', 'AdminController@ArtistsList');
-Route::get('admin/festivals', 'AdminController@FestivalsList');
-Route::get('admin/genres', 'AdminController@GenresList');
-Route::get('admin/posts', 'AdminController@PostsList');
-Route::get('admin/photos', 'AdminController@PhotosList');
-
-//Add
-Route::get('admin/artists/add', 'ArtistController@FormNew');
-Route::get('admin/festivals/add', 'FestivalController@FormNew');
-Route::get('admin/genres/add', 'GenreController@FormNew');
-Route::get('admin/posts/add', 'PostController@FormNew');
-Route::get('admin/photos/add', 'PhotoController@FormNew');
-
-//Create
-Route::post('admin/genres/create', 'GenreController@Create');
-Route::post('artist/new/create', 'ArtistController@Create');
-Route::post('festivals/new/create', 'FestivalController@Create');
-
-
-//Details
-Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
-Route::get('admin/festivals/details/{permalink}', 'FestivalController@DetailsAdmin');
-Route::get('admin/genres/details/{permalink}', 'GenreController@DetailsAdmin');
-Route::get('admin/posts/details/{permalink}', 'PostController@DetailsAdmin');
-Route::get('admin/photos/details/{permalink}', 'PhotoController@DetailsAdmin');
-
-//Edit
-Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
-Route::get('admin/festivals/edit/{permalink}', 'FestivalController@Edit');
 /*Route::get('admin/festivals/edit/{permalink}/artists', function ($permalink) {
     return '<pre>' . \App\Festival::where('permalink', $permalink)
             ->firstOrFail()->artists()->get(['id'])
             ->map(function ($item, $key) { return $item->id; }) . '</pre>';
 });*/
-Route::get('admin/genres/edit/{permalink}', 'GenreController@Edit');
-Route::get('admin/posts/edit/{permalink}', 'PostController@Edit');
-Route::get('admin/photos/edit/{permalink}', 'PhotoController@Edit');
 
-//Update
-Route::put('admin/genres/update/{permalink}', 'GenreController@Update');
-Route::put('admin/posts/update/{permalink}', 'PostController@Update');
 
-//Delete
-Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
-Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
-Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
+Route::group(['middleware' => 'forAdmin'], function() {
+    Route::get('admin/genres', 'AdminController@GenresList');
+    Route::post('admin/genres/create', 'GenreController@Create');
+    Route::get('admin/genres/edit/{permalink}', 'GenreController@Edit');
+    Route::get('admin/genres/add', 'GenreController@FormNew');
+    Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
+});
 
+Route::group(['middleware' => 'forManager'], function() {
+    Route::get('admin/artists', 'AdminController@ArtistsList');
+    Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
+    Route::get('admin/artists/add', 'ArtistController@FormNew');
+    Route::post('artist/new/create', 'ArtistController@Create');
+    Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
+    Route::get('admin/genres/details/{permalink}', 'GenreController@DetailsAdmin');
+});
+
+Route::group(['middleware' => 'forPromoter'], function() {
+    //List
+    Route::get('admin/festivals', 'AdminController@FestivalsList');
+    Route::get('admin/posts', 'AdminController@PostsList');
+    Route::get('admin/photos', 'AdminController@PhotosList');
+    //Add
+    Route::get('admin/festivals/add', 'FestivalController@FormNew');
+    Route::get('admin/posts/add', 'PostController@FormNew');
+    Route::get('admin/photos/add', 'PhotoController@FormNew');
+    //Create
+    Route::post('festivals/new/create', 'FestivalController@Create');
+    //Details
+    Route::get('admin/festivals/details/{permalink}', 'FestivalController@DetailsAdmin');
+    Route::get('admin/posts/details/{permalink}', 'PostController@DetailsAdmin');
+    Route::get('admin/photos/details/{permalink}', 'PhotoController@DetailsAdmin');
+    //Edit
+    Route::get('admin/festivals/edit/{permalink}', 'FestivalController@Edit');
+    Route::get('admin/posts/edit/{permalink}', 'PostController@Edit');
+    Route::get('admin/photos/edit/{permalink}', 'PhotoController@Edit');
+    //Update
+    Route::put('admin/genres/update/{permalink}', 'GenreController@Update');
+    Route::put('admin/posts/update/{permalink}', 'PostController@Update');
+    //Delete
+    Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
+    Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
+});
 
 Auth::routes();
 Route::get('/home', function() {
@@ -113,10 +115,11 @@ Route::get('/home-admin', function() {
 Route::get('/noPermision', function() {
     return view('noPermision');
 });
-Route::get('/registradoOk', function() {
-    return view('registradoOK');
-});
 Route::get('/confirmation/{token}', 'Auth\RegisterController@confirmation');
 
 //Asistance confirmation
 Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');
+
+
+
+
