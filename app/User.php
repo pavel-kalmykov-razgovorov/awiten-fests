@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','username', 'confirmed'
+        'name', 'email', 'password','username', 'confirmed', 'typeOfUser', 'token'
     ];
 
     /**
@@ -37,6 +37,7 @@ class User extends Authenticatable
     public function isAdmin(){
         return $this->typeOfUser == 'admin';
     }
+
 
     public function isPromoter(){
         return $this->typeOfUser == 'promoter';

@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\NewUserWelcome;
+use App\Mail\AdminConfirmManager;
+use App\Notifications\AdminConfirmUser;
+use App\Notifications\UserRegistered;
+use App\Notifications\UserAutoConfirm;
+use App\Notifications\UserConfirmed;
 
 class RegisterController extends Controller
 {
@@ -64,7 +69,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    public function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
@@ -72,31 +77,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'username' => $data['username'],
             'token' => str_random(25),
+            'typeOfUser' =>  $data['tipo'],
         ]);
     }
 
-    protected function register(Request $request){
-        //$this->validator($request->all())->validate();
-
-        $data = $this->create($request->all())->toArray();
-        $data['token'] = str_random(25);
-
-        $user = User::find($data['id']);
-        $user->token = $data['token'];
-
 /*
-        Mail::send('mails.confirmation', $data, function($message) use ($data){
-            $message->to($data['email']);
-            $message->subject('Registration Confirmation');
-        });
-*/
-        $url = 'http://localhost:8000/confirmation/' . $data['token'];
-        $content = [ 'url' => $url, 'button' => 'Aqui'];
-        Mail::to($data['email'])->send(new NewUserWelcome($content));
-
-        $user->save();
-        return redirect('/registradoOk');
-        /*
+public function register(Request $request)
+    {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -105,7 +92,42 @@ class RegisterController extends Controller
 
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
-        */
+    }
+        // $user = User::find($data['id']);
+            // $user->token = $data['token'];
+                Mail::send('mails.confirmation', $data, function($message) use ($data){
+                    $message->to($data['email']);
+                    $message->subject('Registration Confirmation');
+                });
+                $url = 'http://localhost:8000/confirmation/' . $data['token'];
+        $content = [ 'url' => $url, 'button' => 'Aqui'];
+        Mail::to($data['email'])->send(new NewUserWelcome($content));
+                //Mail::to('Migala26@hotmail.com')->send(new AdminConfirmManager($content));
+
+*/
+
+
+    public function register(Request $request){
+        $this->validator($request->all())->validate();
+        $info = $request->all();
+        if($request->has('tipo-usuario')){
+          $info['tipo'] = 'manager';
+        } else{
+          $info['tipo'] = 'promoter';
+        }
+        $data = $this->create($info)->toArray();     
+        $url = 'http://localhost:8000/confirmation/' . $data['token'];
+        $content = [ 'url' => $url, 'user' => $data['username'], 'name' => $data['name'], 'email' => $data['email']];
+        $user = User::find($data['id']);
+        if($data['typeOfUser'] == 'promotor'){
+            $admin = User::find(2);
+            $admin->notify(new AdminConfirmUser($content));
+            $user->notify(new UserRegistered());
+        } else {
+            $user->notify(new UserAutoConfirm($content));
+        }
+        
+        return redirect('/register')->with('registro-status', 'Te has registrado correctamente. Solo falta la autorización.');
     }
 
     public function confirmation($token){
@@ -114,6 +136,7 @@ class RegisterController extends Controller
         if(!is_null($user)){
             $user->confirmed = 1;
             $user->token = '';
+            $user->notify(new UserConfirmed());
             $user->save();
             return redirect('login')->with('status', 'Tu activación está completada');
         }

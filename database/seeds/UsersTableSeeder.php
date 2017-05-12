@@ -18,16 +18,18 @@ class UsersTableSeeder extends Seeder
                 'username' => 'Promotor',
                 'email' => 'ejemplo@gmail.com',
                 'password' => bcrypt('1234'),
-                'typeOfUser' => 'promoter'],  
+                'typeOfUser' => 'promoter',
+                'confirmed' => 1],  
             ]
         );
           DB::table('users')->insert(
             [
                ['name' => 'Usuario',
                 'username' => 'Admin',
-                'email' => 'otro@gmail.com',
+                'email' => 'awitenfest@gmail.com',
                 'password' => bcrypt('1234'),
-                'typeOfUser' => 'admin'],
+                'typeOfUser' => 'admin',
+                'confirmed' => 1],
             ]
         );
         DB::table('users')->insert(
@@ -36,7 +38,8 @@ class UsersTableSeeder extends Seeder
                 'username' => 'Representante',
                 'email' => 'sds@gmail.com',
                 'password' => bcrypt('1234'),
-                'typeOfUser' => 'manager']
+                'typeOfUser' => 'manager',
+                'confirmed' => 1]
             ]
         );
     }

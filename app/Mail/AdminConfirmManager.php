@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewUserWelcome extends Mailable
+class AdminConfirmManager extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,9 +18,11 @@ class NewUserWelcome extends Mailable
      */
     public function __construct($content)
     {
-        $this->content = $content;
         $this->actionUrl = $content['url'];
-     }
+        $this->name = $content['name'];
+        $this->user = $content['user'];
+        $this->email = $content['email'];
+    }
 
     /**
      * Build the message.
@@ -29,6 +31,6 @@ class NewUserWelcome extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.newuserwelcome');
+        return $this->markdown('emails.user.newuserforadmin', ['name' => $name]);
     }
 }

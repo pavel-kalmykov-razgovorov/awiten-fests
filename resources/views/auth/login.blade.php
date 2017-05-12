@@ -1,6 +1,7 @@
-@extends('welcome')
+@extends('admin.master')
+@section('title', 'Login Usuario')
 
-@section('mainContent')
+@section('content')
 <div class="arreglar-margen">
 <div class="container">
     <div class="row">
@@ -11,7 +12,7 @@
                     @if ($status = Session::get('status'))
                         <div class="alert alert-info">
                             {{ $status }}
-                        <div>
+                        </div>
                     @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
@@ -46,11 +47,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox texto-comun">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                        <input type="checkbox" name="remember"  autocomplete="off"  class="checkbox" {{ old('remember') ? 'checked' : '' }}>Remember Me
                                     </label>
-                                </div>
                             </div>
                         </div>
 

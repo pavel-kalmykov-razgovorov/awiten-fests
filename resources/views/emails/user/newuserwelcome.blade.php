@@ -1,7 +1,7 @@
 @component('mail::message')
 # Bienvenido a Awiten Fest
 
-Preparate para *disfrutar* de los **mejores festivales**.
+Se ha registrado {{$name}} con el usuario {{$user}}
 
 @component('mail::button', ['url' => '{{$actionUrl}}'])
 Validar Usuario
