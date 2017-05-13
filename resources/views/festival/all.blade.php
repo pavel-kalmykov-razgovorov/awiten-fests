@@ -103,6 +103,7 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                	<a href='{{action('PagesController@getContact')}}'>Leer más</a>
                             </div>
                         </div>
                     </div>

@@ -44,6 +44,10 @@ Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConf
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
 Route::get('festival/mostrarPost/{id}', 'FestivalController@MostrarNoticia');
 
+
+Route::get('/contacto', 'PagesController@getContact');
+Route::post('/contacto', 'PagesController@postContact');
+
 /*
  * ADMIN
  */
