@@ -93,7 +93,7 @@
                                                     <div class="portfolio-caption">
                                                         <h3><a href="/festival/{{$festival->permalink}}"><strong>{{$festival->name}}</strong></a></h3>
                                                         <p class="text-muted hidden-xs"> 
-                                                            <div class="alert alert-success">
+                                                            <div class="alert alert-success hidden-xs">
                                                             {{$festival->date->format('l j \\d\\e F Y')}}
                                                             </div> 
                                                         </p>
@@ -103,7 +103,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                	<a href='{{action('PagesController@getContact')}}'>Leer más</a>
+                                	
                             </div>
                         </div>
                     </div>

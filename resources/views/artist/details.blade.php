@@ -48,7 +48,7 @@
                     <div class="post-thumb1"> <img  class = "lista-festivales" src="{{ asset('images/festivales/' . trim($festival->permalink) . '/' . 'logo.png') }}"></div>
              
                     <div class="post-content1 hidden-xs">
-                      <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->date}}</a></h4>
+                      <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->date->toDateString()}}</a></h4>
                       <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->location}}</a></h4>
                     </div>
                 </div>

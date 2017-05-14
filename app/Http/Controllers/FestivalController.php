@@ -9,6 +9,9 @@ use Carbon\Carbon;
 use App\Post;
 use Illuminate\Http\Request;
 use Schema;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
 
 
 class FestivalController extends Controller implements AdministrableController
@@ -97,6 +100,8 @@ class FestivalController extends Controller implements AdministrableController
                 }
             }
         }
+
+        
         $request->session()->flash('genres', $genres);
         $request->session()->flash('artists', $request->get('artists', []));
         $this->validate($request, [
@@ -104,6 +109,31 @@ class FestivalController extends Controller implements AdministrableController
             'permalink' => 'required|unique:festivals',
             'date' => 'date_format:d/m/Y'
         ]);
+
+
+        $artists_id = $request->get('artists', []);
+        foreach ($artists_id as $artist_id) {
+            $datosArtistas = Artist::findOrFail($artist_id);
+            foreach ($datosArtistas->festivals as $festival){
+                if($festival->date->toDateString() == Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString()){
+                    $rules['unreal_input'] = 'required'; // a confusing error in your errors list...
+                    $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival->name . '.';
+                    $validator = Validator::make($request->all(), $rules,$messages);
+                    if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
+
+                    /*$validator = Validator::make($request->all(), [
+                        'name' => 'required|max:11'
+                    ]);
+                    
+                    if ($validator->fails()) {
+                        $validator->getMessageBag()->add('artist', 'Estas sobrecargando al artistas'); 
+                        return Redirect::back()->withErrors($validator)->withInput();
+                    }
+                    */
+                }
+            }  
+        }
+        
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
