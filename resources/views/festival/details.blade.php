@@ -63,11 +63,20 @@
 			@forelse($artistas as $artist)
 			<div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
             	<div class="recent-work-wrap">
-						<img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
+							@if ($artist->pivot->confirmed == "1")
+								<img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
+							@elseif($artist->pivot->confirmed == null)
+								<img class = "imagen-artista" src="{{ asset('images/artistas/pendiente.png') }}" >
+							@endif
+						
 					<div class="overlay">
                     	<div class="recent-work-inner">
                              <div class="portfolio-caption">
+														 @if ($artist->pivot->confirmed == "1")
                              	<h3><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a></h3>
+														 @elseif($artist->pivot->confirmed == null)
+														  <h3>Próximamente</h3>
+														 @endif
                             </div>
                        </div>
                   </div>
@@ -91,10 +100,16 @@
 <div class="row visible-xs">
 			<h2>Artistas Invitados</h2>
 			@forelse($artistas as $artist)
-							
-                    <div> <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}" style="width: 100%; height: 100%">
-										<h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a></h4>
+							@if ($artist->pivot->confirmed == "1")
+										<div> <img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}" style="width: 100%; height: 100%">
+										<h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name }}</a></h4>
 										</div>
+							@elseif($artist->pivot->confirmed == null)
+										<div> <img class = "imagen-artista" src="{{ asset('images/artistas/pendiente.png') }}" style="width: 100%; height: 100%">
+										<h4>PROXIMAMENTE</h4>
+										</div>
+							@endif
+                    
 								
 
 			
