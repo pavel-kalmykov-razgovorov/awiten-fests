@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -91,6 +92,8 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Create(Request $request)
     {
+        //No debería dejar entrar si el usuario no está logeado, pero por si acaso
+        if (!Auth::user()) return redirect()->back()->withErrors('auth', 'User not authenticated');
         $genres_id = $request->get('genres', []);
         $genres = Genre::get(['id', 'name']);
         foreach ($genres as $genre) {
@@ -131,7 +134,7 @@ class FestivalController extends Controller implements AdministrableController
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
             //Obtener manager del artista
-            $admin = User::find(2);
+            $admin = User::find(1);
             
             $content = [ 'url' => 'http://localhost:8000/admin/artists/confirm/hardwell_b_true/', 'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
@@ -146,7 +149,8 @@ class FestivalController extends Controller implements AdministrableController
             'province' => $request->get('province'),
             'date' => Carbon::createFromFormat('d/m/Y',
                 $request->get('date') ?? Carbon::now()->format('d/m/Y')),
-            'permalink' => $request->get('permalink')
+            'permalink' => $request->get('permalink'),
+            'promoter_id' => Auth::user()->id
         ]);
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));
