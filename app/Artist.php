@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Artist extends Model
 {
-    protected $fillable = ['name', 'soundcloud', 'website', 'country', 'permalink'];
+    protected $fillable = ['name', 'soundcloud', 'website', 'country', 'permalink', 'manager_id'];
 
     public function festivals() {
         return $this->belongsToMany('App\Festival')->withPivot('confirmed');

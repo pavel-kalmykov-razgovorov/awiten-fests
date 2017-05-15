@@ -7,6 +7,7 @@ use App\Festival;
 use App\Genre;
 use Illuminate\Http\Request;
 use Schema;
+use Illuminate\Support\Facades\Auth;
 
 class ArtistController extends Controller implements AdministrableController
 {
@@ -69,6 +70,7 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Create(Request $request)
     {
+        if (!Auth::user()) return redirect()->back()->withErrors('auth', 'User not authenticated');
         $genres_id = $request->get('genres', []);
         $genres = Genre::get(['id', 'name']);
         foreach ($genres as $genre) {
@@ -92,7 +94,8 @@ class ArtistController extends Controller implements AdministrableController
             'soundcloud' => $request->get('soundcloud'),
             'website' => $request->get('website'),
             'country' => $request->get('country'),
-            'permalink' => $request->get('permalink')
+            'permalink' => $request->get('permalink'),
+            'manager_id' => Auth::user()->id
         ]);
         $artist->saveOrFail();
         //Al nuevo artista le pongo como sus festivales los que recibe de los select
