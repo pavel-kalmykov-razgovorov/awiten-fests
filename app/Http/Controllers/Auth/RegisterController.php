@@ -119,7 +119,7 @@ public function register(Request $request)
         $url = 'http://localhost:8000/confirmation/' . $data['token'];
         $content = [ 'url' => $url, 'user' => $data['username'], 'name' => $data['name'], 'email' => $data['email']];
         $user = User::find($data['id']);
-        if($data['typeOfUser'] == 'promotor'){
+        if($data['typeOfUser'] == 'promoter'){
             $admin = User::find(2);
             $admin->notify(new AdminConfirmUser($content));
             $user->notify(new UserRegistered());
