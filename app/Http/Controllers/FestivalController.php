@@ -7,10 +7,12 @@ use App\Festival;
 use App\Genre;
 use Carbon\Carbon;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\ConfirmacionAsistenciaEvento;
 
 
 
@@ -121,18 +123,20 @@ class FestivalController extends Controller implements AdministrableController
                     $validator = Validator::make($request->all(), $rules,$messages);
                     if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
 
-                    /*$validator = Validator::make($request->all(), [
-                        'name' => 'required|max:11'
-                    ]);
-                    
-                    if ($validator->fails()) {
-                        $validator->getMessageBag()->add('artist', 'Estas sobrecargando al artistas'); 
-                        return Redirect::back()->withErrors($validator)->withInput();
-                    }
-                    */
                 }
             }  
         }
+
+        $artists_id = $request->get('artists', []);
+        foreach ($artists_id as $artist_id) {
+            $datosArtistas = Artist::findOrFail($artist_id);
+            //Obtener manager del artista
+            $admin = User::find(2);
+            
+            $content = [ 'url' => 'http://localhost:8000/admin/artists/confirm/hardwell_b_true/', 'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
+            $admin->notify(new ConfirmacionAsistenciaEvento($content));
+        }
+            
         
         $festival = new Festival([
             'name' => $request->get('name'),
