@@ -41,20 +41,16 @@
     <h3  style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
     <li>   
         <ul> 
-            @forelse($artist->festivals as $festival)
+            @forelse($artist->festivals()->get(['permalink', 'name', 'location', 'date']) as $festival)
                 <div class="post-container1">
-                @if ($festival->pivot->confirmed == "1")
+
                     <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
                     <div class="post-thumb1"> <img  class = "lista-festivales" src="{{ asset('images/festivales/' . trim($festival->permalink) . '/' . 'logo.png') }}"></div>
+             
                     <div class="post-content1 hidden-xs">
                       <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->date->toDateString()}}</a></h4>
                       <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->location}}</a></h4>
                     </div>
-                @elseif($festival->pivot->confirmed == null)
-                    <h4>PRÓXIMAMENTE</h4>
-                    <div class="post-thumb1"> <img  class = "lista-festivales"  src="{{ asset('images/festivales/pendiente.png') }}"></div>
-                @endif
-                    
                 </div>
                 
             @empty
