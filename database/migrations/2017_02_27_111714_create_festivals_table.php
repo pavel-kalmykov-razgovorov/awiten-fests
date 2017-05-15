@@ -23,7 +23,8 @@ class CreateFestivalsTable extends Migration
             $table->datetime('date')->nullable();
             $table->string('province')->nullable();
             $table->string('permalink')->unique();
-
+            $table->integer('promoter_id')->unsigned();
+            $table->foreign('promoter_id')->references('id')->on('users')->onDelete('cascade');
             
         });
     }

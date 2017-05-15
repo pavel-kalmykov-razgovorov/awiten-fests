@@ -23,6 +23,8 @@ class CreateArtistsTable extends Migration
             $table->string('pathProfile')->nullable();
             $table->string('pathHeader')->nullable();
             $table->string('permalink')->unique();
+            $table->integer('manager_id')->unsigned();
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
