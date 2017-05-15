@@ -181,6 +181,7 @@ class ArtistController extends Controller implements AdministrableController
                 Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
                 ['confirmed' => $confirmation]);
         //TODO implementar envio de correo de respuesta
+        
         return redirect()->back();
     }
 }

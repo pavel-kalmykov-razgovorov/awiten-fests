@@ -133,7 +133,10 @@ class FestivalController extends Controller implements AdministrableController
             //Obtener manager del artista
             $admin = User::find(2);
             
-            $content = [ 'url' => 'http://localhost:8000/admin/artists/confirm/hardwell_b_true/', 'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
+            
+            $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_true/', 
+            'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_false/',
+            'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
         }
             
@@ -146,7 +149,7 @@ class FestivalController extends Controller implements AdministrableController
             'province' => $request->get('province'),
             'date' => Carbon::createFromFormat('d/m/Y',
                 $request->get('date') ?? Carbon::now()->format('d/m/Y')),
-            'permalink' => $request->get('permalink')
+            'permalink' => $request->get('permalink'),
         ]);
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));
