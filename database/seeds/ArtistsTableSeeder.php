@@ -18,6 +18,7 @@ class ArtistsTableSeeder extends Seeder
         DB::table('artists')->insert(
             [
                 ['name' => 'Joris Voorn', 'soundcloud' => 'https://soundcloud.com/joris-voorn', 'website' => 'http://www.jorisvoorn.com/', 'country' => 'Holanda', 'permalink' => 'joris-voorn', 'manager_id' => $managers_ids[rand(0, count($managers_ids)-1)]],
+                ['name' => 'DJ Tremor', 'soundcloud' => 'https://soundcloud.com/djtremoor', 'website' => 'http://www.pordede.com/', 'country' => 'Spain', 'permalink' => 'dj-tremor', 'manager_id' => $managers_ids[rand(0, count($managers_ids)-1)]],
                 ['name' => 'Paco Osuna', 'soundcloud' => 'https://soundcloud.com/paco-osuna', 'website' => 'http://www.pacoosuna.com/', 'country' => 'España', 'permalink' => 'paco-osuna', 'manager_id' => $managers_ids[rand(0, count($managers_ids)-1)]],
                 ['name' => 'Richie Hawtin', 'soundcloud' => 'https://soundcloud.com/richiehawtin', 'website' => 'http://plastikman.com/', 'country' => 'Canadá', 'permalink' => 'richie-hawtin', 'manager_id' => $managers_ids[rand(0, count($managers_ids)-1)]],
                 ['name' => 'Carl Cox', 'soundcloud' => 'https://soundcloud.com/carl-cox', 'website' => 'http://www.carlcox.com/', 'country' => 'Estados Unidos', 'permalink' => 'carl-cox', 'manager_id' => $managers_ids[rand(0, count($managers_ids)-1)]],
