@@ -42,7 +42,8 @@ class UserConfirmed extends Notification
     {
         return (new MailMessage)
                     ->line('Felicidades, ya estás registrado en Awiten Fest')
-                    ->action('Entrar', url('/login'));
+                    ->action('Entrar', url('/login'))
+                    ->subject('Confirmacion de Usuario Registrado');
     }
 
     /**

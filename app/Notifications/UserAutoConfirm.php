@@ -47,7 +47,7 @@ class UserAutoConfirm extends Notification
                     ->line('Bienvenido ' . $this->name . ' a Awiten Fests.')
                     ->line('Peprarado para encontrar los mejores festivales.')
                     ->action('Verificar Mi Usuario', $this->actionUrl)
-                    ->subject('AutoConfirmacion');
+                    ->subject('Auto-Validacion de Usuario');
     }
 
     /**

@@ -81,31 +81,6 @@ class RegisterController extends Controller
         ]);
     }
 
-/*
-public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
-    }
-        // $user = User::find($data['id']);
-            // $user->token = $data['token'];
-                Mail::send('mails.confirmation', $data, function($message) use ($data){
-                    $message->to($data['email']);
-                    $message->subject('Registration Confirmation');
-                });
-                $url = 'http://localhost:8000/confirmation/' . $data['token'];
-        $content = [ 'url' => $url, 'button' => 'Aqui'];
-        Mail::to($data['email'])->send(new NewUserWelcome($content));
-                //Mail::to('Migala26@hotmail.com')->send(new AdminConfirmManager($content));
-
-*/
-
 
     public function register(Request $request){
         $this->validator($request->all())->validate();
@@ -120,7 +95,7 @@ public function register(Request $request)
         $content = [ 'url' => $url, 'user' => $data['username'], 'name' => $data['name'], 'email' => $data['email']];
         $user = User::find($data['id']);
         if($data['typeOfUser'] == 'promoter'){
-            $admin = User::find(2);
+            $admin = User::where('typeOfUser', '=', 'admin')->first();
             $admin->notify(new AdminConfirmUser($content));
             $user->notify(new UserRegistered());
         } else {
