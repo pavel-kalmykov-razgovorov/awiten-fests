@@ -22,6 +22,7 @@ class ConfirmacionAsistenciaEvento extends Notification
         //joseph-capriati_awakenings_true
         $this->actionUrlok = $content['urlok'];
         $this->actionUrlnoOk = $content['urlnoOk'];
+        $this->actionUrlShow = $content['urlShow'];
         $this->nameArtist = $content['nameArtist'];
         $this->fecha = $content['fecha'];
         $this->nameFestival = $content['nameFestival'];
@@ -48,9 +49,9 @@ class ConfirmacionAsistenciaEvento extends Notification
     {
         return (new MailMessage)
                     ->line('El artistas ' . $this->nameArtist . ' tiene una cita el ' . $this->fecha . ' en el festival ' . $this->nameFestival . ' ¡Confirma su asistencia!')
-                    ->action('Confirmacion', $this->actionUrlok)
-                    ->action('Rechazar', $this->actionUrlnoOk)
-                    ->line('Compruebe los datos antes de validar al usuario');
+                    ->action('Confirmar', $this->actionUrlok)
+                    ->line($this->actionUrlnoOk)
+                    ->line($this->actionUrlShow);
     }
 
     /**
