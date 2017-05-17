@@ -6,6 +6,8 @@ use App\Artist;
 use App\Festival;
 use App\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Schema;
 use Illuminate\Support\Facades\Auth;
 
@@ -186,5 +188,10 @@ class ArtistController extends Controller implements AdministrableController
         //TODO implementar envio de correo de respuesta
         
         return redirect()->back();
+    }
+
+    public function GetArtistImage($permalink, $filename) {
+        $file = Storage::disk('local')->get("artists/$permalink/$filename");
+        return new Response($file, 200);
     }
 }

@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\Artist;
 use App\Festival;
 use App\Genre;
-use Carbon\Carbon;
 use App\Post;
+use Carbon\Carbon;
 use App\User;
-use Illuminate\Http\Request;
 use Schema;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
 use App\Notifications\ConfirmacionAsistenciaEvento;
 use Illuminate\Support\Facades\Auth;
-
-
 
 class FestivalController extends Controller implements AdministrableController
 {
@@ -24,7 +23,7 @@ class FestivalController extends Controller implements AdministrableController
 
 
     public function init()
-    {  
+    {
         $festivals = \App\Festival::paginate(3);
         $genres = \App\Genre::get();
         return view('festival.all')
@@ -37,13 +36,13 @@ class FestivalController extends Controller implements AdministrableController
         $generos = array();
         $genres = \App\Genre::get();
         foreach ($genres as $genre) {
-            $generoSinEspacios = str_replace(' ','_',$genre->name);
-            if ($request->has($generoSinEspacios)){
+            $generoSinEspacios = str_replace(' ', '_', $genre->name);
+            if ($request->has($generoSinEspacios)) {
                 array_push($generos, $genre->id);
             }
         }
         $request->session()->flash('generos-marcados-festival', $generos);
-        $festivals = \App\Festival::join('festival_genre',"festival_genre.festival_id","=","id")->whereIn('genre_id',$generos)->groupBy("id")->paginate(3);
+        $festivals = \App\Festival::join('festival_genre', "festival_genre.festival_id", "=", "id")->whereIn('genre_id', $generos)->groupBy("id")->paginate(3);
         $festivals->appends($request->except('page'));
         return view('festival.all')
             ->with('festivals', $festivals)
@@ -62,10 +61,11 @@ class FestivalController extends Controller implements AdministrableController
             ->with('genres', $genres);
     }
 
-    public function busquedaConParametros(Request $request){
-         $buscado = $request->input('buscado');
-         $porPag = $request->input('paginadoA');
-         $orden = $request->input('ordenado');
+    public function busquedaConParametros(Request $request)
+    {
+        $buscado = $request->input('buscado');
+        $porPag = $request->input('paginadoA');
+        $orden = $request->input('ordenado');
         $festivals = \App\Festival::where('name', 'like', '%' . $buscado . '%')->orderBy('date', $orden)->paginate($porPag);
         $genres = \App\Genre::get();
         $festivals->appends($request->except('page'));
@@ -104,7 +104,7 @@ class FestivalController extends Controller implements AdministrableController
                 }
             }
         }
-    
+
         $request->session()->flash('genres', $genres);
         $request->session()->flash('artists', $request->get('artists', []));
         $this->validate($request, [
@@ -117,15 +117,15 @@ class FestivalController extends Controller implements AdministrableController
         $artists_id = $request->get('artists', []);
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
-            foreach ($datosArtistas->festivals as $festival){
-                if($festival->date->toDateString() == Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString()){
+            foreach ($datosArtistas->festivals as $festival) {
+                if ($festival->date->toDateString() == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString()) {
                     $rules['unreal_input'] = 'required'; // a confusing error in your errors list...
                     $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival->name . '.';
-                    $validator = Validator::make($request->all(), $rules,$messages);
+                    $validator = Validator::make($request->all(), $rules, $messages);
                     if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
 
                 }
-            }  
+            }
         }
 
         $artists_id = $request->get('artists', []);
@@ -142,7 +142,6 @@ class FestivalController extends Controller implements AdministrableController
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
         }
             
-        
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
@@ -255,7 +254,7 @@ class FestivalController extends Controller implements AdministrableController
     public function DeleteConfirm($permalink)
     {
         return redirect()->action('AdminController@FestivalsList')
-        ->with('deleted', Festival::where('permalink', $permalink)->delete());
+            ->with('deleted', Festival::where('permalink', $permalink)->delete());
     }
 
     public function MostrarNoticia($idpost)
@@ -265,6 +264,9 @@ class FestivalController extends Controller implements AdministrableController
         ]);
     }
 
-
-
+    public function getFestivalImage($permalink, $filename)
+    {
+        $file = Storage::disk('local')->get("festivals/$permalink/$filename");
+        return new Response($file, 200);
+    }
 }

@@ -33,6 +33,10 @@ Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
 Route::put('artist/{permalink}/edit/update', 'ArtistController@Update');
 Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
 Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');
+Route::get('artist/{permalink}/images/{filename}', [
+    'uses' => 'ArtistController@GetArtistImage',
+    'as' => 'artist.image'
+]);
 
 Route::get('fesitvals/new', 'FestivalController@FormNew');
 Route::get('festival/{permalink}', 'FestivalController@Details');
@@ -40,10 +44,12 @@ Route::get('festival/{permalink}/edit', 'FestivalController@Edit');
 Route::put('festival/{permalink}/edit/update', 'FestivalController@Update');
 Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
 Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
-
+Route::get('fesitval/{permalink}/images/{filename}', [
+    'uses' => 'FestivalController@getFestivalImage',
+    'as' => 'festival.image'
+]);
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
 Route::get('festival/mostrarPost/{id}', 'FestivalController@MostrarNoticia');
-
 
 Route::get('/contacto', 'PagesController@getContact');
 Route::post('/contacto', 'PagesController@postContact');
