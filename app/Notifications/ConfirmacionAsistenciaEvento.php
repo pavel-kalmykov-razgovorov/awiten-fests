@@ -7,7 +7,8 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserAutoConfirm extends Notification
+
+class ConfirmacionAsistenciaEvento extends Notification
 {
     use Queueable;
 
@@ -18,10 +19,13 @@ class UserAutoConfirm extends Notification
      */
     public function __construct($content)
     {
-        $this->actionUrl = $content['url'];
-        $this->name = $content['name'];
-        $this->user = $content['user'];
-        $this->email = $content['email'];
+        //joseph-capriati_awakenings_true
+        $this->actionUrlok = $content['urlok'];
+        $this->actionUrlnoOk = $content['urlnoOk'];
+        $this->actionUrlShow = $content['urlShow'];
+        $this->nameArtist = $content['nameArtist'];
+        $this->fecha = $content['fecha'];
+        $this->nameFestival = $content['nameFestival'];
     }
 
     /**
@@ -44,10 +48,10 @@ class UserAutoConfirm extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Bienvenido ' . $this->name . ' a Awiten Fests.')
-                    ->line('Peprarado para encontrar los mejores festivales.')
-                    ->action('Verificar Mi Usuario', $this->actionUrl)
-                    ->subject('Auto-Validacion de Usuario');
+                    ->line('El artistas ' . $this->nameArtist . ' tiene una cita el ' . $this->fecha . ' en el festival ' . $this->nameFestival . ' ¡Confirma su asistencia!')
+                    ->action('Confirmar', $this->actionUrlok)
+                    ->line($this->actionUrlnoOk)
+                    ->line($this->actionUrlShow);
     }
 
     /**

@@ -86,7 +86,7 @@
                             <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
                             <label for="password-confirm" class="col-md-4 control-label texto-comun">Tipo de Usuario</label>
                             <div class="col-md-6">
-                                <input id="toggle-trigger" name="tipo-usuario" type="checkbox" checked data-toggle="toggle" data-on="Manager" data-off="Promoter" value="Manager">
+                                <input id="toggle-trigger" name="tipo-usuario" type="checkbox" checked data-toggle="toggle" data-on="Manager" data-off="Promotor" value="Manager">
                             </div>
                          </div>
                         

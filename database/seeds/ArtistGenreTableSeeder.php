@@ -13,6 +13,7 @@ class ArtistGenreTableSeeder extends Seeder
     {
         //Id artistas
         $joris = DB::table('artists')->where('name', 'Joris Voorn')->first()->id;
+        $tremor = DB::table('artists')->where('name', 'DJ Tremor')->first()->id;
         $osuna = DB::table('artists')->where('name', 'Paco Osuna')->first()->id;
         $hawtin = DB::table('artists')->where('name', 'Richie Hawtin')->first()->id;
         $cc = DB::table('artists')->where('name', 'Carl Cox')->first()->id;
@@ -45,6 +46,9 @@ class ArtistGenreTableSeeder extends Seeder
             [
                 
                 ['artist_id' => $joris , 'genre_id' => $techno],
+                ['artist_id' => $tremor , 'genre_id' => $techno],                
+                ['artist_id' => $tremor , 'genre_id' => $techouse],
+                ['artist_id' => $tremor , 'genre_id' => $future],
                 ['artist_id' => $osuna , 'genre_id' => $techno],                
                 ['artist_id' => $osuna , 'genre_id' => $techouse],
                 ['artist_id' => $hawtin , 'genre_id' => $techno],

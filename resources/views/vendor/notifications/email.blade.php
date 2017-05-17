@@ -30,15 +30,26 @@
             $color = 'blue';
     }
 ?>
-@component('mail::button', ['url' => $actionUrl, 'color' => $color])
+@component('mail::button', ['url' => $actionUrl, 'color' => 'green'])
 {{ $actionText }}
 @endcomponent
+
 @endif
+
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
-{{ $line }}
-
+@if (strpos($line, 'details') === false) {
+    @component('mail::button', ['url' => $line, 'color' => 'red'])
+    Rechazar
+    @endcomponent 
+}
+@else{
+    @component('mail::button', ['url' => $line, 'color' => 'blue'])
+    Mostrar
+    @endcomponent 
+}
+@endif
 @endforeach
 
 <!-- Salutation -->

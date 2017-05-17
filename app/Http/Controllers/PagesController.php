@@ -39,7 +39,7 @@ class PagesController extends Controller
 
 		Session::flash('success', 'Your Email was Sent!');
 
-		return redirect('/');
+		return redirect()->back()->withErrors($validator)->withInput();
 	}
     
 }

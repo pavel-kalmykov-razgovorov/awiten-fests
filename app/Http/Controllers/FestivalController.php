@@ -7,12 +7,14 @@ use App\Festival;
 use App\Genre;
 use App\Post;
 use Carbon\Carbon;
+use App\User;
+use Schema;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Schema;
-
+use App\Notifications\ConfirmacionAsistenciaEvento;
+use Illuminate\Support\Facades\Auth;
 
 class FestivalController extends Controller implements AdministrableController
 {
@@ -90,6 +92,7 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Create(Request $request)
     {
+        if (!Auth::user()) return redirect()->back()->withErrors('auth', 'User not authenticated');
         $genres_id = $request->get('genres', []);
         $genres = Genre::get(['id', 'name']);
         foreach ($genres as $genre) {
@@ -101,7 +104,6 @@ class FestivalController extends Controller implements AdministrableController
                 }
             }
         }
-
 
         $request->session()->flash('genres', $genres);
         $request->session()->flash('artists', $request->get('artists', []));
@@ -122,19 +124,24 @@ class FestivalController extends Controller implements AdministrableController
                     $validator = Validator::make($request->all(), $rules, $messages);
                     if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
 
-                    /*$validator = Validator::make($request->all(), [
-                        'name' => 'required|max:11'
-                    ]);
-                    
-                    if ($validator->fails()) {
-                        $validator->getMessageBag()->add('artist', 'Estas sobrecargando al artistas'); 
-                        return Redirect::back()->withErrors($validator)->withInput();
-                    }
-                    */
                 }
             }
         }
 
+        $artists_id = $request->get('artists', []);
+        foreach ($artists_id as $artist_id) {
+            $datosArtistas = Artist::findOrFail($artist_id);
+            //Obtener manager del artista
+            $admin = User::find(1);
+            
+            
+            $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_true/', 
+            'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_false/',
+            'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
+            'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
+            $admin->notify(new ConfirmacionAsistenciaEvento($content));
+        }
+            
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
@@ -143,7 +150,8 @@ class FestivalController extends Controller implements AdministrableController
             'province' => $request->get('province'),
             'date' => Carbon::createFromFormat('d/m/Y',
                 $request->get('date') ?? Carbon::now()->format('d/m/Y')),
-            'permalink' => $request->get('permalink')
+            'permalink' => $request->get('permalink'),
+            'promoter_id' => Auth::user()->id
         ]);
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));

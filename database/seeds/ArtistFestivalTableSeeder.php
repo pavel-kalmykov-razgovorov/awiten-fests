@@ -25,6 +25,7 @@ class ArtistFestivalTableSeeder extends Seeder
 
         // Id artistas
         $joris = DB::table('artists')->where('name', 'Joris Voorn')->first()->id;
+        $tremor = DB::table('artists')->where('name', 'DJ Tremor')->first()->id;
         $osuna = DB::table('artists')->where('name', 'Paco Osuna')->first()->id;
         $hawtin = DB::table('artists')->where('name', 'Richie Hawtin')->first()->id;
         $cc = DB::table('artists')->where('name', 'Carl Cox')->first()->id;
@@ -51,6 +52,14 @@ class ArtistFestivalTableSeeder extends Seeder
                 ['festival_id' => $medusa , 'artist_id' => $hardwell],     
                 ['festival_id' => $medusa , 'artist_id' => $coone],
                 ['festival_id' => $medusa , 'artist_id' => $hawtin],
+
+                ['festival_id' => $medusa , 'artist_id' => $tremor],
+                ['festival_id' => $arenal , 'artist_id' => $tremor],
+                ['festival_id' => $dreambeach , 'artist_id' => $tremor],
+                ['festival_id' => $awakenings , 'artist_id' => $tremor],
+                ['festival_id' => $sstory , 'artist_id' => $tremor],
+                ['festival_id' => $aquasella , 'artist_id' => $tremor],
+
                 ['festival_id' => $medusa , 'artist_id' => $panpot],
                 ['festival_id' => $medusa , 'artist_id' => $armin],
                 ['festival_id' => $medusa , 'artist_id' => $capriati],

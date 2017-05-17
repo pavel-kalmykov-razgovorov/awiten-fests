@@ -9,7 +9,6 @@
                             <picture>
                                 <source media="(min-width: 410px)"
                                         srcset="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathHeader]) }}">
-
                                 <img style='height: 100%; width: 100%; z-index: -99;' class="profileHeaderBackground">
                             </picture>
                             <div>
@@ -44,24 +43,30 @@
     <h3 style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
     <li>
         <ul>
-            @forelse($artist->festivals()->get() as $festival)
+            @forelse($artist->festivals as $festival)
                 <div class="post-container1">
+                    @if ($festival->pivot->confirmed == "1")
 
-                    <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
-                    <div class="post-thumb1">
-                        <img class="lista-festivales"
-                             src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
-                    </div>
+                        <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
+                        <div class="post-thumb1">
+                            <img class="lista-festivales"
+                                 src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
+                        </div>
 
-                    <div class="post-content1 hidden-xs">
-                        <h4 class="post-title1"><a
-                                    href="/festival/{{$festival->permalink}}">{{$festival->date->toDateString()}}</a>
-                        </h4>
-                        <h4 class="post-title1"><a href="/festival/{{$festival->permalink}}">{{$festival->location}}</a>
-                        </h4>
-                    </div>
+                        <div class="post-content1 hidden-xs">
+                            <h4 class="post-title1"><a
+                                        href="/festival/{{$festival->permalink}}">{{$festival->date->toDateString()}}</a>
+                            </h4>
+                            <h4 class="post-title1"><a
+                                        href="/festival/{{$festival->permalink}}">{{$festival->location}}</a>
+                            </h4>
+                        </div>
+                    @elseif($festival->pivot->confirmed == null)
+                        <h4>PRÓXIMAMENTE</h4>
+                        <div class="post-thumb1"><img class="lista-festivales"
+                                                      src="{{ asset('images/festivales/pendiente.png') }}"></div>
+                    @endif
                 </div>
-
             @empty
                 Ninguno
             @endforelse
@@ -70,9 +75,6 @@
 
     @else
         <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de
-            la
-            base de datos</h3>
-        @endif
-
-        </div>
+            la base de datos</h3>
+    @endif
 @endsection
