@@ -38,12 +38,12 @@
 			<div class="carousel-inner" role="listbox">
 					@if ($festival->photos()->count() != 0)
 						<div class="item active">
-							<img src="{{$festival->photos->get(0)->path}}">
+							<img src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->photos->get(0)->name]) }}">
 						</div>
 					@endif
 					@for ($i = 1; $i < $festival->photos()->count(); $i++)
 						<div class="item">
-							<img src="{{$festival->photos->get($i)->path}}">
+							<img src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->photos->get($i)->name]) }}">
 						</div>
 					@endfor
 			</div>
@@ -63,7 +63,7 @@
 			@forelse($artistas as $artist)
 			<div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
             	<div class="recent-work-wrap">
-						<img class = "imagen-artista" src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}">
+						<img class = "imagen-artista" src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}">
 					<div class="overlay">
                     	<div class="recent-work-inner">
                              <div class="portfolio-caption">
