@@ -65,11 +65,20 @@ Route::get('admin/entities', 'AdminController@AvailableEntities');
 
 
 Route::group(['middleware' => 'forAdmin'], function() {
+    Route::get('admin/users', 'AdminController@UsersList');
+    Route::get('admin/users/add', 'UserController@FormNew');
+    Route::post('users/new/create', 'UserController@Create');
+    Route::get('admin/users/edit/{permalink}', 'UserController@Edit');
+    Route::get('admin/users/details/{permalink}', 'UserController@DetailsAdmin');
+    Route::get('admin/users/delete/{permalink}', 'UserController@DeleteConfirm');
+    Route::put('admin/users/update/{permalink}', 'UserController@Update');
+    //Genres
     Route::get('admin/genres', 'AdminController@GenresList');
     Route::post('admin/genres/create', 'GenreController@Create');
     Route::get('admin/genres/edit/{permalink}', 'GenreController@Edit');
     Route::get('admin/genres/add', 'GenreController@FormNew');
     Route::get('admin/genres/delete/{permalink}', 'GenreController@DeleteConfirm');
+    Route::get('admin/genres/details/{permalink}', 'GenreController@DetailsAdmin');
 });
 
 Route::group(['middleware' => 'forManager'], function() {
@@ -78,7 +87,6 @@ Route::group(['middleware' => 'forManager'], function() {
     Route::get('admin/artists/add', 'ArtistController@FormNew');
     Route::post('artist/new/create', 'ArtistController@Create');
     Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
-    Route::get('admin/genres/details/{permalink}', 'GenreController@DetailsAdmin');
 });
 
 Route::group(['middleware' => 'forPromoter'], function() {
