@@ -1,28 +1,29 @@
 @extends('admin.master')
-@section('title', 'Registrar Usuario')
+@section('title', 'CrearUsuario')
 
 @section('content')
-<div class="arreglar-margen">
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Registro</div>
-                 @if ($status = Session::get('registro-status'))
-                        <div class="alert alert-info">
-                            {{ $status }}
-                        </div>
-                @endif
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+    <h1 class="page-header">Nuevo Usuario</h1>
+    @if(count($errors) > 0)
+        <div class="alert alert-warning">
+            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span> No se ha podido crear el usuario</h3>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                    <form class="form-horizontal" role="form" method="POST" action="{{action('UserController@Create')}}">
                         {{ csrf_field() }}
-
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label texto-comun">Nombre</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
+                                
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -98,11 +99,14 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-</div>
+<script type="text/javascript">
+        $(function () {
+            $('#home').removeClass('active');
+            $('#users').addClass('active');
+        });
+    </script>
 @endsection
 

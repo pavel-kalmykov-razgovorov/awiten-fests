@@ -96,7 +96,7 @@
                 <li id="home" class="active"><a href="{{action('AdminController@AvailableEntities')}}">Inicio<span
                                 class="sr-only">(current)</span></a></li>
                 @if (Auth::check() && Auth::user()->isAdmin())
-                    <li id="artists"><a href="/">Usuarios</a></li>
+                    <li id="users"><a href="{{action('AdminController@UsersList')}}">Usuarios</a></li>
                     <li id="genres"><a href="{{action('AdminController@GenresList')}}">Géneros</a></li>
                 @endif
                 @if (Auth::check() && Auth::user()->isManager())
