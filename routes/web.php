@@ -74,11 +74,9 @@ Route::group(['middleware' => 'forAdmin'], function() {
     Route::get('admin/users', 'AdminController@UsersList');
     Route::get('admin/users/add', 'UserController@FormNew');
     Route::post('users/new/create', 'UserController@Create');
-    Route::get('admin/users/edit/{permalink}', 'UserController@Edit');
     Route::get('admin/users/lock/{permalink}', 'UserController@Lock');
     Route::get('admin/users/details/{permalink}', 'UserController@DetailsAdmin');
     Route::get('admin/users/delete/{permalink}', 'UserController@DeleteConfirm');
-    Route::put('admin/users/update/{permalink}', 'UserController@Update');
     //Genres
     Route::get('admin/genres', 'AdminController@GenresList');
     Route::post('admin/genres/create', 'GenreController@Create');
@@ -122,6 +120,9 @@ Route::group(['middleware' => 'forPromoter'], function() {
     Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
     Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
 });
+
+Route::get('admin/users/edit/', 'UserController@Edit')->middleware('auth');
+Route::put('admin/users/update/', 'UserController@Update')->middleware('auth');
 
 Auth::routes();
 Route::get('/home', function() {

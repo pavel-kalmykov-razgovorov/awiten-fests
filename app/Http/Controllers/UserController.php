@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use Auth;
 use Schema;
 use App\Notifications\UserConfirmed;
 
@@ -64,11 +65,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function Edit($username)
-    {
-        return "Editar sin terminar";
-    }
-
     public function Lock($username)
     {
         $user = User::where('username', $username)->first();
@@ -93,9 +89,29 @@ class UserController extends Controller
                 ->with('locked', 'Error al bloquear el usuario');
     }
 
-    public function Update(Request $request, $permalink)
+    public function Edit()
     {
-        return "Actualizar sin terminar";
+        $user = Auth::user();
+         return view('users.edit', ['user' => $user,]);
+    }
+  
+    public function Update(Request $request)
+    {
+        $originalUser = Auth::user();
+        $this->validate($request, ['name' => 'required|max:255',]);
+        if($request->get('username', '') != $originalUser->username){
+             $this->validate($request, ['username' => 'required|max:20|unique:users']);
+        }
+        if($request->get('email', '')  != $originalUser->email){
+             $this->validate($request, ['email' => 'required|email|max:255|unique:users']);
+        }
+        $user = User::where('username', $originalUser->username)->first(); 
+        $user->name = $request->get('name');
+        $user->username = $request->get('username');
+        $user->email = $request->get('email');
+        $user->saveOrFail();
+        return redirect()->action('UserController@Edit')
+                ->with('Update', 'Usuario correctamente actualizado');
     }
 
     public function DeleteConfirm($username)
