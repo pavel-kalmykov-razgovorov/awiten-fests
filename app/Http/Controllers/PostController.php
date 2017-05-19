@@ -13,12 +13,29 @@ class PostController extends Controller implements AdministrableController
 
     public function FormNew()
     {
-        return "Not yet implemented";
+        $festivals = Festival::select(['id', 'name'])->where('promoter_id',Auth::user()->id)->get();
+        return view('post.create', [
+            'festivals' => $festivals,
+        ]);
     }
 
     public function Create(Request $request)
     {
-        return "Not yet implemented";
+        $this->validate($request, [
+            'title' => 'required',
+            'permalink' => 'required|unique:posts',
+            'lead' => 'required',
+            'body' => 'required'
+        ]);
+        $post = new Post([
+            'title' => $request->get('title'),
+            'permalink' => $request->get('permalink'),
+            'lead' => $request->get('lead'),
+            'body' => $request->get('body'),
+            'festival_id' => $request->get('festival_id') //NO ME GUSTA
+        ]);
+        $post->saveOrFail();
+        return redirect()->action('PostController@DetailsAdmin', [$post])->with('created', true);
     }
 
     public function DetailsAdmin($permalink)

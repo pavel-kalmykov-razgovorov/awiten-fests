@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
-    protected $fillable = ['title', 'lead', 'body', 'permalink'];
+    protected $fillable = ['title', 'lead', 'body', 'permalink', 'festival_id'];
 
     public function festival()
     {

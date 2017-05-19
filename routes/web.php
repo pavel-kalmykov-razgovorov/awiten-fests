@@ -104,7 +104,8 @@ Route::group(['middleware' => 'forPromoter'], function() {
     Route::get('admin/posts/add', 'PostController@FormNew');
     Route::get('admin/photos/add', 'PhotoController@FormNew');
     //Create
-    Route::post('festivals/new/create', 'FestivalController@Create');
+    Route::post('admin/festivals/create', 'FestivalController@Create');
+    Route::post('admin/posts/create', 'PostController@Create');
     //Details
     Route::get('admin/festivals/details/{permalink}', 'FestivalController@DetailsAdmin');
     Route::get('admin/posts/details/{permalink}', 'PostController@DetailsAdmin');
