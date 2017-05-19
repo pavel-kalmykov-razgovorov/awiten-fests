@@ -8,6 +8,7 @@ use App\Festival;
 use App\Genre;
 use App\Photo;
 use App\Post;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,8 +21,9 @@ class AdminController extends Controller
 
     public function ArtistsList()
     {
+        $user = Auth::user();
         $column_names = ['name','permalink', 'soundcloud','website','country'];
-        return $this->tableViewByModelName(Artist::select($column_names)->paginate(15), 'Artist', 'Artista', 'Artistas',$column_names);
+        return $this->tableViewByModelName(Artist::select($column_names)->where('manager_id',$user->id)->paginate(15), 'Artist', 'Artista', 'Artistas',$column_names);
     }
 
     public function UsersList(Request $request)
@@ -57,8 +59,9 @@ class AdminController extends Controller
 
     public function FestivalsList()
     {
+        $user = Auth::user();
         $column_names = ['name','permalink','pathLogo','location','date','province'];
-        return $this->tableViewByModelName(Festival::paginate(15), 'Festival', 'Festival', 'Festivales',$column_names);
+        return $this->tableViewByModelName(Festival::select($column_names)->where('promoter_id',$user->id)->paginate(15), 'Festival', 'Festival', 'Festivales',$column_names);
     }
 
     public function GenresList(Request $request)
@@ -70,13 +73,17 @@ class AdminController extends Controller
 
     public function PostsList()
     {
+        $user = Auth::user();
+        $festivals = Festival::select('id')->where('promoter_id',$user->id)->get();
         $column_names = ['title','permalink','lead','body','festival_id'];
-        return $this->tableViewByModelName(Post::paginate(15), 'Post', 'Noticia de festival', 'Noticias de festival',$column_names);
+        return $this->tableViewByModelName(Post::select($column_names)->whereIn('festival_id', $festivals)->paginate(15), 'Post', 'Noticia de festival', 'Noticias de festival',$column_names);
     }
 
     public function PhotosList()
     {
+        $user = Auth::user();
+        $festivals = Festival::select('id')->where('promoter_id',$user->id)->get();
         $column_names = ['name','permalink','path','festival_id'];
-        return $this->tableViewByModelName(Photo::paginate(15), 'Photo', 'Foto de festival', 'Fotos de festival',$column_names);
+        return $this->tableViewByModelName(Photo::select($column_names)->whereIn('festival_id', $festivals)->paginate(15), 'Photo', 'Foto de festival', 'Fotos de festival',$column_names);
     }
 }
