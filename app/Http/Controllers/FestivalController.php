@@ -235,7 +235,7 @@ class FestivalController extends Controller implements AdministrableController
         $festival->pathCartel = $request->get('cartel');
         $festival->location = $request->get('location');
         $festival->province = $request->get('province');
-        $festival->date = Carbon::createFromFormat('d/m/Y',
+        $festival->date = Carbon::createFromFormat('Y-m-d H:i:s',
             $request->get('date') ?? Carbon::now()->format('d/m/Y'));
         $festival->permalink = $request->get('permalink');
         $festival->saveOrFail();
