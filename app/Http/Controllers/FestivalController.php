@@ -264,15 +264,6 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Delete($permalink)
     {
-        $festival = Festival::where('permalink', $permalink)->firstOrFail();
-        return view('festival.delete', [
-            'permalink' => $permalink,
-            'festival' => $festival
-        ]);
-    }
-
-    public function DeleteConfirm($permalink)
-    {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
         $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();

@@ -78,7 +78,7 @@ class PostController extends Controller implements AdministrableController
         return redirect()->action('PostController@DetailsAdmin', [$post])->with('updated', true);
     }
 
-    public function DeleteConfirm($permalink)
+    public function Delete($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();

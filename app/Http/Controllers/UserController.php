@@ -9,7 +9,7 @@ use Auth;
 use Schema;
 use App\Notifications\UserConfirmed;
 
-class UserController extends Controller
+class UserController extends Controller implements AdministrableController
 {
     public function FormNew()
     {
@@ -114,7 +114,7 @@ class UserController extends Controller
                 ->with('Update', 'Usuario correctamente actualizado');
     }
 
-    public function DeleteConfirm($username)
+    public function Delete($username)
     {
         $user = User::where('username', $username)->first();
         if(!is_null($user)){

@@ -22,5 +22,5 @@ interface AdministrableController
 
     public function Update(Request $request, $permalink);
 
-    public function DeleteConfirm($permalink);
+    public function Delete($permalink);
 }

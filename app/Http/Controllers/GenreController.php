@@ -74,7 +74,7 @@ class GenreController extends Controller implements AdministrableController
         return redirect()->action('GenreController@DetailsAdmin', [$genre])->with('updated', true);
     }
 
-    public function DeleteConfirm($permalink)
+    public function Delete($permalink)
     {
         return redirect()->action('AdminController@GenresList')
             ->with('deleted', Genre::where('permalink', $permalink)->delete());

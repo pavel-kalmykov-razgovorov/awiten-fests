@@ -187,20 +187,6 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Delete($permalink)
     {
-        //Comprobar que el usuario identificado tiene acceso al artista indicado
-        $user = Auth::user();
-        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
-            return redirect('/noPermision');
-        }
-        return view('artist.delete', [
-            'permalink' => $permalink,
-            'artist' => $artist
-        ]);
-    }
-
-    public function DeleteConfirm($permalink)
-    {
         $user = Auth::user();
         $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
         if($artist == null){

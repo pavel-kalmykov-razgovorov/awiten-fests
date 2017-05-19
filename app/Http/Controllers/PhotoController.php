@@ -33,7 +33,7 @@ class PhotoController extends Controller implements AdministrableController
         return "Not yet implemented";
     }
 
-    public function DeleteConfirm($permalink)
+    public function Delete($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
