@@ -20,16 +20,15 @@ class AdminController extends Controller
 
     public function ArtistsList()
     {
-       // $column_names = ['name','permalink', 'soundcloud','website','country'];
-        //return $this->tableViewByModelName(Artist::select($column_names)->paginate(15), 'Artist', 'Artista', 'Artistas',$column_names);
-        return $this->tableViewByModelName(Artist::paginate(15), 'Artist', 'Artista', 'Artistas');
+        $column_names = ['name','permalink', 'soundcloud','website','country'];
+        return $this->tableViewByModelName(Artist::select($column_names)->paginate(15), 'Artist', 'Artista', 'Artistas',$column_names);
     }
 
     public function UsersList(Request $request)
     {
         $request->session()->flash('sonUsuarios', true);
-       // $column_names = ['name','username', 'email','typeOfUser','confirmed','created_at','updated_at'];
-        return $this->tableViewByModelName(User::where('typeOfUser','!=','admin')->paginate(15), 'User', 'Usuarios', 'Usuarios');
+        $column_names = ['name','username', 'email','typeOfUser','confirmed','locked'];
+        return $this->tableViewByModelName(User::where('typeOfUser','!=','admin')->select($column_names)->paginate(15), 'User', 'Usuarios', 'Usuarios',$column_names);
     }
 
     
@@ -44,10 +43,9 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @internal param string $modelName el nombre del modelo
      */
-   // private function tableViewByModelName($model, string $modelName, string $spanishModelName, string $pluralSpanishModelName, $column_names)
-    private function tableViewByModelName($model, string $modelName, string $spanishModelName, string $pluralSpanishModelName)
+ private function tableViewByModelName($model, string $modelName, string $spanishModelName, string $pluralSpanishModelName, $column_names)
     {
-        $column_names = Schema::getColumnListing(strtolower(str_plural($modelName)));
+        //$column_names = Schema::getColumnListing(strtolower(str_plural($modelName)));
         return view('admin.table', [
             'modelName' => $modelName,
             'spanishModelName' => $spanishModelName,
@@ -59,26 +57,26 @@ class AdminController extends Controller
 
     public function FestivalsList()
     {
-       // $column_names = ['name','permalink','pathLogo','location','date','province'];
-        return $this->tableViewByModelName(Festival::paginate(15), 'Festival', 'Festival', 'Festivales');
+        $column_names = ['name','permalink','pathLogo','location','date','province'];
+        return $this->tableViewByModelName(Festival::paginate(15), 'Festival', 'Festival', 'Festivales',$column_names);
     }
 
     public function GenresList(Request $request)
     {
         $request->session()->flash('sonUsuarios', false);
-        //$column_names = ['name','permalink''];
-        return $this->tableViewByModelName(Genre::paginate(15), 'Genre', 'Género', 'Géneros');
+        $column_names = ['name','permalink'];
+        return $this->tableViewByModelName(Genre::paginate(15), 'Genre', 'Género', 'Géneros',$column_names);
     }
 
     public function PostsList()
     {
-        // $column_names = ['title','permalink','lead','body','festival_id'];
-        return $this->tableViewByModelName(Post::paginate(15), 'Post', 'Noticia de festival', 'Noticias de festival');
+        $column_names = ['title','permalink','lead','body','festival_id'];
+        return $this->tableViewByModelName(Post::paginate(15), 'Post', 'Noticia de festival', 'Noticias de festival',$column_names);
     }
 
     public function PhotosList()
     {
-        // $column_names = ['name','permalink','path','festival_id'];
-        return $this->tableViewByModelName(Photo::paginate(15), 'Photo', 'Foto de festival', 'Fotos de festival');
+        $column_names = ['name','permalink','path','festival_id'];
+        return $this->tableViewByModelName(Photo::paginate(15), 'Photo', 'Foto de festival', 'Fotos de festival',$column_names);
     }
 }
