@@ -187,8 +187,6 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Delete($permalink)
     {
-
-        dd('Borrado 1');
         //Comprobar que el usuario identificado tiene acceso al artista indicado
         $user = Auth::user();
         $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();

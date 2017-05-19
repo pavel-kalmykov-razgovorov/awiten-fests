@@ -39,8 +39,7 @@ Route::get('fesitvals/new', 'FestivalController@FormNew');
 Route::get('festival/{permalink}', 'FestivalController@Details');
 Route::get('festival/{permalink}/edit', 'FestivalController@Edit');
 Route::put('festival/{permalink}/edit/update', 'FestivalController@Update');
-Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
-Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
+
 Route::get('fesitval/{permalink}/images/{filename}', [
     'uses' => 'FestivalController@getFestivalImage',
     'as' => 'festival.image'
@@ -121,6 +120,8 @@ Route::group(['middleware' => 'forPromoter'], function() {
     //Delete
     Route::get('admin/posts/delete/{permalink}', 'PostController@DeleteConfirm');
     Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
+    Route::get('festival/{permalink}/delete', 'FestivalController@Delete');
+    Route::get('festival/{permalink}/delete/confirm', 'FestivalController@DeleteConfirm');
 });
 
 //Funciones del perfil para managers y promotores

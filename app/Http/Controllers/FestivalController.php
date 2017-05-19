@@ -175,7 +175,13 @@ class FestivalController extends Controller implements AdministrableController
 
     public function DetailsAdmin($permalink)
     {
-        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        //Comprobar que el usuario identificado tiene acceso al festival indicado
+        $user = Auth::user();
+        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
+        if($festival == null){
+            return redirect('/noPermision');
+        }
+        //$festival = Festival::where('permalink', $permalink)->firstOrFail();
         return view('festival.details-admin', [
             'column_names' => Schema::getColumnListing(strtolower(str_plural('festivals'))),
             'permalink' => $permalink,
@@ -185,7 +191,13 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Edit($permalink)
     {
-        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        //Comprobar que el usuario identificado tiene acceso al festival indicado
+        $user = Auth::user();
+        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
+        if($festival == null){
+            return redirect('/noPermision');
+        }
+        //$festival = Festival::where('permalink', $permalink)->firstOrFail();
         $festival->date = Carbon::parse($festival->date)->format('d/m/Y');
         $artists = Artist::get(['id', 'name']);
         $genres = Genre::get(['id', 'name']);
@@ -223,13 +235,19 @@ class FestivalController extends Controller implements AdministrableController
 
     public function Update(Request $request, $permalink)
     {
+        //Comprobar que el usuario identificado tiene acceso al festival indicado
+        $user = Auth::user();
+        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
+        if($festival == null){
+            return redirect('/noPermision');
+        }
         if ($request->get('permalink', '') != $permalink) {
             $this->validate($request, [
                 'name' => 'required',
                 'permalink' => 'required|unique:festivals'
             ]);
         }
-        $festival = Festival::where('permalink', $permalink)->firstOrFail();
+        //$festival = Festival::where('permalink', $permalink)->firstOrFail();
         $festival->name = $request->get('name');
         $festival->pathLogo = $request->get('logo');
         $festival->pathCartel = $request->get('cartel');
@@ -255,8 +273,14 @@ class FestivalController extends Controller implements AdministrableController
 
     public function DeleteConfirm($permalink)
     {
+        //Comprobar que el usuario identificado tiene acceso al festival indicado
+        $user = Auth::user();
+        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
+        if($festival == null){
+            return redirect('/noPermision');
+        }
         return redirect()->action('AdminController@FestivalsList')
-            ->with('deleted', Festival::where('permalink', $permalink)->delete());
+            ->with('deleted',  $festival->delete());
     }
 
     public function MostrarNoticia($idpost)
