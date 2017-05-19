@@ -119,6 +119,7 @@ class ArtistController extends Controller implements AdministrableController
 
     public function DetailsAdmin($permalink)
     {
+        //Comprobar que el usuario identificado tiene acceso al artista indicado
         $user = Auth::user();
         $artist = Artist::select('id')->where('permalink',$permalink)->where('manager_id',$user->id)->first();
         if($artist == null){
@@ -133,7 +134,13 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Edit($permalink)
     {
-        $artist = Artist::where('permalink', $permalink)->first();
+        //Comprobar que el usuario identificado tiene acceso al artista indicado
+        $user = Auth::user();
+        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
+        //$artist = Artist::where('permalink', $permalink)->first();
         $festivals = Festival::get(['id', 'name']);
         $genres = Genre::get(['id', 'name']);
         foreach ($genres as $genre) {
@@ -155,13 +162,19 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Update(Request $request, $permalink)
     {
+        //Comprobar que el usuario identificado tiene acceso al artista indicado
+        $user = Auth::user();
+        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
         if ($request->get('permalink', '') != $permalink) {
             $this->validate($request, [
                 'name' => 'required',
                 'permalink' => 'required|unique:artists'
             ]);
         }
-        $artist = Artist::where('permalink', $permalink)->first();
+        //$artist = Artist::where('permalink', $permalink)->first();
         $artist->name = $request->get('name');
         $artist->soundcloud = $request->get('soundcloud');
         $artist->website = $request->get('website');
@@ -174,15 +187,28 @@ class ArtistController extends Controller implements AdministrableController
 
     public function Delete($permalink)
     {
+
+        dd('Borrado 1');
+        //Comprobar que el usuario identificado tiene acceso al artista indicado
+        $user = Auth::user();
+        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
         return view('artist.delete', [
             'permalink' => $permalink,
-            'artist' => Artist::where('permalink', $permalink)->first()
+            'artist' => $artist
         ]);
     }
 
     public function DeleteConfirm($permalink)
     {
-        return redirect()->action('AdminController@ArtistsList')->with('deleted', Artist::where('permalink', $permalink)->delete());
+        $user = Auth::user();
+        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
+        return redirect()->action('AdminController@ArtistsList')->with('deleted', $artist->delete());
     }
 
     public function ConfirmAssistance($artistPermalink, $festivalPermalink, $confirmation)

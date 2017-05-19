@@ -30,9 +30,6 @@ Route::get('artists', 'ArtistController@init');
 Route::get('artist/new', 'ArtistController@FormNew');
 Route::get('artist/{permalink}', 'ArtistController@Details');
 Route::get('artist/{permalink}/edit', 'ArtistController@Edit');
-Route::put('artist/{permalink}/edit/update', 'ArtistController@Update');
-Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
-Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');
 Route::get('artist/{permalink}/images/{filename}', [
     'uses' => 'ArtistController@GetArtistImage',
     'as' => 'artist.image'
@@ -89,9 +86,12 @@ Route::group(['middleware' => 'forAdmin'], function() {
 Route::group(['middleware' => 'forManager'], function() {
     Route::get('admin/artists', 'AdminController@ArtistsList');
     Route::get('admin/artists/edit/{permalink}', 'ArtistController@Edit');
+    Route::put('artist/{permalink}/edit/update', 'ArtistController@Update');
     Route::get('admin/artists/add', 'ArtistController@FormNew');
     Route::post('artist/new/create', 'ArtistController@Create');
     Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
+    Route::get('artist/{permalink}/delete', 'ArtistController@Delete');
+    Route::get('artist/{permalink}/delete/confirm', 'ArtistController@DeleteConfirm');
     //Asistance confirmation
     Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');
 });
@@ -123,6 +123,7 @@ Route::group(['middleware' => 'forPromoter'], function() {
     Route::get('admin/photos/delete/{permalink}', 'PhotoController@DeleteConfirm');
 });
 
+//Funciones del perfil para managers y promotores
 Route::get('admin/users/edit/', 'UserController@Edit')->middleware('auth');
 Route::put('admin/users/update/', 'UserController@Update')->middleware('auth');
 
