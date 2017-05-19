@@ -46,4 +46,14 @@ class User extends Authenticatable
     public function isManager(){
         return $this->typeOfUser == 'manager';
     }
+
+    public function festivals() {
+        return $this->hasMany('App\Festival');
+    }
+
+    public function artists() {
+        return $this->hasMany('App\Artist');
+    }
+
+
 }

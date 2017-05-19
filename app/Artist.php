@@ -28,4 +28,8 @@ class Artist extends Model
     {
         return $this->permalink;
     }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

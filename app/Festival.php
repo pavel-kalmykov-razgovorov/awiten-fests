@@ -48,4 +48,9 @@ class Festival extends Model
      public function getCreatedAdAttribute($date){
         return new Date($date);
     }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
 }
