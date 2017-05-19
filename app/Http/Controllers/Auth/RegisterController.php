@@ -106,15 +106,16 @@ class RegisterController extends Controller
     }
 
     public function confirmation($token){
-        $user = User::where('token', $token)->first();
-
-        if(!is_null($user)){
-            $user->confirmed = 1;
-            $user->token = '';
-            $user->notify(new UserConfirmed());
-            $user->save();
-            return redirect('login')->with('status', 'Tu activación está completada');
+            if(!is_null($token) && $token != ''){
+                $user = User::where('token', $token)->first();
+            if(!is_null($user)){
+                $user->confirmed = true;
+                $user->token = '';
+                $user->notify(new UserConfirmed());
+                $user->save();
+                return redirect('login')->with('status', 'Tu activación está completada');
+            }
         }
-        return redirect('/login')->with('status','Algo ha ido mal');
+        return redirect('/login')->with('status','Algo ha ido mal en la activacion');
     }
 }

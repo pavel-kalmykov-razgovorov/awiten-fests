@@ -75,6 +75,7 @@ Route::group(['middleware' => 'forAdmin'], function() {
     Route::get('admin/users/add', 'UserController@FormNew');
     Route::post('users/new/create', 'UserController@Create');
     Route::get('admin/users/edit/{permalink}', 'UserController@Edit');
+    Route::get('admin/users/lock/{permalink}', 'UserController@Lock');
     Route::get('admin/users/details/{permalink}', 'UserController@DetailsAdmin');
     Route::get('admin/users/delete/{permalink}', 'UserController@DeleteConfirm');
     Route::put('admin/users/update/{permalink}', 'UserController@Update');

@@ -63,8 +63,9 @@ class AdminController extends Controller
         return $this->tableViewByModelName(Festival::paginate(15), 'Festival', 'Festival', 'Festivales');
     }
 
-    public function GenresList()
+    public function GenresList(Request $request)
     {
+        $request->session()->flash('sonUsuarios', false);
         //$column_names = ['name','permalink''];
         return $this->tableViewByModelName(Genre::paginate(15), 'Genre', 'Género', 'Géneros');
     }

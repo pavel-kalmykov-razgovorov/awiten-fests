@@ -20,7 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('typeOfUser')->nullable();
-            $table->boolean('confirmed')->default(0);
+            $table->boolean('confirmed')->default(false);
+            $table->boolean('locked')->default(false);
             $table->string('token',254)->nullable();
             $table->rememberToken();
             $table->timestamps();

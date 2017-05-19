@@ -11,6 +11,16 @@
             @endif
         </div>
     @endif
+    @if($locked = Session::get('locked'))
+        <div class="alert alert-danger">
+        {{ $locked }}
+        </div>
+    @endif
+    @if($unlocked = Session::get('unlocked'))
+        <div class="alert alert-success">
+        {{ $unlocked }}
+        </div>
+    @endif
     <div class="placeholders">
         <button class="btn btn-primary" onclick="location='{{action($modelName . 'Controller@FormNew')}}'">
             Añadir {{$spanishModelName}}
@@ -40,21 +50,38 @@
                             para que salga un globo al poner el ratón por encima.
 
                             Así, me aseguro de que todos los campos ocupan lo mismo y la tabla no se vuelve tan grande--}}
-                            <td onclick="location = '{{action($modelName . 'Controller@DetailsAdmin', $model->permalink)}}'"
+                            @if(session('sonUsuarios') && $model->locked == true)
+                                <td class="bg-danger" onclick="location = '{{action($modelName . 'Controller@DetailsAdmin', $model->username)}}'"
                                     {!! strlen($model->$column_name) > 15 ? 'title="' . $model->$column_name . '"' : ''!!}>
+                            @elseif(session('sonUsuarios') && $model->locked == false)
+                                <td onclick="location = '{{action($modelName . 'Controller@DetailsAdmin', $model->username)}}'"
+                                    {!! strlen($model->$column_name) > 15 ? 'title="' . $model->$column_name . '"' : ''!!}>
+                            @else
+                                <td onclick="location = '{{action($modelName . 'Controller@DetailsAdmin', $model->permalink)}}'"
+                                    {!! strlen($model->$column_name) > 15 ? 'title="' . $model->$column_name . '"' : ''!!}>
+                            @endif
                                 {{strlen($model->$column_name) > 15
-                                ? substr($model->$column_name, 0, 15) . '...'
-                                : $model->$column_name}}
-                            </td>
+                                    ? substr($model->$column_name, 0, 15) . '...'
+                                    : $model->$column_name}}
+                                </td>
                         @endforeach
                         <td>
                             @if(session('sonUsuarios'))
-                                <a href="{{action($modelName . 'Controller@Edit', $model->username)}}">        
+                                <a href="{{action($modelName . 'Controller@Lock', $model->username)}}"
+                               data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
+                               data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
+                               data-btn-cancel-class="btn-danger"
+                               data-btn-ok-label="Bloquear" data-btn-ok-icon="glyphicon glyphicon-lock"
+                               data-btn-ok-class="btn-success"
+                               data-title="Estás seguro?" data-content="El usuario no podrá acceder a su cuenta.">
+                               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                </a>     
                             @else
                                 <a href="{{action($modelName . 'Controller@Edit', $model->permalink)}}">
-                            @endif
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </a>
+                            @endif
+                                
                         </td>
                         <td>
                             @if(session('sonUsuarios'))
@@ -65,6 +92,8 @@
                                data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
                                data-btn-ok-class="btn-success"
                                data-title="Estás seguro?" data-content="No podrás recuperarlo">
+                               <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
                             @else
                                 <a href="{{action($modelName . 'Controller@DeleteConfirm', $model->permalink)}}"
                                 data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
@@ -73,9 +102,10 @@
                                 data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
                                 data-btn-ok-class="btn-success"
                                 data-title="Estás seguro?" data-content="No podrás recuperarlo">
-                             @endif
                                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                                 </a>
+                             @endif
+                                
                         </td>
                     </tr>
                 @endforeach

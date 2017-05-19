@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'awitenfest@gmail.com',
                 'password' => bcrypt('1234'),
                 'typeOfUser' => 'admin',
-                'confirmed' => 1],
+                'confirmed' => true],
             ]
         );
         DB::table('users')->insert(
@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'ejemplo@gmail.com',
                 'password' => bcrypt('1234'),
                 'typeOfUser' => 'promoter',
-                'confirmed' => 1],  
+                'confirmed' => true],  
             ]
         );
         DB::table('users')->insert(
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'prm2@gmail.com',
                 'password' => bcrypt('1234'),
                 'typeOfUser' => 'promoter',
-                'confirmed' => 1],  
+                'confirmed' => true],  
             ]
         );
         DB::table('users')->insert(
@@ -49,7 +49,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'sds@gmail.com',
                 'password' => bcrypt('1234'),
                 'typeOfUser' => 'manager',
-                'confirmed' => 1]
+                'confirmed' => true]
             ]
         );
         DB::table('users')->insert(
@@ -59,7 +59,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'sds2@gmail.com',
                 'password' => bcrypt('1234'),
                 'typeOfUser' => 'manager',
-                'confirmed' => 1]
+                'confirmed' => true]
             ]
         );
     }

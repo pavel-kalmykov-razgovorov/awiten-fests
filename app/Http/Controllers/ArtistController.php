@@ -154,6 +154,7 @@ class ArtistController extends Controller implements AdministrableController
                 'permalink' => 'required|unique:artists'
             ]);
         }
+        dd('permalink ' . $permalink);
         $artist = Artist::where('permalink', $permalink)->first();
         $artist->name = $request->get('name');
         $artist->soundcloud = $request->get('soundcloud');
