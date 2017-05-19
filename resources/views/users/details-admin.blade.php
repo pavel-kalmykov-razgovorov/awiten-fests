@@ -24,7 +24,6 @@
    @endforeach
    </ul>
     <a href="{{action('AdminController@UsersList')}}" class="btn btn-default">Usuarios</a>
-    <a href="{{action('UserController@Edit', $name)}}" class="btn btn-default">Editar</a>
     <a href="{{action('UserController@DeleteConfirm', $name)}}" class="btn btn-default"
        data-toggle="confirmation" data-placement="top" data-singleton="true" data-popout="true"
        data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"

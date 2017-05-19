@@ -45,14 +45,18 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            if(Auth::user()->confirmed == 1){
-                return $this->sendLoginResponse($request);
-            } else {
-                $this->guard()->logout();
-                $request->session()->flush();
-                $request->session()->regenerate();
-                return redirect('/login')->with('status','Tu usuario todavía no está activo.');
+            $mensaje = 'Tu usuario todavía no está activo';
+            if(Auth::user()->confirmed == true){
+                if(Auth::user()->locked == false){
+                    return $this->sendLoginResponse($request);
+                } else {
+                    $mensaje = 'Tu usuario está bloqueado';
+                }
             }
+            $this->guard()->logout();
+            $request->session()->flush();
+            $request->session()->regenerate();
+            return redirect('/login')->with('status',$mensaje);
         }
 
         $this->incrementLoginAttempts($request);

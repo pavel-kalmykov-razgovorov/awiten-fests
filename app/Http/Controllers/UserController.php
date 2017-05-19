@@ -22,7 +22,7 @@ class UserController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'username' => $data['username'],
-            'confirmed' => 1,
+            'confirmed' => true,
             'typeOfUser' =>  $data['tipo'],
         ]);
     }
@@ -69,6 +69,30 @@ class UserController extends Controller
         return "Editar sin terminar";
     }
 
+    public function Lock($username)
+    {
+        $user = User::where('username', $username)->first();
+        if(!is_null($user)){
+            if($user->isAdmin()){
+                return redirect('/noPermision');
+            } else {
+                if($user->locked == false){
+                    $user->locked = true; 
+                    $user->save();
+                    return redirect()->action('AdminController@UsersList')
+                            ->with('locked', 'Usuario correctamente bloqueado');
+                } else{
+                    $user->locked = false; 
+                    $user->save();
+                    return redirect()->action('AdminController@UsersList')
+                            ->with('unlocked', 'Usuario correctamente desbloqueado');
+                }
+            }
+        }
+        return redirect()->action('AdminController@UsersList')
+                ->with('locked', 'Error al bloquear el usuario');
+    }
+
     public function Update(Request $request, $permalink)
     {
         return "Actualizar sin terminar";
@@ -76,6 +100,17 @@ class UserController extends Controller
 
     public function DeleteConfirm($username)
     {
-        return "Borrado sin terminar";
+        $user = User::where('username', $username)->first();
+        if(!is_null($user)){
+            if($user->isPromoter()){
+                $user->delete();    //Borrar sus festivales
+            }else if($user->isManager()){
+                $user->delete();    //Borrar sus artistas
+            }else if($user->isAdmin()){
+                return redirect('/noPermision');
+            }
+        }
+        return redirect()->action('AdminController@UsersList')
+            ->with('deleted', 'usuario');
     }
 }
