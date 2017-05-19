@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use Auth;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller implements AdministrableController
@@ -34,8 +35,14 @@ class PhotoController extends Controller implements AdministrableController
 
     public function DeleteConfirm($permalink)
     {
+        //Comprobar que el usuario identificado tiene acceso al festival indicado
+        $user = Auth::user();
+        $photo =  Photo::join('festivals', "festivals.id", "=", "festival_id")->where('photos.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();
+        if($photo == null){
+            return redirect('/noPermision');
+        }
         return redirect()->action('AdminController@PhotosList')
-            ->with('deleted', Photo::where('permalink', $permalink)->delete());
+            ->with('deleted', $photo->delete());
 
     }
 }
