@@ -96,9 +96,10 @@
                                     <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY"
                                          data-wow-duration="1000ms" data-wow-delay="500ms">
                                         <div class="recent-work-wrap">
-                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto"><img
-                                                        class="img-responsive imagen-festival"
-                                                        src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}"></a>
+                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
+                                                <img class="img-responsive imagen-festival"
+                                                     src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
+                                            </a>
                                             <div class="overlay">
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">

@@ -39,7 +39,6 @@ Route::get('fesitvals/new', 'FestivalController@FormNew');
 Route::get('festival/{permalink}', 'FestivalController@Details');
 Route::get('festival/{permalink}/edit', 'FestivalController@Edit');
 Route::put('festival/{permalink}/edit/update', 'FestivalController@Update');
-
 Route::get('fesitval/{permalink}/images/{filename}', [
     'uses' => 'FestivalController@getFestivalImage',
     'as' => 'festival.image'

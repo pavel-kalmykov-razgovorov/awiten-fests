@@ -105,7 +105,7 @@
                 @forelse($artistas as $artist)
 
                     <div><img class="imagen-artista"
-                              src="{{ asset('images/artistas/' . trim($artist->permalink) . '/' . 'profile.jpg') }}"
+                              src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}"
                               style="width: 100%; height: 100%">
                         <h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
                         </h4>
