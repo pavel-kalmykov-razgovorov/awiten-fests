@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Festival;
 use App\Post;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
@@ -32,8 +33,11 @@ class PostController extends Controller implements AdministrableController
 
     public function Edit($permalink)
     {
+        
         $post = Post::where('permalink', $permalink)->first();
-        $festivals = Festival::get(['id', 'name']);
+        //$festivals = Festival::get(['id', 'name']);
+        $user = Auth::user();
+        $festivals = Festival::select(['id', 'name'])->where('promoter_id',$user->id)->get();
         return view('post.edit', [
             'permalink' => $permalink,
             'post' => $post,

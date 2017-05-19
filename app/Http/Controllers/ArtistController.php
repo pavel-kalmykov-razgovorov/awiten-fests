@@ -99,6 +99,8 @@ class ArtistController extends Controller implements AdministrableController
             'permalink' => $request->get('permalink'),
             'manager_id' => Auth::user()->id
         ]);
+        $user = Auth::user();
+        $artist->user()->associate($user);
         $artist->saveOrFail();
         //Al nuevo artista le pongo como sus festivales los que recibe de los select
         //OJO: usamos array_unique por si en el formulario hubiese dos select con el mismo festival

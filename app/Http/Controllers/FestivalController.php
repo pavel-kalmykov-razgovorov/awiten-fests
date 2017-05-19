@@ -153,6 +153,8 @@ class FestivalController extends Controller implements AdministrableController
             'permalink' => $request->get('permalink'),
             'promoter_id' => Auth::user()->id
         ]);
+        $user = Auth::user();
+        $festival->user()->associate($user);
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));
         $festival->genres()->sync($genres_id);
