@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="date">Fecha</label>
                 <div class="col-md-4">
-                    <input type="text" id="date" name="date" placeholder="Fecha en la que se celebra"
+                    <input type="text" id="date" name="date" placeholder="Fecha en la que se celebra (dd/mm/yyyy)"
                            class="form-control input-md" title="Fecha" value="{{old('date')}}">
                 </div>
             </div>
