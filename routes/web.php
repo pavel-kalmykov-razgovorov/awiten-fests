@@ -92,6 +92,8 @@ Route::group(['middleware' => 'forManager'], function() {
     Route::get('admin/artists/add', 'ArtistController@FormNew');
     Route::post('artist/new/create', 'ArtistController@Create');
     Route::get('admin/artists/details/{permalink}', 'ArtistController@DetailsAdmin');
+    //Asistance confirmation
+    Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');
 });
 
 Route::group(['middleware' => 'forPromoter'], function() {
@@ -136,10 +138,3 @@ Route::get('/noPermision', function() {
     return view('noPermision');
 });
 Route::get('/confirmation/{token}', 'Auth\RegisterController@confirmation');
-
-//Asistance confirmation
-Route::get('admin/artists/confirm/{artistPermalink}_{festivalPermalink}_{confirmation}', 'ArtistController@ConfirmAssistance');
-
-
-
-

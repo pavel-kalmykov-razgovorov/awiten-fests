@@ -119,6 +119,11 @@ class ArtistController extends Controller implements AdministrableController
 
     public function DetailsAdmin($permalink)
     {
+        $user = Auth::user();
+        $artist = Artist::select('id')->where('permalink',$permalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
         return view('artist.details-admin', [
             'column_names' => Schema::getColumnListing(strtolower(str_plural('artists'))),
             'permalink' => $permalink,
@@ -182,6 +187,11 @@ class ArtistController extends Controller implements AdministrableController
 
     public function ConfirmAssistance($artistPermalink, $festivalPermalink, $confirmation)
     {
+        $user = Auth::user();
+        $artist = Artist::select('id')->where('permalink',$artistPermalink)->where('manager_id',$user->id)->first();
+        if($artist == null){
+            return redirect('/noPermision');
+        }
         $confirmation = filter_var($confirmation, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
             ->updateExistingPivot(

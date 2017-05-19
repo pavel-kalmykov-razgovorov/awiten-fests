@@ -135,8 +135,8 @@ class FestivalController extends Controller implements AdministrableController
             $admin = User::find(1);
             
             
-            $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_true/', 
-            'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('name') . '_false/',
+            $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_true/', 
+            'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_false/',
             'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
             'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
