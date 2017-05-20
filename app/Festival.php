@@ -41,11 +41,8 @@ class Festival extends Model
         return $this->permalink;
     }
 
-    public function getDateAttribute($date){
-        return new Date($date);
-    }
 
-     public function getCreatedAdAttribute($date){
+    public function showDateFestival($date){
         return new Date($date);
     }
 

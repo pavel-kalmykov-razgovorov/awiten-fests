@@ -108,7 +108,7 @@
                                                         </h3>
                                                         <p class="text-muted hidden-xs">
                                                         <div class="alert alert-success hidden-xs">
-                                                            {{$festival->date->format('l j \\d\\e F Y')}}
+                                                            {{$festival->showDateFestival($festival->date)->format('l j \\d\\e F Y')}}
                                                         </div>
                                                         </p>
                                                     </div>
