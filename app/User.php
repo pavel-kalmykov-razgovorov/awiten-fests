@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\MyResetPassword;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -48,11 +48,11 @@ class User extends Authenticatable
     }
 
     public function festivals() {
-        return $this->hasMany('App\Festival');
+        return $this->hasMany('App\Festival', 'promoter_id');
     }
 
     public function artists() {
-        return $this->hasMany('App\Artist');
+        return $this->hasMany('App\Artist', 'manager_id');
     }
 
 
