@@ -164,7 +164,7 @@ class FestivalController extends Controller implements AdministrableController
     public function Details($permalink)
     {
         $variableFest = Festival::where('permalink', $permalink)->firstOrFail();
-        $artists = $variableFest->artists()->simplePaginate(3);
+        $artists = $variableFest->artists;
         $variableFest->setRelation('posts', $variableFest->posts()->paginate(4));
         return view('festival.details', [
             'permalink' => $permalink,

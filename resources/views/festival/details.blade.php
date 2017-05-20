@@ -4,8 +4,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="bg-primary text-white text-center">
-                        <h1>{{$festival->name}}</h1>
+                    <div class="bg-primary text-white text-center hidden-xs" >
+                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 5vw;">
+                        {{$festival->name}}</h1>                        
+                    </div>
+                    <div class="bg-primary text-white text-center visible-xs" >
+                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 9vw;">
+                        {{$festival->name}}</h1>                        
                     </div>
                 </div>
                 <div class="col-md-3 hidden-xs">
@@ -60,9 +65,8 @@
             <div class="row hidden-xs">
                 <div class="col-md-10">
                     <h2>Artistas Invitados</h2>
-                    @forelse($artistas as $artist)
-                        <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY" data-wow-duration="1000ms"
-                             data-wow-delay="500ms">
+                    @forelse($festival->artists as $artist)
+                        <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
                             <div class="recent-work-wrap">
                                 @if ($artist->pivot->confirmed == "1")
                                     <img class="imagen-artista"
@@ -85,19 +89,15 @@
                                 </div>
                             </div>
                         </div>
-                        <ul>
+                       
                             @empty
                                 <div class="alert alert-danger">
                                     <h1>No hay artistas aún.</h1>
                                 </div>
                             @endforelse
-                        </ul>
+                        
                 </div>
-                <div class="col-md-2">
-                    <div class="pagination pagination-lg">
-                        {{ $artistas->links() }}
-                    </div>
-                </div>
+                
             </div>
 
             <div class="row visible-xs">

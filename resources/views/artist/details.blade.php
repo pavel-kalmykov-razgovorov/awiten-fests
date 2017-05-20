@@ -44,7 +44,8 @@
     <li>
         <ul>
             @forelse($artist->festivals as $festival)
-                <div class="post-container1">
+               <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
+                            <div class="recent-work-wrap">
                     @if ($festival->pivot->confirmed == "1")
 
                         <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
@@ -62,10 +63,13 @@
                             </h4>
                         </div>
                     @elseif($festival->pivot->confirmed == null)
-                        <h4>PRÓXIMAMENTE</h4>
+                       
                         <div class="post-thumb1"><img class="lista-festivales"
                                                       src="{{ asset('images/festivales/pendiente.png') }}"></div>
+                                                       <h4>PRÓXIMAMENTE</h4>
                     @endif
+                </div>
+                </div>
                 </div>
             @empty
                 Ninguno
