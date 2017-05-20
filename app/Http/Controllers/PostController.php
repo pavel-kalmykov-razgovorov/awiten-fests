@@ -13,7 +13,7 @@ class PostController extends Controller implements AdministrableController
 
     public function FormNew()
     {
-        $festivals = Festival::select(['id', 'name'])->where('promoter_id',Auth::user()->id)->get();
+        $festivals = Auth::user()->festivals()->get();
         return view('post.create', [
             'festivals' => $festivals,
         ]);
