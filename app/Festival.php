@@ -41,7 +41,6 @@ class Festival extends Model
         return $this->permalink;
     }
 
-
     public function showDateFestival($date){
         return new Date($date);
     }

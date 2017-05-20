@@ -56,7 +56,7 @@
 
                         <div class="post-content1 hidden-xs">
                             <h4 class="post-title1"><a
-                                        href="/festival/{{$festival->permalink}}">{{$festival->date->toDateString()}}</a>
+                                        href="/festival/{{$festival->permalink}}">{{$festival->date}}</a>
                             </h4>
                             <h4 class="post-title1"><a
                                         href="/festival/{{$festival->permalink}}">{{$festival->location}}</a>
