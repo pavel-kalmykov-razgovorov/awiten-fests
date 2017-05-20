@@ -118,7 +118,7 @@ class FestivalController extends Controller implements AdministrableController
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
             foreach ($datosArtistas->festivals as $festival) {
-                if ($festival->date->toDateString() == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString()) {
+                if ($festival->date == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))) {
                     $rules['unreal_input'] = 'required'; // a confusing error in your errors list...
                     $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival->name . '.';
                     $validator = Validator::make($request->all(), $rules, $messages);
@@ -138,7 +138,7 @@ class FestivalController extends Controller implements AdministrableController
             $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_true/', 
             'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_false/',
             'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
-            'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
+            'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y')), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
         }            
         $festival = new Festival([
