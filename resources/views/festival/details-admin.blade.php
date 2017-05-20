@@ -4,7 +4,7 @@
     <h1 class="page-header">{{$festival->name}}</h1>
     @if(session('created') != null)
         <div class="alert {{session('created') ? 'alert-success' : 'alert-warning'}}">
-            @if(session('created')) {{$festival->date->toDateString()}} se ha creado correctamente.
+            @if(session('created')) {{$festival->date}} se ha creado correctamente.
             @else {{$festival->name}} no se ha podido crear. Probablemente ya exista en la base de datos.
             @endif
         </div>

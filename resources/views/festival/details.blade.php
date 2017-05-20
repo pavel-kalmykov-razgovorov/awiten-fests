@@ -16,10 +16,10 @@
                 <div class="col-md-3 hidden-xs">
                     <ul class="event-list">
                         <li>
-                            <time datetime="{{\Carbon\Carbon::parse($festival->date)->format('d/m/Y')}}">
-                                <span class="day">{{$festival->date->format('j')}}</span>
-                                <span class="month">{{$festival->date->format('F')}}</span>
-                                <span class="year">{{$festival->date->format('Y')}}</span>
+                            <time>
+                                <span class="day">{{$festival->showDateFestival($festival->date)->format('j')}}</span>
+                                <span class="month">{{$festival->showDateFestival($festival->date)->format('F')}}</span>
+                                <span class="year">{{$festival->showDateFestival($festival->date)->format('Y')}}</span>
                                 <span class="time">ALL DAY</span>
                             </time>
                             <div class="info">

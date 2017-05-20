@@ -114,7 +114,6 @@ class FestivalController extends Controller implements AdministrableController
             'date' => 'date_format:d/m/Y'
         ]);
 
-
         $artists_id = $request->get('artists', []);
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
@@ -141,8 +140,7 @@ class FestivalController extends Controller implements AdministrableController
             'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
             'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
-        }
-            
+        }            
         $festival = new Festival([
             'name' => $request->get('name'),
             'pathLogo' => $request->get('logo'),
@@ -154,6 +152,7 @@ class FestivalController extends Controller implements AdministrableController
             'permalink' => $request->get('permalink'),
             'promoter_id' => Auth::user()->id
         ]);
+       
         $user = Auth::user();
         $festival->user()->associate($user);
         $festival->saveOrFail();
@@ -182,9 +181,11 @@ class FestivalController extends Controller implements AdministrableController
         if($festival == null){
             return redirect('/noPermision');
         }
+        //{{$festival->date->toDateString()}}
+        $column_names = ['name', 'permalink', 'pathLogo', 'location', 'province'];
         //$festival = Festival::where('permalink', $permalink)->firstOrFail();
         return view('festival.details-admin', [
-            'column_names' => Schema::getColumnListing(strtolower(str_plural('festivals'))),
+            'column_names' => $column_names,//Schema::getColumnListing(strtolower(str_plural('festivals'))),
             'permalink' => $permalink,
             'festival' => $festival
         ]);
