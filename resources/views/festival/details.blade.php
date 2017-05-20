@@ -66,6 +66,7 @@
                 <div class="col-md-10">
                     <h2>Artistas Invitados</h2>
                     @forelse($festival->artists as $artist)
+                     @if ($artist->pivot->confirmed != "0")
                         <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
                             <div class="recent-work-wrap">
                                 @if ($artist->pivot->confirmed == "1")
@@ -89,6 +90,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                        
                             @empty
                                 <div class="alert alert-danger">
@@ -103,13 +105,22 @@
             <div class="row visible-xs">
                 <h2>Artistas Invitados</h2>
                 @forelse($artistas as $artist)
-
+                @if ($artist->pivot->confirmed == "1")
                     <div><img class="imagen-artista"
                               src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}"
                               style="width: 100%; height: 100%">
                         <h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
                         </h4>
                     </div>
+                @elseif($artist->pivot->confirmed == null)
+                     <div><img class="imagen-artista"
+                              src="{{ asset('images/artistas/pendiente.png') }}"
+                              style="width: 100%; height: 100%">
+                        <h4>Proximamente</h4>
+                    </div>
+                @endif
+                                    
+                
 
 
 
@@ -120,7 +131,8 @@
                 @endforelse
 
             </div>
-
+            </br>
+            </br>
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">
@@ -132,7 +144,7 @@
                             <tr>
                                 <td class="text-center">
                                     <h2><strong> {{$post->title}} </strong></h2>
-                                    <h3> {{$post->lead}} </h3>
+                                    <h4> {{$post->lead}} </h4>
                                     <p>{{ str_limit($post->body, 300) }}
                                         <a class="bg-info"
                                            href='{{action('FestivalController@MostrarNoticia', $post->id)}}'>Leer

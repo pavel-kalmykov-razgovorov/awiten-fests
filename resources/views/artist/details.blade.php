@@ -48,7 +48,7 @@
                             <div class="recent-work-wrap">
                     @if ($festival->pivot->confirmed == "1")
 
-                        <h4><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h4>
+                        <h2><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h2>
                         <div class="post-thumb1">
                             <img class="lista-festivales"
                                  src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
@@ -63,14 +63,17 @@
                             </h4>
                         </div>
                     @elseif($festival->pivot->confirmed == null)
-                       
+                       <h2>PRÓXIMAMENTE</h2>
                         <div class="post-thumb1"><img class="lista-festivales"
                                                       src="{{ asset('images/festivales/pendiente.png') }}"></div>
-                                                       <h4>PRÓXIMAMENTE</h4>
+                                                       
                     @endif
                 </div>
                 </div>
                 </div>
+                </br>
+</br>
+</br>
             @empty
                 Ninguno
             @endforelse
