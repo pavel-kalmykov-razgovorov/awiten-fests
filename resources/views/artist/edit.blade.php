@@ -13,7 +13,8 @@
             </ul>
         </div>
     @endif
-    <form class="form-horizontal" action="{{action('ArtistController@Update', $permalink)}}" method="post">
+    <form class="form-horizontal" action="{{action('ArtistController@Update', $permalink)}}" method="post"
+          enctype="multipart/form-data">
         {{method_field('put')}}
         {{csrf_field()}}
         <fieldset>

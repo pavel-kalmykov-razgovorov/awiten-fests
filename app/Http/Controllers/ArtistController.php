@@ -7,9 +7,9 @@ use App\Festival;
 use App\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Schema;
-use Illuminate\Support\Facades\Auth;
 
 class ArtistController extends Controller implements AdministrableController
 {
@@ -89,13 +89,28 @@ class ArtistController extends Controller implements AdministrableController
         $this->validate($request, [
             'name' => 'required',
             'permalink' => 'required|unique:artists'
-        ]);
-        //Sabemos que los datos del nuevo artista están correctos
+        ]); //Sabemos que los datos del nuevo artista están correctos
+
+        //Guardado de ficheros
+        $festivalFolder = "artists/$request->permalink"; //La carpeta en donde guardaremos las imágenes
+        $pathProfileFilename = null;
+        $pathHeaderFilename = null;
+        if ($request->hasFile('pathProfile') && $request->pathProfile->isValid()) {
+            $pathProfileFilename = $request->pathProfile->getClientOriginalName();
+            $request->pathProfile->storeAs("$festivalFolder", $pathProfileFilename);
+        }
+        if ($request->hasFile('pathHeader') && $request->pathHeader->isValid()) {
+            $pathHeaderFilename = $request->pathHeader->getClientOriginalName();
+            $request->pathHeader->storeAs("$festivalFolder", $pathHeaderFilename);
+        }
+
         $artist = new Artist([
             'name' => $request->get('name'),
             'soundcloud' => $request->get('soundcloud'),
             'website' => $request->get('website'),
             'country' => $request->get('country'),
+            'pathProfile' => $pathProfileFilename,
+            'pathHeader' => $pathHeaderFilename,
             'permalink' => $request->get('permalink'),
             'manager_id' => Auth::user()->id
         ]);
@@ -174,7 +189,24 @@ class ArtistController extends Controller implements AdministrableController
                 'permalink' => 'required|unique:artists'
             ]);
         }
-        //$artist = Artist::where('permalink', $permalink)->first();
+
+        //Guardado de ficheros
+        $festivalFolder = "artists/$request->permalink"; //La carpeta en donde guardaremos las imágenes
+        $pathProfileFilename = null;
+        $pathHeaderFilename = null;
+        if ($request->hasFile('pathProfile') && $request->pathProfile->isValid()) {
+            Storage::delete("$festivalFolder/$artist->pathProfile"); //Si vamos a actualizar la imagen, borramos la anterior
+            $pathProfileFilename = $request->pathProfile->getClientOriginalName();
+            $artist->pathProfile = $pathProfileFilename;
+            $request->pathProfile->storeAs("$festivalFolder", $pathProfileFilename);
+        }
+        if ($request->hasFile('pathHeader') && $request->pathHeader->isValid()) {
+            Storage::delete("$festivalFolder/$artist->pathHeader"); //Si vamos a actualizar la imagen, borramos la anterior
+            $pathHeaderFilename = $request->pathHeader->getClientOriginalName();
+            $artist->pathHeader = $pathHeaderFilename;
+            $request->pathHeader->storeAs("$festivalFolder", $pathHeaderFilename);
+        }
+
         $artist->name = $request->get('name');
         $artist->soundcloud = $request->get('soundcloud');
         $artist->website = $request->get('website');
@@ -192,6 +224,8 @@ class ArtistController extends Controller implements AdministrableController
         if($artist == null){
             return redirect('/noPermision');
         }
+        //Borrado de archivos
+        Storage::deleteDirectory("artists/$artist->permalink");
         return redirect()->action('AdminController@ArtistsList')->with('deleted', $artist->delete());
     }
 

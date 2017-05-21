@@ -13,7 +13,8 @@
             </ul>
         </div>
     @endif
-    <form class="form-horizontal" action="{{action('ArtistController@Create')}}" method="post">
+    <form class="form-horizontal" action="{{action('ArtistController@Create')}}" method="post"
+          enctype="multipart/form-data">
         {{method_field('post')}}
         {{csrf_field()}}
         <fieldset>
@@ -44,14 +45,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">País</label>
+                <label class="col-md-4 control-label" for="country">País</label>
                 <div class="col-md-4">
                     <input type="text" id="country" name="country" placeholder="País de origen"
                            class="form-control input-md" title="País" value="{{old('country')}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="pathProfile">Foto de perfil</label>
+                <label class="col-md-4 control-label">Foto de perfil</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -62,7 +63,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="pathHeader">Foto de cabecera</label>
+                <label class="col-md-4 control-label">Foto de cabecera</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -72,40 +73,11 @@
                     <span id="pathHeaderFilename">{{old('pathHeader')}}</span>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="festivals-add-button" class="col-md-4 control-label">Festivales</label>
-                <div class="col-md-4">
-                    <input class="btn btn-default" id="festivals-add-button" type="button" onclick="addEntry()"
-                           value="Nuevo festival"/>
-                    <ul id="festivals-list">
-                        @foreach (array_unique(session('festivals') ?? []) as $temp_festival)
-                            <li class="list-unstyled">
-                                <div class="input-group">
-                                    <select class="form-control" name="festivals[]" title="Opciones de festival">
-                                        @foreach ($festivals as $festival)
-                                            @if($temp_festival == $festival->id)
-                                                <option value="{{$festival->id}}" selected>{{$festival->name}}</option>
-                                            @else
-                                                <option value="{{$festival->id}}">{{$festival->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger" onclick="removeEntry(this)">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
             <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
                 <div class="col-md-4">
                     @if(session('genres')) <?php $genres = session('genres'); ?> @endif
                     @foreach($genres as $genre)
-                        <div class="checkbox checkbox-inline">
+                        <div class="checkbox">
                             <input type="checkbox" name="genres[]" id="genre-{{$genre->id}}"
                                    value="{{$genre->id}}" {{$genre->checked ?? ''}}>
                             <label for="genre-{{$genre->id}}">{{$genre->name}}</label>
@@ -121,33 +93,7 @@
             </div>
         </fieldset>
     </form>
-    <template id="festival-entry">
-        <li class="list-unstyled">
-            <div class="input-group">
-                <select class="form-control" name="festivals[]" title="Opciones de festival">
-                    @forelse ($festivals as $festival)
-                        <option value="{{$festival->id}}">{{$festival->name}}</option>
-                    @empty
-                        <option disabled>No hay festivales registrados</option>
-                    @endforelse
-                </select>
-                <span class="input-group-btn">
-                    <button class="btn btn-danger" onclick="removeEntry(this)">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                </span>
-            </div>
-        </li>
-    </template>
     <script type="text/javascript">
-        function addEntry() {
-            document.querySelector('#festivals-list').appendChild(
-                document.importNode(document.querySelector('#festival-entry').content, true));
-        }
-
-        function removeEntry(elem) {
-            elem.parentNode.parentNode.parentNode.remove();
-        }
         $(function () {
             $('#home').removeClass('active');
             $('#artists').addClass('active');

@@ -13,7 +13,8 @@
             </ul>
         </div>
     @endif
-    <form class="form-horizontal" action="{{action('FestivalController@Update', $festival->permalink)}}" method="post">
+    <form class="form-horizontal" action="{{action('FestivalController@Update', $festival->permalink)}}" method="post"
+          enctype="multipart/form-data">
         {{method_field('put')}}
         {{csrf_field()}}
         <fieldset>
@@ -50,7 +51,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="pathLogo">Logo del festival</label>
+                <label class="col-md-4 control-label">Logo del festival</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -58,17 +59,6 @@
                                name="pathLogo" title="Logo del festival" value="{{$festival->pathLogo}}">
                     </label>
                     <span id="pathLogoFilename">{{$festival->pathLogo}}</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="pathLogo">Cartel del festival</label>
-                <div class="col-md-4">
-                    <label class="btn btn-default btn-file">
-                        Seleccionar
-                        <input type="file" class="hide" accept="image/gif, image/jpeg, image/png" id="pathCartel"
-                               name="pathCartel" title="Cartel del festival" value="{{$festival->pathHeader}}">
-                    </label>
-                    <span id="pathCartelFilename">{{$festival->pathHeader}}</span>
                 </div>
             </div>
             <div class="form-group">

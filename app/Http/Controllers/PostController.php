@@ -55,8 +55,8 @@ class PostController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $post =  Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();
-        if($post == null){
+        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        if ($post == null) {
             return redirect('/noPermision');
         }
         //$post = Post::where('permalink', $permalink)->firstOrFail();
@@ -71,10 +71,11 @@ class PostController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $post =  Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();        if($post == null){
+        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        if ($post == null) {
             return redirect('/noPermision');
         }
-        $festivals = Festival::select(['id', 'name'])->where('promoter_id',$user->id)->get();
+        $festivals = Festival::select(['id', 'name'])->where('promoter_id', $user->id)->get();
         //$post = Post::where('permalink', $permalink)->first();
         //$festivals = Festival::get(['id', 'name']);
         return view('post.edit', [
@@ -88,8 +89,8 @@ class PostController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $post1 =  Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();
-        if($post1 == null){
+        $post1 = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        if ($post1 == null) {
             return redirect('/noPermision');
         }
         if ($request->get('permalink', '') != $permalink) {
@@ -111,8 +112,8 @@ class PostController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $post =  Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();
-        if($post == null){
+        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        if ($post == null) {
             return redirect('/noPermision');
         }
         return redirect()->action('AdminController@PostsList')

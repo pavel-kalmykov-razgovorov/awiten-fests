@@ -95,7 +95,8 @@
                                 @foreach($festivals as $festival)
                                     <div class="portfolio-item festival col-md-4 col-sm-6">
                                         <div class="recent-work-wrap">
-                                            <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
+                                            <a href="{{ action('FestivalController@Details', $festival->permalink) }}"
+                                               rel="prettyPhoto">
                                                 <img class="img-responsive imagen-festival"
                                                      src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
                                             </a>
@@ -103,7 +104,7 @@
                                                 <div class="recent-work-inner">
                                                     <div class="portfolio-caption">
                                                         <h3>
-                                                            <a href="/festival/{{$festival->permalink}}"><strong>{{$festival->name}}</strong></a>
+                                                            <a href="{{ action('FestivalController@Details', $festival->permalink) }}"><strong>{{$festival->name}}</strong></a>
                                                         </h3>
                                                         <p class="text-muted hidden-xs">
                                                         <div class="alert alert-success hidden-xs">

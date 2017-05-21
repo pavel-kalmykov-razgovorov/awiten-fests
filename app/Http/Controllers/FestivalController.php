@@ -5,17 +5,15 @@ namespace App\Http\Controllers;
 use App\Artist;
 use App\Festival;
 use App\Genre;
+use App\Notifications\ConfirmacionAsistenciaEvento;
 use App\Post;
-use Carbon\Carbon;
 use App\User;
-use Schema;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Notifications\ConfirmacionAsistenciaEvento;
-use Illuminate\Support\Facades\Auth;
-use DateTime;
 
 class FestivalController extends Controller implements AdministrableController
 {
@@ -133,26 +131,33 @@ class FestivalController extends Controller implements AdministrableController
             $datosArtistas = Artist::findOrFail($artist_id);
             //Obtener manager del artista
             $admin = User::find(1);
-            
-            
-            $content = [ 'urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_true/', 
-            'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_false/',
-            'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
-            'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y',$request->get('date') ?? Carbon::now()->format('d/m/Y')), 'nameFestival' => $request->get('name')];
+
+
+            $content = ['urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_true/',
+                'urlnoOk' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_false/',
+                'urlShow' => 'http://localhost:8000/admin/artists/details/' . $datosArtistas->permalink,
+                'nameArtist' => $datosArtistas->name, 'fecha' => Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))->toDateString(), 'nameFestival' => $request->get('name')];
             $admin->notify(new ConfirmacionAsistenciaEvento($content));
-        }            
+        }
+
+        // Guardado de archivos
+        $festivalFolder = "festivals/$request->permalink"; //La carpeta en donde guardaremos las imágenes
+        $pathLogoFilename = null;
+        if ($request->hasFile('pathLogo') && $request->pathLogo->isValid()) {
+            $pathLogoFilename = $request->pathLogo->getClientOriginalName();
+            $request->pathLogo->storeAs("$festivalFolder", $pathLogoFilename);
+        }
+
         $festival = new Festival([
-            'name' => $request->get('name'),
-            'pathLogo' => $request->get('logo'),
-            'pathCartel' => $request->get('cartel'),
-            'location' => $request->get('location'),
-            'province' => $request->get('province'),
-            'date' => Carbon::createFromFormat('d/m/Y',
-                $request->get('date') ?? Carbon::now()->format('d/m/Y')),
-            'permalink' => $request->get('permalink'),
+            'name' => $request->name,
+            'pathLogo' => $pathLogoFilename, //Si no se han subido archivos, se guarda un null en ambos nombres
+            'location' => $request->location,
+            'province' => $request->province,
+            'date' => Carbon::createFromFormat('d/m/Y', $request->date ?? Carbon::now()->format('d/m/Y')),
+            'permalink' => $request->permalink,
             'promoter_id' => Auth::user()->id
         ]);
-       
+
         $user = Auth::user();
         $festival->user()->associate($user);
         $festival->saveOrFail();
@@ -177,8 +182,8 @@ class FestivalController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
-        if($festival == null){
+        $festival = Festival::where('permalink', $permalink)->where('promoter_id', $user->id)->first();
+        if ($festival == null) {
             return redirect('/noPermision');
         }
         //{{$festival->date->toDateString()}}
@@ -195,8 +200,8 @@ class FestivalController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
-        if($festival == null){
+        $festival = Festival::where('permalink', $permalink)->where('promoter_id', $user->id)->first();
+        if ($festival == null) {
             return redirect('/noPermision');
         }
         //$festival = Festival::where('permalink', $permalink)->firstOrFail();
@@ -241,8 +246,8 @@ class FestivalController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
-        if($festival == null){
+        $festival = Festival::where('permalink', $permalink)->where('promoter_id', $user->id)->first();
+        if ($festival == null) {
             return redirect('/noPermision');
         }
         if ($request->get('permalink', '') != $permalink) {
@@ -251,14 +256,35 @@ class FestivalController extends Controller implements AdministrableController
                 'permalink' => 'required|unique:festivals'
             ]);
         }
-        //$festival = Festival::where('permalink', $permalink)->firstOrFail();
+
+        $artists_id = $request->get('artists', []);
+        foreach ($artists_id as $artist_id) {
+            $datosArtistas = Artist::findOrFail($artist_id);
+            foreach ($datosArtistas->festivals as $festival) {
+                if ($festival->date == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))) {
+                    $rules['unreal_input'] = 'required'; // a confusing error in your errors list...
+                    $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival->name . '.';
+                    $validator = Validator::make($request->all(), $rules, $messages);
+                    if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
+
+                }
+            }
+        }
+
+        // Guardado de archivos
+        $festivalFolder = "festivals/$request->permalink"; //La carpeta en donde guardaremos las imágenes
+        $pathLogoFilename = null;
+        if ($request->hasFile('pathLogo') && $request->pathLogo->isValid()) {
+            Storage::delete("$festivalFolder/$festival->pathLogo"); //Si vamos a actualizar la imagen, borramos la anterior
+            $pathLogoFilename = $request->pathLogo->getClientOriginalName();
+            $festival->pathLogo = $pathLogoFilename;
+            $request->pathLogo->storeAs("$festivalFolder", $pathLogoFilename);
+        }
+
         $festival->name = $request->get('name');
-        $festival->pathLogo = $request->get('logo');
-        $festival->pathCartel = $request->get('cartel');
         $festival->location = $request->get('location');
         $festival->province = $request->get('province');
-        $festival->date = Carbon::createFromFormat('d/m/Y',
-            $request->get('date') ?? Carbon::now()->format('d/m/Y'));
+        $festival->date = Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'));
         $festival->permalink = $request->get('permalink');
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));
@@ -270,12 +296,15 @@ class FestivalController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
         $user = Auth::user();
-        $festival = Festival::where('permalink',$permalink)->where('promoter_id',$user->id)->first();
-        if($festival == null){
+        $festival = Festival::where('permalink', $permalink)->where('promoter_id', $user->id)->first();
+        if ($festival == null) {
             return redirect('/noPermision');
         }
+
+        //Borrado de archivos
+        Storage::deleteDirectory("festivals/$festival->permalink");
         return redirect()->action('AdminController@FestivalsList')
-            ->with('deleted',  $festival->delete());
+            ->with('deleted', $festival->delete());
     }
 
     public function MostrarNoticia($idpost)

@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Jenssegers\Date\Date;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 
 /**
  * @property string name
@@ -19,11 +19,13 @@ class Festival extends Model
 {
     protected $fillable = ['name', 'pathLogo', 'pathCartel', 'location', 'province', 'date', 'permalink', 'promoter_id'];
 
-    public function artists() {
+    public function artists()
+    {
         return $this->belongsToMany('App\Artist')->withPivot('confirmed');
     }
 
-    public function genres() {
+    public function genres()
+    {
         return $this->belongsToMany('App\Genre');
     }
 
@@ -32,7 +34,8 @@ class Festival extends Model
         return $this->hasMany('App\Post');
     }
 
-    public function photos() {
+    public function photos()
+    {
         return $this->hasMany('App\Photo');
     }
 
@@ -41,12 +44,15 @@ class Festival extends Model
         return $this->permalink;
     }
 
-    public function showDateFestival($date){
+
+    public function showDateFestival($date)
+    {
         return new Date($date);
     }
 
-    public function user(){
-        return $this->belongsTo('App\User','promoter_id');
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'promoter_id');
     }
 
 }
