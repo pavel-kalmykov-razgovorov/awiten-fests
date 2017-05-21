@@ -52,21 +52,21 @@ class AdminController extends Controller
     {
         $request->session()->flash('sonUsuarios', true);
         $column_names = ['name', 'username', 'email', 'typeOfUser', 'confirmed', 'locked'];
-        return $this->tableViewByModelName(User::where('typeOfUser', '!=', 'admin')->select($column_names)->paginate(15), 'User', 'Usuarios', 'Usuarios', $column_names);
+        return $this->tableViewByModelName(User::where('typeOfUser', '!=', 'admin')->select($column_names)->get(), 'User', 'Usuarios', 'Usuarios', $column_names);
     }
 
     public function FestivalsList()
     {
         $user = Auth::user();
         $column_names = ['name', 'permalink', 'pathLogo', 'location', 'date', 'province'];
-        return $this->tableViewByModelName(Festival::select($column_names)->where('promoter_id', $user->id)->paginate(15), 'Festival', 'Festival', 'Festivales', $column_names);
+        return $this->tableViewByModelName(Festival::select($column_names)->where('promoter_id', $user->id)->get(), 'Festival', 'Festival', 'Festivales', $column_names);
     }
 
     public function GenresList(Request $request)
     {
         $request->session()->flash('sonUsuarios', false);
         $column_names = ['name', 'permalink'];
-        return $this->tableViewByModelName(Genre::paginate(15), 'Genre', 'Género', 'Géneros', $column_names);
+        return $this->tableViewByModelName(Genre::get(), 'Genre', 'Género', 'Géneros', $column_names);
     }
 
     public function PostsList()
@@ -74,7 +74,7 @@ class AdminController extends Controller
         $user = Auth::user();
         $festivals = Festival::select('id')->where('promoter_id', $user->id)->get();
         $column_names = ['title', 'permalink', 'lead', 'body', 'festival_id'];
-        return $this->tableViewByModelName(Post::select($column_names)->whereIn('festival_id', $festivals)->paginate(15), 'Post', 'Noticia de festival', 'Noticias de festival', $column_names);
+        return $this->tableViewByModelName(Post::select($column_names)->whereIn('festival_id', $festivals)->get(), 'Post', 'Noticia de festival', 'Noticias de festival', $column_names);
     }
 
     public function PhotosList()
@@ -82,6 +82,6 @@ class AdminController extends Controller
         $user = Auth::user();
         $festivals = Festival::select('id')->where('promoter_id', $user->id)->get();
         $column_names = ['name', 'permalink', 'path', 'festival_id'];
-        return $this->tableViewByModelName(Photo::select($column_names)->whereIn('festival_id', $festivals)->paginate(15), 'Photo', 'Foto de festival', 'Fotos de festival', $column_names);
+        return $this->tableViewByModelName(Photo::select($column_names)->whereIn('festival_id', $festivals)->get(), 'Photo', 'Foto de festival', 'Fotos de festival', $column_names);
     }
 }

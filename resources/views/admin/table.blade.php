@@ -1,5 +1,4 @@
 @extends('admin.master')
-
 @section('title', $pluralSpanishModelName)
 @section('content')
     <h1 class="page-header">{{$pluralSpanishModelName}}</h1>
@@ -29,14 +28,15 @@
     </div>
     @if(!empty($models))
         <div class="table-bordered table-responsive">
-            <table class="table .table-condensed table-striped table-hover models-table">
+            <table class="table table-condensed table-striped table-hover models-table" id="table">
                 <thead>
                 <tr>
                     @foreach($column_names as $column_name)
                         {{--Muestro como cabecera todos los nombres de columna de la tabla correspondiente--}}
                         <th>{{$column_name}}</th>
                     @endforeach
-                    <th colspan="2"></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -81,7 +81,6 @@
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </a>
                             @endif
-                                
                         </td>
                         <td>
                             @if(session('sonUsuarios'))
@@ -105,14 +104,12 @@
                                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                                 </a>
                              @endif
-                                
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-        {{ $models->links() }}
     @else
         <div class="alert alert-warning">
             <strong>Advertencia:</strong> No existe ningún {{lcfirst($spanishModelName)}} o no se pueden acceder a ellos

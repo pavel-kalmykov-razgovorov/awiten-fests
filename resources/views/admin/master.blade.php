@@ -19,6 +19,15 @@
     <script src="{{asset('js/cssrelpreload.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/loadCSS.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/onloadCSS.js')}}" type="text/javascript"></script>
+    <!-- DataTable -->
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" type="text/javascript"
+            charset="utf8"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="text/javascript"
+            charset="utf8"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js" type="text/javascript"
+            charset="utf8"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js" type="text/javascript"
+            charset="utf8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,7 +38,8 @@
 
 <body>
 <!-- Bootstrap core CSS -->
-<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" lazyload="1">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+      lazyload="1">
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <link href="{{asset('css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet" lazyload="1">
 <!-- Custom styles for this template -->
@@ -39,6 +49,11 @@
 <link href="{{asset('css/awesome-bootstrap-checkbox.css')}}" rel="stylesheet" lazyload="1">
 <!--Bootstrap Select -->
 <link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet" lazyload="1">
+<!-- DataTable -->
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"
+      lazyload="1">
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet"
+      type="text/css" lazyload="1">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -121,12 +136,17 @@
         $('[data-toggle=confirmation]').confirmation({
             rootSelector: '[data-toggle=confirmation]'
         });
-    });
-    $('a[rel=popover]').popover({
-        html: true,
-        content: function () {
-            return '<img style="width: 100%" src="' + $(this).data('img') + '">';
-        }
+        $('a[rel=popover]').popover({
+            html: true,
+            content: function () {
+                return '<img style="width: 100%" src="' + $(this).data('img') + '">';
+            }
+        });
+        $('#table').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
     });
     function slugify(text) {
         return text.toString().toLowerCase()
