@@ -10,15 +10,10 @@
 <body>
 <!-- Bootstrap -->
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" lazyload="1">
-<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" . lazyload="1">
 <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" lazyload="1">
-<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" . lazyload="1">
 <link href="{{ asset('css/animate.css') }}" rel="stylesheet" lazyload="1">
-<link href="{{ asset('css/animate.css') }}" rel="stylesheet" . lazyload="1">
 <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet" lazyload="1">
-<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet" . lazyload="1">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet" lazyload="1"/>
-<link href="{{ asset('css/style.css') }}" rel="stylesheet" . lazyload="1"/>
 
 <header>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -45,29 +40,30 @@
                             <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">Admin</a>
                             @if (Auth::check())
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
+                                               onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
                                                 Logout
                                             </a>
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                  style="display: none;">
                                                 {{ csrf_field() }}
                                             </form>
                                         </li>
                                     </ul>
                                 </li>
-                                @elseif (Auth::guest())
-                                    <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                            @elseif (Auth::guest())
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                <li><a href="{{ route('register') }}">Registrarse</a></li>
                             @endif
-                            </li>
                             {{--<div class="links">--}}
                         </ul>
                     </div>
@@ -86,18 +82,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="carousel-content">
-                                    <h2 class="animation animated-item-1">Bienvenido a <span> Awiten </span> Fests </h2>
+                                <div class="carousel-content" style="padding: 10px;background: rgba(0, 140, 23, 0.5);">
+                                    <h2 class="animation animated-item-1">
+                                        Bienvenido a <span style="color: #1BBD36">Awiten</span><span>Fests</span>
+                                    </h2>
                                     <p class="text-danger animation animated-item-2" style="color: LawnGreen">
-                                        <strong>Aquí podrás encontrar los mejores festivales de todos los
-                                            estilos.</strong>
+                                        <strong>Los mejores festivales de los mejores estilos musicales!</strong>
                                     </p>
-                                    <form method="get" action="{{ action('FestivalController@busqueda') }}">
-                                        <div class="search">
-                                            <input type="text" class="form-control" name="buscado" title="Buscado">
-                                            <button type="submit" class="btn-buscador btn-warning">Buscar</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
 
