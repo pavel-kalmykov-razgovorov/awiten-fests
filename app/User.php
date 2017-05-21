@@ -55,5 +55,4 @@ class User extends Authenticatable
         return $this->hasMany('App\Artist', 'manager_id');
     }
 
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ServiceLayer\AdminServices;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -115,16 +116,7 @@ class UserController extends Controller
 
     public function Delete($username)
     {
-        $user = User::where('username', $username)->first();
-        if (!is_null($user)) {
-            if ($user->isPromoter()) {
-                $user->delete();    //Borrar sus festivales
-            } else if ($user->isManager()) {
-                $user->delete();    //Borrar sus artistas
-            } else if ($user->isAdmin()) {
-                return redirect('/noPermision');
-            }
-        }
+        AdminServices::deleteUser(User::where('username', $username)->first());
         return redirect()->action('AdminController@UsersList')
             ->with('deleted', 'usuario');
     }
