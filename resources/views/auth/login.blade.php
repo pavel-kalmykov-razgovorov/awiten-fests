@@ -18,7 +18,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="username" class="col-md-4 control-label texto-comun">Username</label>
+                            <label for="username" class="col-md-4 control-label texto-comun">  {{ trans('translate.username')}}</label>
 
                             <div class="col-md-6">
                                 <input id="username" type="username" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label texto-comun">Password</label>
+                            <label for="password" class="col-md-4 control-label texto-comun"> {{ trans('translate.password')}}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -48,9 +48,8 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                     <label>
-                                        <input type="checkbox" name="remember"  autocomplete="off"  class="checkbox" {{ old('remember') ? 'checked' : '' }}>Remember Me
-                                    </label>
-                            </div>
+                                        <input type="checkbox" name="remember"  autocomplete="off"  class="checkbox" {{ old('remember') ? 'checked' : '' }}> {{ trans('translate.rememberme')}}  </label>
+                            </div>  
                         </div>
 
                         <div class="form-group">
@@ -60,7 +59,7 @@
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    ¿Has olvidado la contraseña?
+                                     {{ trans('translate.forget')}}
                                 </a>
                             </div>
                         </div>

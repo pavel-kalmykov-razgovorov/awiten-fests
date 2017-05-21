@@ -81,11 +81,11 @@ class PostsTableSeeder extends Seeder
                 ['title' => 'WAN FESTIVAL: 2017 EMPIEZA CON MUSICÓN EN MADRID',
                     'lead' => 'Wan Festival cumplió con las expectativas y deja un público satisfecho con el resultado ',
                     'body' => 'Entramos al festival a las 8.30 pm -la apertura de puertas era a las 7 pm pero finalmente se realizó a las 8 pm– y ya sabemos como es esto, se formó una gran aglomeración a la entrada, pero fue bien y rapidamente subsanada con el control de los servicios de seguridad privados. Los cacheos en la puerta eran meticulosos, a mi parecer más, hasta más exhaustivos que algunos de la Policía Nacional. La presencia de la Policía Nacional con fuerzas caninas en los accesos y Policía Municipal de Leganés, aseguraban que no se pasase ningún objeto peligroso al evento. Gran actuación teniendo en cuenta que nuestro país todavía se encuentra en nivel 4 de alerta terrorista. Pese a ello, algunos individuos -vamos a llamarles: ‘cafres’- tiraron en el desarrollo del festival y con el recinto totalmente lleno, dos botes de algún tipo de gas que hizo que a la gente le empezaran a llorar los ojos e incluso llegó a irritarles las gargantas. Entre ellos nosotros, quienes estábamos allí presentes en el momento. Fueron arrojados en dos partes de la pista, con lo que se crearon dos enormes agujeros en una tarima que estaba a rebosar. Afortunadamente, el público fue civilizado y los servicios de seguridad estuvieron rápidos para controlar la situación y que no cundiese el pánico. Esperamos que estos ‘cafres’ hayan sido atrapados y paguen por sus actos de una manera severa, puesto que hoy podríamos haber estado hablando de una tragedia.
-                    En el aspecto musical, entramos con la sesión avanzada de Fabio Florido, todavía en pleno proceso de entrada del público y con un excelente warm up de lo que vendría a posteriori. En nuestra opinión, Luciano un aprobado alto con un 7, ha Richie Hawtin le otorgamos un 7, notable para el canadiense. Marco Carola y Paco Osuna un 6, Gonçalo un 5 y los Martinez Brother un 6.
+                    En el aspecto musical, entramos con la sesión avanzada de Fabio Florido, todavía en pleno proceso de entrada del público y con un excelente warm up de lo que vendría a posteriori. En nuestra opinión, Luciano un aprobado alto con un 7, ha Richie Hawtin le otorgamos un 7, notable para el canadiense. Marco Carola y Paco Osuna un 6, Gonçalo un 5 y los Martinez Brothers un 6.
                     Luciano, el chileno supo conectar rápidamente con el público y empezó a caldear la pista de baile, vibrante y con mucho ritmo empezó a poner color a Wan Festival.
                     Richie Hawtin, después de las grandes últimas sesiones que le hemos visto protagonizar, tanto en Off Week o Sonar, no estuvo igual. Optó por una música más bailonga, pero teniendo en cuenta a los acompañantes del line-up era lo lógico y normal y más aún si analizamos la paliza de kilómetros que se metió entre pecho y espalda (como siempre) en año nuevo.
                     Marco Carola y Paco Osuna con sus ritmos, dos sesiones similares. Tenías que mirar al escenario y ver quien pinchaba para poder  diferenciar quien estaba en cabina.
-                    De Gonçalo, después de la gran sesión que nos ofreció en WAN festival el año pasado, nos esperábamos mucho más de él . Los Martinez Brother en su línea, sabiendo como hacer disfrutar siempre al público.',
+                    De Gonçalo, después de la gran sesión que nos ofreció en WAN festival el año pasado, nos esperábamos mucho más de él . Los Martinez Brothers en su línea, sabiendo como hacer disfrutar siempre al público.',
                     'festival_id' => $wan,
                     'permalink' => 'wan-festival-2017-empieza-con-musicon-en-madrid'
                 ],
@@ -118,6 +118,6 @@ class PostsTableSeeder extends Seeder
             ]
         );
 
-       // factory(\App\Post::class, 300)->create();
+       factory(\App\Post::class, 300)->create();
     }
 }

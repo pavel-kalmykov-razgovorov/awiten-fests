@@ -40,7 +40,7 @@
             </a>
     </div>
     </br>
-    <h3 style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
+    <h3 style="font-family:verdana; text-align:center">{{ trans('translate.actuaciones') }} </h3>
     <li>
         <ul>
             @forelse($artist->festivals as $festival)
@@ -62,7 +62,7 @@
                             </h4>
                         </div>
                     @elseif($festival->pivot->confirmed == null)
-                        <h4>PRÓXIMAMENTE</h4>
+                        <h4>{{ trans('translate.proximamente') }}</h4>
                         <div class="post-thumb1"><img class="lista-festivales"
                                                       src="{{ asset('images/festivales/pendiente.png') }}"></div>
                     @endif
@@ -74,7 +74,6 @@
     </li>
 
     @else
-        <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de
-            la base de datos</h3>
+        <h3>{{trans('translate.artista')}} {{str_replace('-', ' ', title_case($permalink))}} {{trans('translate.noexiste')}}</h3>
     @endif
 @endsection

@@ -34,9 +34,9 @@
                 <div class="navbar-collapse collapse">
                     <div class="menu">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals</a></li>
-                            <li role="presentation"><a href="{{action('ArtistController@init')}}">Artistas</a></li>
-                            <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">Admin</a>
+                            <li role="presentation"><a href="{{action('FestivalController@init')}}">{{ trans('translate.festivales') }}</a></li>
+                            <li role="presentation"><a href="{{action('ArtistController@init')}}">{{ trans('translate.artistas') }}</a></li>
+                            <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">{{ trans('translate.admin') }}</a>
                             @if (Auth::check())
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -59,7 +59,7 @@
                                 </li>
                                 @elseif (Auth::guest())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                                    <li><a href="{{ route('register') }}">{{ trans('translate.registro') }}</a></li>
                             @endif
                             </li>
                             {{--<div class="links">--}}
@@ -81,15 +81,14 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="carousel-content">
-                                    <h2 class="animation animated-item-1">Bienvenido a <span> Awiten </span> Fests </h2>
+                                    <h2 class="animation animated-item-1">{{ trans('translate.bienvenido') }} <span> Awiten </span> Fests </h2>
                                     <p class="text-danger animation animated-item-2" style="color: LawnGreen">
-                                        <strong>Aquí podrás encontrar los mejores festivales de todos los
-                                            estilos.</strong>
+                                        <strong>{{ trans('translate.descubre') }}</strong>
                                     </p>
                                     <form method="get" action="{{ action('FestivalController@busqueda') }}">
                                         <div class="search">
                                             <input type="text" class="form-control" name="buscado" title="Buscado">
-                                            <button type="submit" class="btn-buscador btn-warning">Buscar</button>
+                                            <button type="submit" class="btn-buscador btn-warning">{{ trans('translate.buscar') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -112,7 +111,7 @@
             <div class="social-icon">
                 <div class="col-md-4">
                     <ul class="social-network">
-                        <li><a href='{{action('PagesController@getContact')}}'>Contacto</a></li>
+                        <li><a href='{{action('PagesController@getContact')}}'>{{ trans('translate.contacto') }}</a></li>
                         <li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a>
