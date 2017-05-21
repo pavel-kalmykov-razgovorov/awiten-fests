@@ -45,7 +45,7 @@
     </ul>
     <a href="{{action('AdminController@GenresList')}}" class="btn btn-default">Géneros</a>
     <a href="{{action('GenreController@Edit', $permalink)}}" class="btn btn-default">Editar</a>
-    <a href="{{action('GenreController@DeleteConfirm', $permalink)}}" class="btn btn-default"
+    <a href="{{action('GenreController@Delete', $permalink)}}" class="btn btn-default"
        data-toggle="confirmation" data-placement="top" data-singleton="true" data-popout="true"
        data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
        data-btn-cancel-class="btn-danger"
