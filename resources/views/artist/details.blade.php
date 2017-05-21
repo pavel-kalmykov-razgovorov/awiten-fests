@@ -41,43 +41,42 @@
     </div>
     </br>
     <h3 style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
-    <li>
-        <ul>
+   
+        <div class="row">
+                <div class="col-md-10">
             @forelse($artist->festivals as $festival)
-               <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
+                @if ($festival->pivot->confirmed != "0")
+                        <div class="portfolio-item festival col-md-4 col-sm-6">
                             <div class="recent-work-wrap">
-                    @if ($festival->pivot->confirmed == "1")
-
-                        <h2><a href="/festival/{{$festival->permalink}}">{{$festival->name}}</a></h2>
-                        <div class="post-thumb1">
-                            <img class="lista-festivales"
-                                 src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
+                                @if ($festival->pivot->confirmed == "1")
+                                    <img class="imagen-artista"
+                                         src="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->pathLogo]) }}">
+                                @elseif($festival->pivot->confirmed == null)
+                                     <div class="post-thumb1"><img class="lista-festivales" src="{{ asset('images/festivales/pendiente.png') }}"></div>
+                                @endif
+                                <div class="overlay">
+                                    <div class="recent-work-inner">
+                                        <div class="portfolio-caption">
+                                            @if ($festival->pivot->confirmed == "1")
+                                                <h3>
+                                                    <a href="{{action('FestivalController@Details', $festival->permalink)}}">{{$festival->name}}</a>
+                                                </h3>
+                                            @elseif($festival->pivot->confirmed == null)
+                                                <h3>Próximamente</h3>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        @endif
 
-                        <div class="post-content1 hidden-xs">
-                            <h4 class="post-title1"><a
-                                        href="/festival/{{$festival->permalink}}">{{$festival->date}}</a>
-                            </h4>
-                            <h4 class="post-title1"><a
-                                        href="/festival/{{$festival->permalink}}">{{$festival->location}}</a>
-                            </h4>
-                        </div>
-                    @elseif($festival->pivot->confirmed == null)
-                       <h2>PRÓXIMAMENTE</h2>
-                        <div class="post-thumb1"><img class="lista-festivales"
-                                                      src="{{ asset('images/festivales/pendiente.png') }}"></div>
-                                                       
-                    @endif
-                </div>
-                </div>
-                </div>
-                </br>
-</br>
-</br>
             @empty
                 Ninguno
             @endforelse
-        </ul>
+             </div>    
+            </div>
+        
     </li>
 
     @else

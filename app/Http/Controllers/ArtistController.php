@@ -202,12 +202,30 @@ class ArtistController extends Controller implements AdministrableController
         if($artist == null){
             return redirect('/noPermision');
         }
+        $detallesArtista = Artist::findOrFail($artist);
+        $festival = Festival::select('id')->where('permalink',$festivalPermalink)->first();
+        $detallesFestival = Festival::findOrFail($festival);
         $confirmation = filter_var($confirmation, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
             ->updateExistingPivot(
                 Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
                 ['confirmed' => $confirmation]);
-        //TODO implementar envio de correo de respuesta
+                
+        if($confirmation){
+            $data = array(
+			'title' => "¡¡Nueva confirmación!!",
+			'permalink' => $artistPermalink . $festivalPermalink . ".",
+			'lead' => "Atención a todos los fans de " . $detallesArtista->name . "! Si tú eres uno de ellos no te puedes perder esto.",
+            'body' => "¡¡Así es!! Despúes de un cúmulo de rumores y escpeculaciónes, el afamado " . $detallesArtista->name . 
+            " ha confirmado su presencia en el festival " . $detallesFestival->name . ". Los numerosos fans de este grandismo Dj
+            están de enhorabuena tras esta confirmación ya que su presencía no estaba asegurada debido a los accidentes ocurridos 
+            en su ultima actuación en la Metro, donde un apasiando fan de este Dj, llamado Arnau o también conocido por la policia
+            como 'Aguita el subnormal' se abalanzó sobre él, al grito de ¡¡¡" .  $detallesArtista->name . " POSA TECHNOOOO!!. Finalmente, a pesar
+            de este bochornoso aconteciomiento el gran " .  $detallesArtista->name . " si acudirá a nuestro festival.",
+            'festival_id' => $detallesFestival->id
+			);
+            app('App\Http\Controllers\PostController')->Create2($data);
+        }
         
         return redirect()->back();
     }

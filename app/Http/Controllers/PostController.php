@@ -38,6 +38,19 @@ class PostController extends Controller implements AdministrableController
         return redirect()->action('PostController@DetailsAdmin', [$post])->with('created', true);
     }
 
+    public function Create2($data)
+    {
+        $post = new Post([
+            'title' => $data['title'],
+            'permalink' => $data['permalink'],
+            'lead' => $data['lead'],
+            'body' => $data['body'],
+            'festival_id' => $data['festival_id'] //NO ME GUSTA
+        ]);
+        $post->saveOrFail();
+        
+    }
+
     public function DetailsAdmin($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado

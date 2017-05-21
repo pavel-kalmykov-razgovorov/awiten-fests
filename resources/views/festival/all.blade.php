@@ -93,8 +93,7 @@
                         <div class="center col-md-12">
                             <div class="portfolio-items">
                                 @foreach($festivals as $festival)
-                                    <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY"
-                                         data-wow-duration="1000ms" data-wow-delay="500ms">
+                                    <div class="portfolio-item festival col-md-4 col-sm-6">
                                         <div class="recent-work-wrap">
                                             <a class="" href="{{$festival->pathLogo}}" rel="prettyPhoto">
                                                 <img class="img-responsive imagen-festival"
