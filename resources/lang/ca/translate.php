@@ -61,4 +61,6 @@ return array(
 
     "regcorrecto" => "S'ha registrat correctament",
     "confcorreo" => "Confirme el correu que li hem enviat",
+
+    "perfil" => "Perfil",
 );

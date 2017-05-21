@@ -62,4 +62,6 @@ return array(
 
     "regcorrecto" => "You have successfully registered",
     "confcorreo" => "Confirm email we sent you",
+
+    "perfil" => "Profile",
 );
