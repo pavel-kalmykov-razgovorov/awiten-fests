@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="name">Nombre</label>
                 <div class="col-md-4">
-                    <input type="text" id="name" name="name" placeholder="Nombre del artista (debe ser único)"
+                    <input type="text" id="name" name="name" placeholder="Nombre del género (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{$genre->name}}">
                     <span class="help-block">
                         <input class="form-control input-sm" type="text" id="permalink" name="permalink"
