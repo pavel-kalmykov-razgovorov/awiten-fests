@@ -29,6 +29,15 @@
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js" type="text/javascript"
             charset="utf8"></script>
 
+    <!-- Krajee's File Input -->
+    <link href="{{ asset('css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('js/plugins/canvas-to-blob.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/sortable.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/purify.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('js/themes/fa/theme.min.js') }}"></script>
+    <script src="{{ asset('js/locales/es.js') }}"></script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
