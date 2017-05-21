@@ -27,8 +27,17 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="navbar-brand">
-                        <a href="/"><h1><span>Awiten</span>Fests</h1></a>
-                    </div>
+                   
+                   <table width="800">
+                     <tr>  <td width="91%"> <a href="/"><h1><span>Awiten</span>Fests</h1></a></td>
+                    
+                            <td width="3%"><a href="{{ url('lang', ['en']) }}">EN</a></td>
+                            <td width="3%"><a href="{{ url('lang', ['es']) }}">ES</a></td>
+                            <td width="3%"><a href="{{ url('lang', ['ca']) }}">VA</a></td>
+                           
+                    </tr>
+                    </table>
+                        </div>
                 </div>
 
                 <div class="navbar-collapse collapse">
