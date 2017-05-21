@@ -85,23 +85,23 @@
                         </td>
                         <td>
                             @if(session('sonUsuarios'))
-                                <a href="{{action($modelName . 'Controller@DeleteConfirm', $model->username)}}"
-                               data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
-                               data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
-                               data-btn-cancel-class="btn-danger"
-                               data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
-                               data-btn-ok-class="btn-success"
-                               data-title="Estás seguro?" data-content="No podrás recuperarlo">
+                                <a href="{{action($modelName . 'Controller@Delete', $model->username)}}"
+                                   data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
+                                   data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
+                                   data-btn-cancel-class="btn-danger"
+                                   data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
+                                   data-btn-ok-class="btn-success"
+                                   data-title="Estás seguro?" data-content="No podrás recuperarlo">
                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                                 </a>
                             @else
-                                <a href="{{action($modelName . 'Controller@DeleteConfirm', $model->permalink)}}"
-                                data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
-                                data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
-                                data-btn-cancel-class="btn-danger"
-                                data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
-                                data-btn-ok-class="btn-success"
-                                data-title="Estás seguro?" data-content="No podrás recuperarlo">
+                                <a href="{{action($modelName . 'Controller@Delete', $model->permalink)}}"
+                                   data-toggle="confirmation" data-placement="left" data-singleton="true" data-popout="true"
+                                   data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
+                                   data-btn-cancel-class="btn-danger"
+                                   data-btn-ok-label="Eliminar" data-btn-ok-icon="glyphicon glyphicon-ok"
+                                   data-btn-ok-class="btn-success"
+                                   data-title="Estás seguro?" data-content="No podrás recuperarlo">
                                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                                 </a>
                              @endif

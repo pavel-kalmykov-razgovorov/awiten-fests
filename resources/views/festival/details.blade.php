@@ -4,13 +4,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="bg-primary text-white text-center hidden-xs" >
-                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 5vw;">
-                        {{$festival->name}}</h1>                        
+                    <div class="bg-primary text-white text-center hidden-xs">
+                        <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 5vw;">
+                            {{$festival->name}}</h1>
                     </div>
-                    <div class="bg-primary text-white text-center visible-xs" >
-                    <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 9vw;">
-                        {{$festival->name}}</h1>                        
+                    <div class="bg-primary text-white text-center visible-xs">
+                        <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center; font-size: 9vw;">
+                            {{$festival->name}}</h1>
                     </div>
                 </div>
                 <div class="col-md-3 hidden-xs">
@@ -66,61 +66,62 @@
                 <div class="col-md-10">
                     <h2>Artistas Invitados</h2>
                     @forelse($festival->artists as $artist)
-                     @if ($artist->pivot->confirmed != "0")
-                        <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
-                            <div class="recent-work-wrap">
-                                @if ($artist->pivot->confirmed == "1")
-                                    <img class="imagen-artista"
-                                         src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}">
-                                @elseif($artist->pivot->confirmed == null)
-                                    <img class="imagen-artista" src="{{ asset('images/artistas/pendiente.png') }}">
-                                @endif
-                                <div class="overlay">
-                                    <div class="recent-work-inner">
-                                        <div class="portfolio-caption">
-                                            @if ($artist->pivot->confirmed == "1")
-                                                <h3>
-                                                    <a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
-                                                </h3>
-                                            @elseif($artist->pivot->confirmed == null)
-                                                <h3>Próximamente</h3>
-                                            @endif
+                        @if ($artist->pivot->confirmed != "0")
+                            <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
+                                <div class="recent-work-wrap">
+                                    @if ($artist->pivot->confirmed == "1")
+                                        <img class="imagen-artista"
+                                             src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}">
+                                    @elseif($artist->pivot->confirmed == null)
+                                        <img class="imagen-artista" src="{{ asset('images/artistas/pendiente.png') }}">
+                                    @endif
+                                    <div class="overlay">
+                                        <div class="recent-work-inner">
+                                            <div class="portfolio-caption">
+                                                @if ($artist->pivot->confirmed == "1")
+                                                    <h3>
+                                                        <a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
+                                                    </h3>
+                                                @elseif($artist->pivot->confirmed == null)
+                                                    <h3>Próximamente</h3>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
-                       
-                            @empty
-                                <div class="alert alert-danger">
-                                    <h1>No hay artistas aún.</h1>
-                                </div>
-                            @endforelse
-                        
+
+                    @empty
+                        <div class="alert alert-danger">
+                            <h1>No hay artistas aún.</h1>
+                        </div>
+                    @endforelse
+
                 </div>
-                
+
             </div>
 
             <div class="row visible-xs">
                 <h2>Artistas Invitados</h2>
                 @forelse($artistas as $artist)
-                @if ($artist->pivot->confirmed == "1")
-                    <div><img class="imagen-artista"
-                              src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}"
-                              style="width: 100%; height: 100%">
-                        <h4><a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
-                        </h4>
-                    </div>
-                @elseif($artist->pivot->confirmed == null)
-                     <div><img class="imagen-artista"
-                              src="{{ asset('images/artistas/pendiente.png') }}"
-                              style="width: 100%; height: 100%">
-                        <h4>Proximamente</h4>
-                    </div>
-                @endif
-                                    
-                
+                    @if ($artist->pivot->confirmed == "1")
+                        <div><img class="imagen-artista"
+                                  src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}"
+                                  style="width: 100%; height: 100%">
+                            <h4>
+                                <a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
+                            </h4>
+                        </div>
+                    @elseif($artist->pivot->confirmed == null)
+                        <div><img class="imagen-artista"
+                                  src="{{ asset('images/artistas/pendiente.png') }}"
+                                  style="width: 100%; height: 100%">
+                            <h4>Proximamente</h4>
+                        </div>
+                    @endif
+
+
 
 
 

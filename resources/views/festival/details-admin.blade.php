@@ -52,7 +52,7 @@
     </ul>
     <a href="{{action('AdminController@FestivalsList')}}" class="btn btn-default">Festivales</a>
     <a href="{{action('FestivalController@Edit', $permalink)}}" class="btn btn-default">Editar</a>
-    <a href="{{action('FestivalController@DeleteConfirm', $permalink)}}" class="btn btn-default"
+    <a href="{{action('FestivalController@Delete', $permalink)}}" class="btn btn-default"
        data-toggle="confirmation" data-placement="top" data-singleton="true" data-popout="true"
        data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
        data-btn-cancel-class="btn-danger"

@@ -25,7 +25,7 @@
     </ul>
     <a href="{{action('AdminController@PostsList')}}" class="btn btn-default">Posts</a>
     <a href="{{action('PostController@Edit', $permalink)}}" class="btn btn-default">Editar</a>
-    <a href="{{action('PostController@DeleteConfirm', $permalink)}}" class="btn btn-default"
+    <a href="{{action('PostController@Delete', $permalink)}}" class="btn btn-default"
        data-toggle="confirmation" data-placement="top" data-singleton="true" data-popout="true"
        data-btn-cancel-label="Cancelar" data-btn-cancel-icon="glyphicon glyphicon-remove"
        data-btn-cancel-class="btn-danger"
