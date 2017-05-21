@@ -18,7 +18,7 @@ class UserAutoConfirm extends Notification
      */
     public function __construct($content)
     {
-        $this->actionUrl = $content['url'];
+        $this->token = $content['token'];
         $this->name = $content['name'];
         $this->user = $content['user'];
         $this->email = $content['email'];
@@ -46,7 +46,7 @@ class UserAutoConfirm extends Notification
         return (new MailMessage)
                     ->line('Bienvenido ' . $this->name . ' a Awiten Fests.')
                     ->line('Peprarado para encontrar los mejores festivales.')
-                    ->action('Verificar Mi Usuario', $this->actionUrl)
+                    ->action('Verificar Mi Usuario', action('Auth\RegisterController@confirmation',$this->token))
                     ->subject('Auto-Validacion de Usuario');
     }
 

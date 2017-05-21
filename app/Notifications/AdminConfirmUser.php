@@ -18,7 +18,7 @@ class AdminConfirmUser extends Notification
      */
     public function __construct($content)
     {
-        $this->actionUrl = $content['url'];
+        $this->token = $content['token'];
         $this->name = $content['name'];
         $this->user = $content['user'];
         $this->email = $content['email'];
@@ -45,7 +45,7 @@ class AdminConfirmUser extends Notification
     {
         return (new MailMessage)
                     ->line('La persona ' . $this->name . ' con el correo ' . $this->email . ' quiere autenticarse.')
-                    ->action('Verificar Usuario', $this->actionUrl)
+                    ->action('Verificar Usuario', action('Auth\RegisterController@confirmation',$this->token))
                     ->subject('Validacion de Usuario');
     }
 

@@ -90,9 +90,8 @@ class RegisterController extends Controller
         } else{
           $info['tipo'] = 'promoter';
         }
-        $data = $this->create($info)->toArray();     
-        $url = 'http://localhost:8000/confirmation/' . $data['token'];
-        $content = [ 'url' => $url, 'user' => $data['username'], 'name' => $data['name'], 'email' => $data['email']];
+        $data = $this->create($info)->toArray();  
+        $content = [ 'token' => $data['token'], 'user' => $data['username'], 'name' => $data['name'], 'email' => $data['email']];
         $user = User::find($data['id']);
         if($data['typeOfUser'] == 'promoter'){
             $admin = User::where('typeOfUser', '=', 'admin')->first();
