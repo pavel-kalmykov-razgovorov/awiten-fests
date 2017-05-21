@@ -54,12 +54,15 @@ class PostController extends Controller implements AdministrableController
     public function DetailsAdmin($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
-        $user = Auth::user();
-        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        $festivals = Auth::user()->festivals()->get();
+        $festivals_id = array();
+        foreach($festivals as $fest){
+           array_push($festivals_id, $fest->id);
+        }
+        $post = Post::where('permalink', $permalink)->whereIn('festival_id',$festivals_id)->first();
         if ($post == null) {
             return redirect('/noPermision');
         }
-        //$post = Post::where('permalink', $permalink)->firstOrFail();
         return view('post.details-admin', [
             'column_names' => Schema::getColumnListing(strtolower(str_plural('post'))),
             'permalink' => $permalink,
@@ -70,14 +73,15 @@ class PostController extends Controller implements AdministrableController
     public function Edit($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
-        $user = Auth::user();
-        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        $festivals = Auth::user()->festivals()->get();
+        $festivals_id = array();
+        foreach($festivals as $fest){
+           array_push($festivals_id, $fest->id);
+        }
+        $post = Post::where('permalink', $permalink)->whereIn('festival_id',$festivals_id)->first();
         if ($post == null) {
             return redirect('/noPermision');
         }
-        $festivals = Festival::select(['id', 'name'])->where('promoter_id', $user->id)->get();
-        //$post = Post::where('permalink', $permalink)->first();
-        //$festivals = Festival::get(['id', 'name']);
         return view('post.edit', [
             'permalink' => $permalink,
             'post' => $post,
@@ -88,9 +92,13 @@ class PostController extends Controller implements AdministrableController
     public function Update(Request $request, $permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
-        $user = Auth::user();
-        $post1 = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
-        if ($post1 == null) {
+        $festivals = Auth::user()->festivals()->get();
+        $festivals_id = array();
+        foreach($festivals as $fest){
+           array_push($festivals_id, $fest->id);
+        }
+        $post = Post::where('permalink', $permalink)->whereIn('festival_id',$festivals_id)->first();
+        if ($post == null) {
             return redirect('/noPermision');
         }
         if ($request->get('permalink', '') != $permalink) {
@@ -99,7 +107,6 @@ class PostController extends Controller implements AdministrableController
                 'permalink' => 'required|unique:posts',
             ]);
         }
-        $post = Post::where('permalink', $permalink)->firstOrFail();
         $post->title = $request->get('title');
         $post->lead = $request->get('lead');
         $post->body = $request->get('body');
@@ -111,8 +118,12 @@ class PostController extends Controller implements AdministrableController
     public function Delete($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
-        $user = Auth::user();
-        $post = Post::join('festivals', "festivals.id", "=", "festival_id")->where('posts.permalink', $permalink)->where('festivals.promoter_id', $user->id)->first();
+        $festivals = Auth::user()->festivals()->get();
+        $festivals_id = array();
+        foreach($festivals as $fest){
+           array_push($festivals_id, $fest->id);
+        }
+        $post = Post::where('permalink', $permalink)->whereIn('festival_id',$festivals_id)->first();
         if ($post == null) {
             return redirect('/noPermision');
         }
