@@ -1,7 +1,9 @@
 @extends('admin.master')
 @section('title', $artist->name)
 @section('content')
-    <h1 class="page-header">{{$artist->name}}</h1>
+    <a href="{{ action('ArtistController@Details', $artist->permalink) }}">
+        <h1 class="page-header">{{$artist->name}}</h1>
+    </a>
     @if(session('created') != null)
         <div class="alert {{session('created') ? 'alert-success' : 'alert-warning'}}">
             @if(session('created')) {{$artist->name}} se ha creado correctamente.
@@ -22,7 +24,16 @@
                 <strong>{{$column_name}}:</strong>
                 @if(filter_var($artist->$column_name, FILTER_VALIDATE_URL))
                     <a href="{{$artist->$column_name}}">
-                        {{$artist->$column_name ?? "[null]"}}
+                        {{$artist->$column_name}}
+                    </a>
+                @elseif(in_array($column_name,['pathProfile', 'pathHeader']) && $artist->$column_name != null)
+                    <a rel="popover" data-trigger="focus" tabindex="0" data-placement="right"
+                       data-img="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->$column_name]) }}">
+                        {{$artist->$column_name}}
+                    </a>
+                @elseif($column_name == 'country' && $artist->$column_name != null)
+                    <a href="{{ "https://www.google.es/maps/place/" . $artist->$column_name }}" target="_blank">
+                        {{$artist->$column_name}}
                     </a>
                 @else
                     {{$artist->$column_name ?? "[null]"}}
@@ -36,15 +47,15 @@
                     <li class="arrow-list-glyph">
                         <a href="{{action('FestivalController@DetailsAdmin', $artist_festival->permalink)}}">{{$artist_festival->name}}</a>
                         @if($artist_festival->pivot->confirmed == null)
-                            <span class="label label-default">No confirmado</span>
+                            <span class="label label-default label-xxs">No confirmado</span>
                             <a href="{{action('ArtistController@ConfirmAssistance', [$permalink, $artist_festival->permalink, 'true'])}}"
                                class="btn btn-success btn-xxs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                             <a href="{{action('ArtistController@ConfirmAssistance', [$permalink, $artist_festival->permalink, 'false'])}}"
                                class="btn btn-danger btn-xxs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                         @elseif($artist_festival->pivot->confirmed == true)
-                            <span class="label label-success">Confirmado</span>
+                            <span class="label label-success label-xxs">Confirmado</span>
                         @else
-                            <span class="label label-danger">Rechazado</span>
+                            <span class="label label-danger label-xxs">Rechazado</span>
                         @endif
                     </li>
                 @endforeach
@@ -55,7 +66,7 @@
             <ul>
                 @foreach($artist->genres as $artist_genre)
                     <li class="arrow-list-glyph">
-                        <a href="#">{{$artist_genre->name}}</a>
+                        <a href="{{action('ArtistController@listByGenre', $artist_genre->permalink)}}">{{$artist_genre->name}}</a>
                     </li>
                 @endforeach
             </ul>
@@ -71,10 +82,6 @@
        data-btn-ok-class="btn-success"
        data-title="Estás seguro?" data-content="No podrás recuperarlo">Borrar</a>
     <script>
-        function confirmAssistance(festival, confirmation) {
-            console.log(festival);
-            console.log(confirmation);
-        }
         $(function () {
             $('#home').removeClass('active');
             $('#artists').addClass('active');

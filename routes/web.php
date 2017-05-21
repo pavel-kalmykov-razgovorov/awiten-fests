@@ -28,6 +28,7 @@ Route::get('fesitvals/{permalink}/images/{filename}', [
 ]);
 Route::get('deletePost/{id}', 'FestivalController@DeletePost');
 Route::get('festival/mostrarPost/{id}', 'FestivalController@MostrarNoticia');
+Route::get('festivals/list-by-genre/{permalink}', 'FestivalController@listByGenre');
 
 Route::get('artistsLookFor', 'ArtistController@busqueda');
 Route::get('artistsLookForParametrized', 'ArtistController@busquedaConParametros');
@@ -38,6 +39,7 @@ Route::get('artists/{permalink}/images/{filename}', [
     'uses' => 'ArtistController@GetArtistImage',
     'as' => 'artist.image'
 ]);
+Route::get('artists/list-by-genre/{permalink}', 'ArtistController@listByGenre');
 
 
 Route::get('/contacto', 'PagesController@getContact');

@@ -6,32 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{--<link rel="icon" href="../../favicon.ico">--}}
-
     <title>@yield('title') Awiten Fests Admin</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="{{asset('css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{{asset('css/admin.css')}}" rel="stylesheet">
-
-    <!-- Awesome Bootstrap Checkbox -->
-    <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
-    <link href="{{asset('css/awesome-bootstrap-checkbox.css')}}" rel="stylesheet">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
+    <!--Bootstrap scripts -->
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap-confirmation.min.js') }}" type="text/javascript"></script>
-
-    <!--Bootstrap select -->
-    <link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet">
     <script src="{{asset('js/bootstrap-select.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/i18n/defaults-es_ES.js')}}" type="text/javascript"></script>
+    <!-- LazyCSSLoad -->
+    <script src="{{asset('js/cssrelpreload.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/loadCSS.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/onloadCSS.js')}}" type="text/javascript"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,6 +28,17 @@
 </head>
 
 <body>
+<!-- Bootstrap core CSS -->
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" lazyload="1">
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<link href="{{asset('css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet" lazyload="1">
+<!-- Custom styles for this template -->
+<link href="{{asset('css/admin.css')}}" rel="stylesheet" lazyload="1">
+<!-- Awesome Bootstrap Checkbox -->
+<link href="{{asset('css/font-awesome.css')}}" rel="stylesheet" lazyload="1">
+<link href="{{asset('css/awesome-bootstrap-checkbox.css')}}" rel="stylesheet" lazyload="1">
+<!--Bootstrap Select -->
+<link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet" lazyload="1">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -58,33 +56,28 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
                     <li class="dropdown">
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
-                         </a>
-                         <ul class="dropdown-menu" role="menu">
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-                          </ul>
+                        </ul>
                     </li>
-                   @elseif (Auth::guest())
+                @elseif (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Registrarse</a></li>
-                   @endif
+                @endif
                 <li><a href="/">Salir del Modo Usuario</a></li>
-                
-                {{--<li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>--}}
             </ul>
-            {{--<form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Buscar...">
-            </form>--}}
         </div>
     </div>
 </nav>
@@ -106,7 +99,7 @@
                     <li id="artists"><a href="{{action('AdminController@ArtistsList')}}">Artistas</a></li>
                 @endif
                 @if (Auth::check() && Auth::user()->isPromoter())
-                    <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">Festivales</a></li>    
+                    <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">Festivales</a></li>
                     <li id="posts"><a href="{{action('AdminController@PostsList')}}">Noticias de festival</a></li>
                     <li id="photos"><a href="{{action('AdminController@PhotosList')}}">Fotos de festival</a></li>
                 @endif
@@ -120,17 +113,21 @@
     </div>
 </div>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset('js/jquery.prettyPhoto.js')}}" type="text/javascript"></script>
-<script src="{{ asset('js/jquery.isotope.min.js')}}" type="text/javascript"></script>
+{{--<script src="{{ asset('js/jquery.isotope.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/wow.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('js/functions.js')}}" type="text/javascript"></script>
+<script src="{{ asset('js/functions.js')}}" type="text/javascript"></script>--}}
 <script type="text/javascript">
     $(function () {
         $('[data-toggle=confirmation]').confirmation({
             rootSelector: '[data-toggle=confirmation]'
         });
     });
-
+    $('a[rel=popover]').popover({
+        html: true,
+        content: function () {
+            return '<img style="width: 100%" src="' + $(this).data('img') + '">';
+        }
+    });
     function slugify(text) {
         return text.toString().toLowerCase()
             .replace(/έ/g, 'ε')

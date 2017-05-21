@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="title">Titulo</label>
+                <label class="col-md-4 control-label" for="title">Titulo {{$post->permalink}}</label>
                 <div class="col-md-4">
                     <input type="text" id="title" name="title" placeholder="Titulo de la noticia"
                            class="form-control input-md" title="Titulo" value="{{$post->title}}">

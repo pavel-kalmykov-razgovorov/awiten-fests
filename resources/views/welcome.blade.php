@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Awiten Fests</title>
-    <!-- Bootstrap -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
-    <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
 </head>
 <body>
+<!-- Bootstrap -->
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" lazyload="1">
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" . lazyload="1">
+<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" lazyload="1">
+<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" . lazyload="1">
+<link href="{{ asset('css/animate.css') }}" rel="stylesheet" lazyload="1">
+<link href="{{ asset('css/animate.css') }}" rel="stylesheet" . lazyload="1">
+<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet" lazyload="1">
+<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet" . lazyload="1">
+<link href="{{ asset('css/style.css') }}" rel="stylesheet" lazyload="1"/>
+<link href="{{ asset('css/style.css') }}" rel="stylesheet" . lazyload="1"/>
+
 <header>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navigation">
@@ -150,4 +156,8 @@
 <script src="{{ URL::asset('js/jquery.isotope.min.js')}}"></script>
 <script src="{{ URL::asset('js/wow.min.js')}}"></script>
 <script src="{{ URL::asset('js/functions.js')}}"></script>
+<!-- LazyCSSLoad -->
+<script src="{{asset('js/cssrelpreload.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/loadCSS.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/onloadCSS.js')}}" type="text/javascript"></script>
 </html>

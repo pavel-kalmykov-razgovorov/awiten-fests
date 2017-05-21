@@ -44,6 +44,20 @@ class ArtistController extends Controller implements AdministrableController
 
     }
 
+    public function listByGenre($permalink)
+    {
+        $genres = Genre::get();
+        $artists = Artist::whereHas('genres', function ($query) use ($permalink) {
+            $query->where('permalink', $permalink);
+        })->paginate(3);
+        $selected_genres_id[] = Genre::where('permalink', $permalink)->firstOrFail()->id;
+        session()->flash('generos-marcados-artista', $selected_genres_id);
+        return view('artist.all', [
+            'artists' => $artists,
+            'genres' => $genres,
+        ]);
+    }
+
     public function busquedaConParametros(Request $request)
     {
         $buscado = $request->input('buscado');
@@ -88,6 +102,8 @@ class ArtistController extends Controller implements AdministrableController
         $request->session()->flash('festivals', $request->get('festivals', []));
         $this->validate($request, [
             'name' => 'required',
+            'pathProfile' => 'required',
+            'pathHeader' => 'required',
             'permalink' => 'required|unique:artists'
         ]); //Sabemos que los datos del nuevo artista están correctos
 
@@ -136,8 +152,8 @@ class ArtistController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al artista indicado
         $user = Auth::user();
-        $artist = Artist::select('id')->where('permalink',$permalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
+        $artist = Artist::select('id')->where('permalink', $permalink)->where('manager_id', $user->id)->first();
+        if ($artist == null) {
             return redirect('/noPermision');
         }
         return view('artist.details-admin', [
@@ -151,8 +167,8 @@ class ArtistController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al artista indicado
         $user = Auth::user();
-        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
+        $artist = Artist::where('permalink', $permalink)->where('manager_id', $user->id)->first();
+        if ($artist == null) {
             return redirect('/noPermision');
         }
         //$artist = Artist::where('permalink', $permalink)->first();
@@ -179,13 +195,15 @@ class ArtistController extends Controller implements AdministrableController
     {
         //Comprobar que el usuario identificado tiene acceso al artista indicado
         $user = Auth::user();
-        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
+        $artist = Artist::where('permalink', $permalink)->where('manager_id', $user->id)->first();
+        if ($artist == null) {
             return redirect('/noPermision');
         }
         if ($request->get('permalink', '') != $permalink) {
             $this->validate($request, [
                 'name' => 'required',
+                'pathProfile' => 'required',
+                'pathHeader' => 'required',
                 'permalink' => 'required|unique:artists'
             ]);
         }
@@ -220,8 +238,8 @@ class ArtistController extends Controller implements AdministrableController
     public function Delete($permalink)
     {
         $user = Auth::user();
-        $artist = Artist::where('permalink',$permalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
+        $artist = Artist::where('permalink', $permalink)->where('manager_id', $user->id)->first();
+        if ($artist == null) {
             return redirect('/noPermision');
         }
         //Borrado de archivos
@@ -232,39 +250,40 @@ class ArtistController extends Controller implements AdministrableController
     public function ConfirmAssistance($artistPermalink, $festivalPermalink, $confirmation)
     {
         $user = Auth::user();
-        $artist = Artist::select('id')->where('permalink',$artistPermalink)->where('manager_id',$user->id)->first();
-        if($artist == null){
+        $artist = Artist::select('id')->where('permalink', $artistPermalink)->where('manager_id', $user->id)->first();
+        if ($artist == null) {
             return redirect('/noPermision');
         }
         $detallesArtista = Artist::findOrFail($artist);
-        $festival = Festival::select('id')->where('permalink',$festivalPermalink)->first();
+        $festival = Festival::select('id')->where('permalink', $festivalPermalink)->first();
         $detallesFestival = Festival::findOrFail($festival);
         $confirmation = filter_var($confirmation, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
             ->updateExistingPivot(
                 Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
                 ['confirmed' => $confirmation]);
-                
-        if($confirmation){
+
+        if ($confirmation) {
             $data = array(
-			'title' => "¡¡Nueva confirmación!!",
-			'permalink' => $artistPermalink . $festivalPermalink . ".",
-			'lead' => "Atención a todos los fans de " . $detallesArtista->name . "! Si tú eres uno de ellos no te puedes perder esto.",
-            'body' => "¡¡Así es!! Despúes de un cúmulo de rumores y escpeculaciónes, el afamado " . $detallesArtista->name . 
-            " ha confirmado su presencia en el festival " . $detallesFestival->name . ". Los numerosos fans de este grandismo Dj
+                'title' => "¡¡Nueva confirmación!!",
+                'permalink' => $artistPermalink . $festivalPermalink . ".",
+                'lead' => "Atención a todos los fans de " . $detallesArtista->name . "! Si tú eres uno de ellos no te puedes perder esto.",
+                'body' => "¡¡Así es!! Despúes de un cúmulo de rumores y escpeculaciónes, el afamado " . $detallesArtista->name .
+                    " ha confirmado su presencia en el festival " . $detallesFestival->name . ". Los numerosos fans de este grandismo Dj
             están de enhorabuena tras esta confirmación ya que su presencía no estaba asegurada debido a los accidentes ocurridos 
             en su ultima actuación en la Metro, donde un apasiando fan de este Dj, llamado Arnau o también conocido por la policia
-            como 'Aguita el subnormal' se abalanzó sobre él, al grito de ¡¡¡" .  $detallesArtista->name . " POSA TECHNOOOO!!. Finalmente, a pesar
-            de este bochornoso aconteciomiento el gran " .  $detallesArtista->name . " si acudirá a nuestro festival.",
-            'festival_id' => $detallesFestival->id
-			);
+            como 'Aguita el subnormal' se abalanzó sobre él, al grito de ¡¡¡" . $detallesArtista->name . " POSA TECHNOOOO!!. Finalmente, a pesar
+            de este bochornoso aconteciomiento el gran " . $detallesArtista->name . " si acudirá a nuestro festival.",
+                'festival_id' => $detallesFestival->id
+            );
             app('App\Http\Controllers\PostController')->Create2($data);
         }
-        
+
         return redirect()->back();
     }
 
-    public function GetArtistImage($permalink, $filename) {
+    public function GetArtistImage($permalink, $filename)
+    {
         $file = Storage::disk('local')->get("artists/$permalink/$filename");
         return new Response($file, 200);
     }

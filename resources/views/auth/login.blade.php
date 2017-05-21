@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('title', 'Login Usuario')
+@section('title', 'Login Usuario -')
 
 @section('content')
 <div class="arreglar-margen">
@@ -48,7 +48,9 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                     <label>
-                                        <input type="checkbox" name="remember"  autocomplete="off"  class="checkbox" {{ old('remember') ? 'checked' : '' }}>Remember Me
+                                        <input class="checkbox checkbox-inline" type="checkbox" name="remember"
+                                               autocomplete="off"
+                                               class="checkbox" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
                             </div>
                         </div>

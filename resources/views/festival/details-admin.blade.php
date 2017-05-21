@@ -1,7 +1,9 @@
 @extends('admin.master')
-@section('title', $festival->name)
+@section('title', "$festival->name -")
 @section('content')
-    <h1 class="page-header">{{$festival->name}}</h1>
+    <a href="{{action('FestivalController@Details', $festival->permalink)}}">
+        <h1 class="page-header">{{$festival->name}}</h1>
+    </a>
     @if(session('created') != null)
         <div class="alert {{session('created') ? 'alert-success' : 'alert-warning'}}">
             @if(session('created')) {{$festival->date}} se ha creado correctamente.
@@ -19,7 +21,20 @@
     <ul class="list-group">
         @foreach($column_names as $column_name)
             <li class="list-group-item">
-                <strong>{{$column_name}}:</strong> {{$festival->$column_name ?? "[null]"}}
+                @if($column_name == 'pathLogo' && $festival->$column_name != null)
+                    <strong>{{$column_name}}:</strong>
+                    <a rel="popover" data-trigger="focus" tabindex="0" data-placement="right"
+                       data-img="{{ route('festival.image', ['permalink' => $festival->permalink, 'filename' => $festival->$column_name]) }}">
+                        {{$festival->$column_name}}
+                    </a>
+                @elseif(in_array($column_name,['location', 'province']) && $festival->$column_name != null)
+                    <strong>{{$column_name}}:</strong>
+                    <a href="{{ "https://www.google.es/maps/place/" . $festival->$column_name }}" target="_blank">
+                        {{$festival->$column_name}}
+                    </a>
+                @else
+                    <strong>{{$column_name}}:</strong> {{$festival->$column_name ?? "[null]"}}
+                @endif
             </li>
         @endforeach
         <li class="list-group-item">
@@ -27,13 +42,13 @@
             <ul>
                 @foreach($festival->artists as $festival_artist)
                     <li class="arrow-list-glyph">
-                        <a href="{{action('ArtistController@DetailsAdmin', $festival_artist->permalink)}}">{{$festival_artist->name}}</a>
+                        <a href="{{action('ArtistController@Details', $festival_artist->permalink)}}">{{$festival_artist->name}}</a>
                         @if($festival_artist->pivot->confirmed == null)
-                            <span class="label label-default">No confirmado</span>
+                            <span class="label label-default label-xxs">No confirmado</span>
                         @elseif($festival_artist->pivot->confirmed == true)
-                            <span class="label label-success">Confirmado</span>
+                            <span class="label label-success label-xxs">Confirmado</span>
                         @else
-                            <span class="label label-danger">Rechazado</span>
+                            <span class="label label-danger label-xxs">Rechazado</span>
                         @endif
                     </li>
                 @endforeach
@@ -44,7 +59,7 @@
             <ul>
                 @foreach($festival->genres as $festival_genre)
                     <li class="arrow-list-glyph">
-                        <a href="#">{{$festival_genre->name}}</a>
+                        <a href="{{action('FestivalController@listByGenre', $festival_genre->permalink)}}">{{$festival_genre->name}}</a>
                     </li>
                 @endforeach
             </ul>

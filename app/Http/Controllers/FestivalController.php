@@ -49,6 +49,20 @@ class FestivalController extends Controller implements AdministrableController
 
     }
 
+    public function listByGenre($permalink)
+    {
+        $genres = Genre::get();
+        $festivals = Festival::whereHas('genres', function ($query) use ($permalink) {
+            $query->where('permalink', $permalink);
+        })->paginate(3);
+        $selected_genres_id[] = Genre::where('permalink', $permalink)->firstOrFail()->id;
+        session()->flash('generos-marcados-festival', $selected_genres_id);
+        return view('festival.all', [
+            'festivals' => $festivals,
+            'genres' => $genres,
+        ]);
+    }
+
     public function busqueda(Request $request)
     {
         $buscado = $request->input('buscado');
@@ -108,6 +122,7 @@ class FestivalController extends Controller implements AdministrableController
         $request->session()->flash('artists', $request->get('artists', []));
         $this->validate($request, [
             'name' => 'required',
+            'pathLogo' => 'required',
             'permalink' => 'required|unique:festivals',
             'date' => 'date_format:d/m/Y'
         ]);
@@ -130,7 +145,7 @@ class FestivalController extends Controller implements AdministrableController
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
             //Obtener manager del artista
-            $admin = User::find(1);
+            $admin = User::where('typeOfUser', 'admin')->firstOrFail();
 
 
             $content = ['urlok' => 'http://localhost:8000/admin/artists/confirm/' . $datosArtistas->permalink . '_' . $request->get('permalink') . '_true/',
@@ -253,6 +268,7 @@ class FestivalController extends Controller implements AdministrableController
         if ($request->get('permalink', '') != $permalink) {
             $this->validate($request, [
                 'name' => 'required',
+                'pathLogo' => 'required',
                 'permalink' => 'required|unique:festivals'
             ]);
         }

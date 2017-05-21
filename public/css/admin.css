@@ -152,6 +152,13 @@ li.arrow-list-glyph:before {
     border-radius: 3px;
 }
 
+.label-xxs {
+    padding: 0 2px;
+    font-size: 10px;
+    line-height: 1px;
+    border-radius: 3px;
+}
+
 textarea {
     resize: vertical;
 }
