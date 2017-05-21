@@ -105,7 +105,7 @@
                                                     <div class="recent-work-inner">
                                                         <div class="portfolio-caption">
                                                             <h3>
-                                                                <a href="/artist/{{$artist->permalink}}">{{$artist->name}}</a>
+                                                                <a href="/artists/{{$artist->permalink}}/details">{{$artist->name}}</a>
                                                             </h3>
                                                         </div>
                                                     </div>
