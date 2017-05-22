@@ -9,15 +9,16 @@
                             <picture>
                                 <source media="(min-width: 410px)"
                                         srcset="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathHeader]) }}">
-                                <img style='height: 100%; width: 100%; z-index: -99;' class="profileHeaderBackground">
+                                <img style='height: 100%; width: 100%; z-index: -99;' class="profileHeaderBackground"
+                                     src="">
                             </picture>
                             <div>
                                 <img src="{{ route('artist.image', ['permalink' => $artist->permalink, 'filename' => $artist->pathProfile]) }}"
                                      width="182" height="182" align="left">
                                 <div><h3 class="fondo-nombre">{{$artist->name}} </h3></div>
-                                </br>
+                                <br>
                                 <div class="hidden-xs"><h3 class="fondo-nombre">{{$artist->country}} </h3></div>
-                                </br>
+                                <br>
                                 <div class="fondo-nombre hidden-xs">
                                     @forelse($artist->genres()->get(['name']) as $genre)
                                         {{$genre->name}}

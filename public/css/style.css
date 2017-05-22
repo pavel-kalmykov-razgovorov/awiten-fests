@@ -1470,11 +1470,13 @@ imagen-artista-responsive {
 
 .fondo-nombre {
     background: rgba(0, 0, 0, .8);
-    font-family: Verdana;
+    font-family: Verdana, serif;
     text-align: left;
     display: inline;
     color: white;
     margin-left: 15px;
+    padding: 5px;
+    border-radius: 2px;
 }
 
 .container-a {

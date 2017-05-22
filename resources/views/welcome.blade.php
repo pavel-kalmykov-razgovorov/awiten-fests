@@ -60,9 +60,9 @@
                                         </li>
                                     </ul>
                                 </li>
-                            @elseif (Auth::guest())
-                                <li><a href="{{ route('login') }}">Login</a></li>
-                                <li><a href="{{ route('register') }}">Registrarse</a></li>
+                                {{--@elseif (Auth::guest())
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    <li><a href="{{ route('register') }}">Registrarse</a></li>--}}
                             @endif
                             {{--<div class="links">--}}
                         </ul>
