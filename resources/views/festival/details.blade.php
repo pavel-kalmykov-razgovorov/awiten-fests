@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('mainContent')
+<html res="{{ App::setlocale(session('lang'))}}">
     <div class="arreglar-margen">
         <div class="container">
             <div class="row">

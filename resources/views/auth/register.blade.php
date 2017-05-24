@@ -2,6 +2,7 @@
 @section('title', 'Registrars Usuario')
 
 @section('content')
+<html res="{{ App::setlocale(session('lang'))}}">
 <div class="arreglar-margen">
 <div class="container">
     <div class="row">

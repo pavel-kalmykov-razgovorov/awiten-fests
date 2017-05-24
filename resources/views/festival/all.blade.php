@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('mainContent')
-
+<html res="{{ App::setlocale(session('lang'))}}">
     <div id="breadcrumb">
         <div class="container hidden-xs">
             <div class="breadcrumb">
@@ -108,7 +108,10 @@
                                                         </h3>
                                                         <p class="text-muted hidden-xs">
                                                         <div class="alert alert-success hidden-xs">
-                                                            {{$festival->date->format('l j \\d\\e F Y')}}
+                                                            {{ trans('translate.'.$festival->date->format('l'))}}
+                                                            {{$festival->date->format(' j, ')}}    
+                                                            {{ trans('translate.'.$festival->date->format('F'))}}
+                                                            {{$festival->date->format(' Y')}}
                                                         </div>
                                                         </p>
                                                     </div>

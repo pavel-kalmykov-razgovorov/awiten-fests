@@ -141,18 +141,10 @@ Route::get('/noPermision', function() {
 });
 Route::get('/confirmation/{token}', 'Auth\RegisterController@confirmation');
 
-Route::get('lang/es', function () {
-Session::put('locale', 'es');
- App::setLocale('es');
- return \Redirect::back();
-});
-Route::get('lang/ca', function () {
-Session::put('locale', 'ca');
- App::setLocale('ca');
- return \Redirect::back();
-});
-Route::get('lang/en', function () {
-Session::put('locale', 'en');
- App::setLocale('en');
- return \Redirect::back();
-});
+Route::get('lang/{lang}', function ($lang) {
+        session(['lang' => $lang]);
+        //app()->setLocale(Session::get('locale'));
+        return \Redirect::back();
+    })->where([
+        'lang' => 'en|es|ca'
+    ]);

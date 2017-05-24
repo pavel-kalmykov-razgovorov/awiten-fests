@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html res="{{ App::setlocale(session('lang'))}}">
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html res="{{ App::setlocale(session('lang'))}}">
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
@@ -27,16 +28,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="navbar-brand">
-                   
-                   <table width="800">
-                     <tr>  <td width="91%"> <a href="/"><h1><span>Awiten</span>Fests</h1></a></td>
-                    
-                            <td width="3%"><a href="{{ url('lang', ['en']) }}">EN</a></td>
-                            <td width="3%"><a href="{{ url('lang', ['es']) }}">ES</a></td>
-                            <td width="3%"><a href="{{ url('lang', ['ca']) }}">VA</a></td>
-                           
-                    </tr>
-                    </table>
+                    <a href="/"><h1><span>Awiten</span>Fests</h1></a>
                         </div>
                 </div>
 
@@ -51,7 +43,6 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
-
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('logout') }}"
@@ -70,6 +61,9 @@
                                     <li><a href="{{ route('login') }}">Login</a></li>
                                     <li><a href="{{ route('register') }}">{{ trans('translate.registro') }}</a></li>
                             @endif
+                            <li role="presentation"><a href="{{ url('lang', ['es']) }}"><input  type="image"  src="/images/es.png"/></a>
+                            <li role="presentation"><a href="{{ url('lang', ['ca']) }}"><input  type="image"  src="/images/va.png"/></a>
+                            <li role="presentation"><a href="{{ url('lang', ['en']) }}"><input  type="image"  src="/images/gb.png"/></a>
                             </li>
                             {{--<div class="links">--}}
                         </ul>

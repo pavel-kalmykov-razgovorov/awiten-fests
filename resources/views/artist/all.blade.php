@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('mainContent')
+<html res="{{ App::setlocale(session('lang'))}}">
     <div id="breadcrumb">
         <div class="container hidden-xs">
             <div class="breadcrumb">
