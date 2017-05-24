@@ -9,9 +9,12 @@
     <title>@yield('title') Awiten Fests Admin</title>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{{ asset('js/jquery-2.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!--Bootstrap scripts -->
-    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap-confirmation.min.js') }}" type="text/javascript"></script>
     <script src="{{asset('js/bootstrap-select.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/i18n/defaults-es_ES.js')}}" type="text/javascript"></script>
@@ -35,7 +38,7 @@
     <script src="{{ asset('js/plugins/sortable.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/purify.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('js/themes/fa/theme.min.js') }}"></script>
+    <script src="{{ asset('themes/fa/theme.min.js') }}"></script>
     <script src="{{ asset('js/locales/es.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,8 +50,9 @@
 
 <body>
 <!-- Bootstrap core CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"
-      lazyload="1">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+      type="text/css" lazyload="1">
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <link href="{{asset('css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet" lazyload="1">
 <!-- Custom styles for this template -->

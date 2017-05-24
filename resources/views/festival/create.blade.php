@@ -77,7 +77,7 @@
                 <div class="col-md-4">
                     @if(session('genres')) <?php $genres = session('genres'); ?> @endif
                     @foreach($genres as $genre)
-                        <div class="checkbox checkbox-inline">
+                        <div class="checkbox">
                             <input type="checkbox" name="genres[]" id="genre-{{$genre->id}}"
                                    value="{{$genre->id}}" {{$genre->checked ?? ''}}>
                             <label for="genre-{{$genre->id}}">{{$genre->name}}</label>

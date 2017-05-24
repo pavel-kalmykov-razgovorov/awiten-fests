@@ -108,16 +108,16 @@ class ArtistController extends Controller implements AdministrableController
         ]); //Sabemos que los datos del nuevo artista están correctos
 
         //Guardado de ficheros
-        $festivalFolder = "artists/$request->permalink"; //La carpeta en donde guardaremos las imágenes
+        $artistsFolder = "artists/$request->permalink"; //La carpeta en donde guardaremos las imágenes
         $pathProfileFilename = null;
         $pathHeaderFilename = null;
         if ($request->hasFile('pathProfile') && $request->pathProfile->isValid()) {
             $pathProfileFilename = $request->pathProfile->getClientOriginalName();
-            $request->pathProfile->storeAs("$festivalFolder", $pathProfileFilename);
+            $request->pathProfile->storeAs("$artistsFolder", $pathProfileFilename);
         }
         if ($request->hasFile('pathHeader') && $request->pathHeader->isValid()) {
             $pathHeaderFilename = $request->pathHeader->getClientOriginalName();
-            $request->pathHeader->storeAs("$festivalFolder", $pathHeaderFilename);
+            $request->pathHeader->storeAs("$artistsFolder", $pathHeaderFilename);
         }
 
         $artist = new Artist([
