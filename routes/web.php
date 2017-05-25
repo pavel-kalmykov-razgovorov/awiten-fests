@@ -130,3 +130,11 @@ Route::get('/noPermision', function() {
     return view('noPermision');
 });
 Route::get('/confirmation/{token}', 'Auth\RegisterController@confirmation');
+
+Route::get('lang/{lang}', function ($lang) {
+        session(['lang' => $lang]);
+        //app()->setLocale(Session::get('locale'));
+        return \Redirect::back();
+    })->where([
+        'lang' => 'en|es|ca'
+    ]);

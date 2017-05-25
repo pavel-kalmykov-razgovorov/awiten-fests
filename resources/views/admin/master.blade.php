@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html res="{{ App::setlocale(session('lang'))}}">
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
@@ -102,9 +103,11 @@
                     </li>
                 @elseif (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+
+                    <li><a href="{{ route('register') }}">{{trans('translate.registro')}}</a></li>
                 @endif
-                <li><a href="/">Salir del Modo Usuario</a></li>
+                <li><a href="/">{{trans('translate.salirusuario')}}</a></li>
+
             </ul>
         </div>
     </div>
@@ -114,28 +117,30 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li id="home" class="active"><a href="{{action('AdminController@AvailableEntities')}}">Inicio<span
+                <li id="home" class="active"><a href="{{action('AdminController@AvailableEntities')}}">{{trans('translate.inicio')}}<span
                                 class="sr-only">(current)</span></a></li>
                 @if (Auth::check() && !Auth::user()->isAdmin())
-                    <li id="profile"><a href="{{action('UserController@Edit')}}">Perfil</a></li>
+                    <li id="profile"><a href="{{action('UserController@Edit')}}">{{trans('translate.perfil')}}</a></li>
                 @endif
                 @if (Auth::check() && Auth::user()->isAdmin())
-                    <li id="users"><a href="{{action('AdminController@UsersList')}}">Usuarios</a></li>
-                    <li id="genres"><a href="{{action('AdminController@GenresList')}}">Géneros</a></li>
+                    <li id="users"><a href="{{action('AdminController@UsersList')}}">{{trans('translate.usuarios')}}</a></li>
+                    <li id="genres"><a href="{{action('AdminController@GenresList')}}">{{trans('translate.generos')}}</a></li>
                 @endif
                 @if (Auth::check() && Auth::user()->isManager())
-                    <li id="artists"><a href="{{action('AdminController@ArtistsList')}}">Artistas</a></li>
+                    <li id="artists"><a href="{{action('AdminController@ArtistsList')}}">{{trans('translate.artistas')}}</a></li>
                 @endif
                 @if (Auth::check() && Auth::user()->isPromoter())
-                    <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">Festivales</a></li>
-                    <li id="posts"><a href="{{action('AdminController@PostsList')}}">Noticias de festival</a></li>
-                    <li id="photos"><a href="{{action('AdminController@PhotosList')}}">Fotos de festival</a></li>
+
+                    <li id="festivals"><a href="{{action('AdminController@FestivalsList')}}">{{trans('translate.festivales')}}</a></li>    
+                    <li id="posts"><a href="{{action('AdminController@PostsList')}}">{{trans('translate.newsfests')}}</a></li>
+                    <li id="photos"><a href="{{action('AdminController@PhotosList')}}">{{trans('translate.fotosfests')}}</a></li>
+
                 @endif
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             @section('content')
-                <h1 class="page-header">Inicio</h1>
+                <h1 class="page-header">{{trans('translate.inicio')}}</h1>
             @show
         </div>
     </div>

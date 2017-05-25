@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('mainContent')
-
+<html res="{{ App::setlocale(session('lang'))}}">
     <div id="breadcrumb">
         <div class="container hidden-xs">
             <div class="breadcrumb">
@@ -11,19 +11,19 @@
                             <div class="input-group add-on btn-group">
                                 <div class="col col-md-3">
                                     <input type="text" class="form-control" name="buscado"
-                                           placeholder="Introduce el festival">
+                                           placeholder="{{trans('translate.introfest')}}Introduce el festival">
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="paginadoA">
-                                        <option value="3"> 3 por pagina</option>
-                                        <option value="6" selected>6 por pagina</option>
-                                        <option value="9">9 por pagina</option>
+                                        <option value="3"> 3 {{trans('translate.pagina')}}</option>
+                                        <option value="6" selected>6 {{trans('translate.pagina')}}</option>
+                                        <option value="9">9 {{trans('translate.pagina')}}</option>
                                     </select>
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="ordenado">
-                                        <option value="asc" selected>Fecha Asc</option>
-                                        <option value="desc">Fecha Desc</option>
+                                        <option value="asc" selected>{{trans('translate.fecha')}} Asc</option>
+                                        <option value="desc">{{trans('translate.fecha')}} Desc</option>
                                     </select>
                                 </div>
                                 <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i>
@@ -40,10 +40,10 @@
             <div class="col-sm-12">
                 @if(count($festivals) != 0)
                     <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center">
-                        Festivales</h1>
+                        {{trans('translate.festivales')}}</h1>
                 @else
                     <div class="alert alert-danger">
-                        <h1> No se han encontrado festivales.</h1>
+                        <h1> {{trans('translate.nofests')}} </h1>
                     </div>
                 @endif
             </div>
@@ -56,7 +56,7 @@
                     <ul class="portfolio-filter text-center">
                         <form class="text-left" method="get"
                               action="{{ action('FestivalController@busquedaPorGenero') }}">
-                            <div class="well-sm">Generos Musicales</div>
+                            <div class="well-sm">{{trans('translate.generos')}}</div>
                             @forelse($genres as $genre)
                                 <div class="[ form-group ]">
                                     @if(!empty(session('generos-marcados-festival')) && in_array($genre->id,session('generos-marcados-festival')))
@@ -81,9 +81,9 @@
                                     </div>
                                 </div>
                             @empty
-                                <h2>No hay géneros en la BD</h2>
+                                <h2>{{trans('translate.nogeneros')}}</h2>
                             @endforelse
-                            <button type="summit" class="btn btn-warning">Busqueda por Genero</button>
+                            <button type="summit" class="btn btn-warning">{{trans('translate.busgenero')}}</button>
                             <!--/div-->
                         </form>
                     </ul>
@@ -108,7 +108,9 @@
                                                         </h3>
                                                         <p class="text-muted hidden-xs">
                                                         <div class="alert alert-success hidden-xs">
+
                                                             {{$festival->showDateFestival($festival->date)->format('l j \\d\\e F Y')}}
+
                                                         </div>
                                                         </p>
                                                     </div>

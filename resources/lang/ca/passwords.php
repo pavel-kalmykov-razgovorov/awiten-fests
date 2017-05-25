@@ -1,10 +1,10 @@
 <?php
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
+    | Password Reminder Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -14,13 +14,17 @@ return [
     */
 
     "credentials" => array(
-        "password" => "Password",
+        "password" => "Contrasenya",
         ),
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    "password" => "Les contrasenyes han de contenir almenys 6 caràcters i coincidir.",
 
-];
+    "user"     => "No podem trobar a un usuari amb aquest correu electrònic.",
+
+    "token"    => "Aquest token de recuperació de contrasenya és invàlid.",
+
+    "sent"     => "Recordatori de contrasenya enviat!",
+
+    "reset"    => "La contrasenya s'ha restablert!",
+
+);

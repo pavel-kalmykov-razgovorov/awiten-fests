@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('mainContent')
+<html res="{{ App::setlocale(session('lang'))}}">
     <div id="breadcrumb">
         <div class="container hidden-xs">
             <div class="breadcrumb">
@@ -9,19 +10,19 @@
                             <div class="input-group add-on btn-group">
                                 <div class="col col-md-3">
                                     <input type="text" class="form-control" name="buscado"
-                                           placeholder="Introduce el festival">
+                                           placeholder="{{trans('translate.introartist')}}">
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="paginadoA">
-                                        <option value="3"> 3 por pagina</option>
-                                        <option value="6" selected>6 por pagina</option>
-                                        <option value="9">9 por pagina</option>
+                                        <option value="3"> 3 {{ trans('translate.pagina') }}</option>
+                                        <option value="6" selected>6 {{ trans('translate.pagina') }}</option>
+                                        <option value="9">9 {{ trans('translate.pagina') }}</option>
                                     </select>
                                 </div>
                                 <div class="col col-md-3">
                                     <select class="form-control" name="ordenado">
-                                        <option value="asc" selected>Nombre Asc</option>
-                                        <option value="desc">Nombre Desc</option>
+                                        <option value="asc" selected>{{ trans('translate.nombre') }} Asc</option>
+                                        <option value="desc">{{ trans('translate.nombre') }} Desc</option>
                                     </select>
                                 </div>
                                 <button type="summit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i>
@@ -35,18 +36,18 @@
     </div>
 
     @if(session('deleted'))
-        <h3>El artista se ha borrado correctamente</h3>
+        <h3>{{ trans('translate.artborrado') }}</h3>
     @endif
     <div class="row">
         <div class="container">
             @if(count($artists) != 0)
                 <div>
                     <h1 style="background-color:rgb(0,0,0);color:white; font-weight:bold; text-align:center">
-                        Artistas</h1>
+                        {{ trans('translate.artistas') }}</h1>
                 </div>
             @else
                 <div class="alert alert-danger">
-                    <h1> No se han encontrado artistas.</h1>
+                    <h1>{{ trans('translate.noencartistas') }}</h1>
                 </div>
             @endif
         </div>
@@ -60,7 +61,7 @@
                         <ul class="portfolio-filter text-center">
                             <form class="text-left" method="get"
                                   action="{{ action('ArtistController@busquedaPorGenero') }}">
-                                <div class="well-sm">Generos Musicales</div>
+                                <div class="well-sm">{{ trans('translate.generos') }}</div>
                                 @forelse($genres as $genre)
                                     <div class="[ form-group ]">
                                         @if(!empty(session('generos-marcados-artista')) && in_array($genre->id,session('generos-marcados-artista')))
@@ -85,9 +86,9 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <h2>No hay géneros en la BD</h2>
+                                    <h2>{{ trans('translate.nogeneros') }}</h2>
                                 @endforelse
-                                <button type="submit" class="btn btn-warning">Busqueda por Genero</button>
+                                <button type="submit" class="btn btn-warning">{{ trans('translate.busgenero') }}</button>
                             </form>
                         </ul>
                     </div>

@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('mainContent')
+<html res="{{ App::setlocale(session('lang'))}}">
     <div class="arreglar-margen">
         <div class="container">
             <div class="row">
@@ -64,7 +65,8 @@
             </div>
             <div class="row hidden-xs">
                 <div class="col-md-10">
-                    <h2>Artistas Invitados</h2>
+
+                    <h2>{{ trans('translate.invitados') }}</h2>
                     @forelse($festival->artists as $artist)
                         @if ($artist->pivot->confirmed != "0")
                             <div class="portfolio-item festival col-md-4 col-sm-6 wow flipInY">
@@ -83,9 +85,10 @@
                                                         <a href="{{action('ArtistController@Details', $artist->permalink)}}">{{$artist->name}}</a>
                                                     </h3>
                                                 @elseif($artist->pivot->confirmed == null)
-                                                    <h3>Próximamente</h3>
+                                                    <h3>{{ trans('translate.proximamente') }}</h3>
                                                 @endif
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -94,16 +97,18 @@
 
                     @empty
                         <div class="alert alert-danger">
-                            <h1>No hay artistas aún.</h1>
+                            <h1>{{ trans('translate.noartistas') }}</h1>
                         </div>
+
                     @endforelse
+
 
                 </div>
 
             </div>
 
             <div class="row visible-xs">
-                <h2>Artistas Invitados</h2>
+                <h2>{{ trans('translate.invitados') }}</h2>
                 @forelse($artistas as $artist)
                     @if ($artist->pivot->confirmed == "1")
                         <a href="{{action('ArtistController@Details', $artist->permalink)}}">
@@ -118,7 +123,7 @@
                         <div><img class="imagen-artista"
                                   src="{{ asset('images/artistas/pendiente.png') }}"
                                   style="width: 100%; height: 100%">
-                            <h4>Proximamente</h4>
+                            <h4>{{ trans('translate.proximamente') }}</h4>
                         </div>
                     @endif
 
@@ -128,7 +133,7 @@
 
                 @empty
                     <div class="alert alert-danger">
-                        <h1>No hay artistas aún.</h1>
+                        <h1>{{ trans('translate.noartistas') }}</h1>
                     </div>
                 @endforelse
 
@@ -138,7 +143,7 @@
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">
-                        <h1><strong> Noticias</strong></h1>
+                        <h1><strong>{{ trans('translate.noticias') }}</strong></h1>
                     </div>
                     <table class="table table-fixed">
                         <tbody>
@@ -149,13 +154,12 @@
                                     <h4> {{$post->lead}} </h4>
                                     <p>{{ str_limit($post->body, 300) }}
                                         <a class="bg-info"
-                                           href='{{action('FestivalController@MostrarNoticia', $post->id)}}'>Leer
-                                            más</a>
+                                           href='{{action('FestivalController@MostrarNoticia', $post->id)}}'>{{ trans('translate.leermas') }}</a>
                                     </p>
                                 </td>
                             </tr>
                         @empty
-                            <p>No hay noticias de momento</p>
+                            <p>{{ trans('translate.nonoticias') }}</p>
                         @endforelse
                         </tbody>
                     </table>

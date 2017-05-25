@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html res="{{ App::setlocale(session('lang'))}}">
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
@@ -28,23 +29,22 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="navbar-brand">
-                        <a href="/"><h1><span>Awiten</span>Fests</h1></a>
-                    </div>
+                    <a href="/"><h1><span>Awiten</span>Fests</h1></a>
+                        </div>
                 </div>
 
                 <div class="navbar-collapse collapse">
                     <div class="menu">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation"><a href="{{action('FestivalController@init')}}">Festivals</a></li>
-                            <li role="presentation"><a href="{{action('ArtistController@init')}}">Artistas</a></li>
-                            <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">Admin</a>
+                            <li role="presentation"><a href="{{action('FestivalController@init')}}">{{ trans('translate.festivales') }}</a></li>
+                            <li role="presentation"><a href="{{action('ArtistController@init')}}">{{ trans('translate.artistas') }}</a></li>
+                            <li role="presentation"><a href="{{action('AdminController@AvailableEntities')}}">{{ trans('translate.admin') }}</a>
                             @if (Auth::check())
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
-
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('logout') }}"
@@ -62,8 +62,15 @@
                                 </li>
                                 {{--@elseif (Auth::guest())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Registrarse</a></li>--}}
+
+                                    <li><a href="{{ route('register') }}">{{ trans('translate.registro') }}</a></li>--}}
                             @endif
+
+                            <li role="presentation"><a href="{{ url('lang', ['es']) }}"><input  type="image"  src="/images/es.png"/></a>
+                            <li role="presentation"><a href="{{ url('lang', ['ca']) }}"><input  type="image"  src="/images/va.png"/></a>
+                            <li role="presentation"><a href="{{ url('lang', ['en']) }}"><input  type="image"  src="/images/gb.png"/></a>
+                            </li>
+
                             {{--<div class="links">--}}
                         </ul>
                     </div>
@@ -82,13 +89,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-6">
+
                                 <div class="carousel-content" style="padding: 10px;background: rgba(0, 140, 23, 0.5);">
                                     <h2 class="animation animated-item-1">
-                                        Bienvenido a <span style="color: #1BBD36">Awiten</span><span>Fests</span>
+                                        {{ trans('translate.bienvenido') }} <span style="color: #1BBD36">Awiten</span><span>Fests</span>
                                     </h2>
                                     <p class="text-danger animation animated-item-2" style="color: LawnGreen">
-                                        <strong>Los mejores festivales de los mejores estilos musicales!</strong>
+                                        <strong>{{ trans('translate.descubre') }}</strong>
                                     </p>
+
                                 </div>
                             </div>
 
@@ -109,7 +118,7 @@
             <div class="social-icon">
                 <div class="col-md-4">
                     <ul class="social-network">
-                        <li><a href='{{action('PagesController@getContact')}}'>Contacto</a></li>
+                        <li><a href='{{action('PagesController@getContact')}}'>{{ trans('translate.contacto') }}</a></li>
                         <li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a>

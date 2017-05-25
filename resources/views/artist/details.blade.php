@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('mainContent')
+<html res="{{ App::setlocale(session('lang'))}}">
     <div class="arreglar-margen">
         @if(isset($artist))
             <div>
@@ -41,10 +42,12 @@
             </a>
     </div>
     </br>
-    <h3 style="font-family:verdana; text-align:center">PRÓXIMAS ACTUACIONES </h3>
+
+    <h3 style="font-family:verdana; text-align:center">{{ trans('translate.actuaciones') }} </h3>
    
         <div class="row">
                 <div class="col-md-10">
+
             @forelse($artist->festivals as $festival)
                 @if ($festival->pivot->confirmed != "0")
                         <div class="portfolio-item festival col-md-4 col-sm-6">
@@ -63,7 +66,7 @@
                                                     <a href="{{action('FestivalController@Details', $festival->permalink)}}">{{$festival->name}}</a>
                                                 </h3>
                                             @elseif($festival->pivot->confirmed == null)
-                                                <h3>Próximamente</h3>
+                                                <h3>{{ trans('translate.proximamente') }} </h3>
                                             @endif
                                         </div>
                                     </div>
@@ -71,6 +74,7 @@
                             </div>
                         </div>
                         @endif
+
 
             @empty
                 Ninguno
@@ -81,7 +85,6 @@
     </li>
 
     @else
-        <h3>El artista {{str_replace('-', ' ', title_case($permalink))}} no existe. Probablemente haya sido borrado de
-            la base de datos</h3>
+        <h3>{{trans('translate.artista')}} {{str_replace('-', ' ', title_case($permalink))}} {{trans('translate.noexiste')}}</h3>
     @endif
 @endsection
