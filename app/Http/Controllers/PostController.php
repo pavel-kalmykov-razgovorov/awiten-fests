@@ -103,10 +103,14 @@ class PostController extends Controller implements AdministrableController
         }
         if ($request->get('permalink', '') != $permalink) {
             $this->validate($request, [
-                'title' => 'required',
                 'permalink' => 'required|unique:posts',
             ]);
         }
+        $this->validate($request, [
+            'title' => 'required',
+            'lead' => 'required',
+            'body' => 'required',
+        ]);
         $post->title = $request->get('title');
         $post->lead = $request->get('lead');
         $post->body = $request->get('body');
