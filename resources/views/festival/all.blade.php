@@ -108,9 +108,10 @@
                                                         </h3>
                                                         <p class="text-muted hidden-xs">
                                                         <div class="alert alert-success hidden-xs">
-
-                                                            {{$festival->showDateFestival($festival->date)->format('l j \\d\\e F Y')}}
-
+                                                            {{ trans('translate.'.$festival->showDateFestival($festival->date)->format('l'))}}                                          
+                                                            {{$festival->showDateFestival($festival->date)->format(' j, ')}}    
+                                                            {{ trans('translate.'.$festival->showDateFestival($festival->date)->format('F'))}}
+                                                            {{$festival->showDateFestival($festival->date)->format(' Y')}}
                                                         </div>
                                                         </p>
                                                     </div>
