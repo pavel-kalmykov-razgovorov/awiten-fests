@@ -27,7 +27,7 @@
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        <strong>{{trans('auth.'.($errors->first('username'))) }}</strong>
                                     </span>
                                 @endif
                             </div>

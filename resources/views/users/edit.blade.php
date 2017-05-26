@@ -1,7 +1,8 @@
 @extends('admin.master')
 @section('title', 'Editar Perfil')
 @section('content')
-    <h1 class="page-header">{{$user->name}}: Editar Perfil</h1>
+<html res="{{ App::setlocale(session('lang'))}}">
+    <h1 class="page-header">{{$user->name}}: {{ trans('translate.editarp')}}</h1>
     @if($update = Session::get('Update'))
         <div class="alert alert-success">
         {{ $update }}
@@ -9,7 +10,7 @@
     @endif
     @if(count($errors) > 0)
         <div class="alert alert-warning">
-            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span> No se ha podido editar el usuario</h3>
+            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span>{{ trans('translate.noeditar')}}</h3>
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{$error}}</li>
@@ -23,7 +24,7 @@
         <fieldset>
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="name">Nombre</label>
+                    <label class="col-md-4 control-label" for="name">{{ trans('translate.nombre')}}</label>
                     <div class="col-md-4">
                         <input type="text" id="name" name="name" placeholder="Nombre del usuario"
                             class="form-control input-md" title="Nombre" value="{{old('name', $user->name)}}">
@@ -32,7 +33,7 @@
             </div>
             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="username">Usuario</label>
+                    <label class="col-md-4 control-label" for="username">{{ trans('translate.username')}}</label>
                     <div class="col-md-4">
                         <input type="text" id="username" name="username" placeholder="El usuario debe ser único"
                             class="form-control input-md" title="Usuario" value="{{old('username', $user->username)}}">
@@ -41,7 +42,7 @@
             </div>
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="email">E-mail</label>
+                    <label class="col-md-4 control-label" for="email">Email</label>
                     <div class="col-md-4">
                         <input type="text" id="email" name="email" placeholder="El email debe ser único"
                             class="form-control input-md" title="email" value="{{old('email',$user->email)}}">
@@ -51,7 +52,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="save-button"> </label>
                 <div class="col-md-4">
-                    <button id="save-button" name="save-button" class="btn btn-success">Guardar Cambios</button>
+                    <button id="save-button" name="save-button" class="btn btn-success">{{ trans('translate.guardar')}}</button>
                 </div>
             </div>
         </fieldset>

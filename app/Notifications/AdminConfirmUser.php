@@ -46,7 +46,7 @@ class AdminConfirmUser extends Notification
         return (new MailMessage)
                     ->line('La persona ' . $this->name . ' con el correo ' . $this->email . ' quiere autenticarse.')
                     ->action('Verificar Usuario', action('Auth\RegisterController@confirmation',$this->token))
-                    ->subject('Validacion de Usuario');
+                    ->subject('Validación de Usuario');
     }
 
     /**

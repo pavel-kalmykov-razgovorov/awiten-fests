@@ -83,4 +83,30 @@ return array(
     "octubre" => "octubre",
     "noviembre" => "novembre",
     "diciembre" => "desembre",
+
+    "guardar" => "Guardar Canvis",
+
+    "editarp" => "Editar Perfil",
+    "noeditar" => "No s'ha pogut editar l'usuari",
+
+    "newuser" => "Nou Usuari",
+    "nocrear" => "No s'ha pogut crear l'usuari",
+
+    "añadirartista" => "Afegir Artista",
+    "noañadirart" => "No s'ha pogut afegir l'artista",
+    "pais" => "Pais",
+    "fotoperfil" => "Foto de perfil",
+    "fotocabecera" => "Foto de capçalera",
+    "añadir" => "Afegir",
+
+    "editar" => "Editar",
+    "noeditarart" => "No s'ha pogut editar l'artista",
+
+    "newfest" => "Nou Festival",
+    "nocrearfest" => "No s'ha pogut crear el festival",
+    "location" => "Localització",
+    "provincia" => "Provincia",
+    "logo" => "Logo de festival",
+
+    "noeditarfest" => "No s'ha pogut editar el festival",
 );

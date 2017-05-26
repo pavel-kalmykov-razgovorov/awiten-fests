@@ -1,11 +1,11 @@
 @extends('admin.master')
 @section('title', $festival->name)
 @section('content')
-    <h1 class="page-header">{{$festival->name}}: Editar</h1>
+<html res="{{ App::setlocale(session('lang'))}}">
+    <h1 class="page-header">{{$festival->name}}: {{ trans('translate.editar')}}</h1>
     @if(count($errors) > 0)
         <div class="alert alert-warning">
-            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span> No se ha podido
-                editar el festival</h3>
+            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span>{{ trans('translate.noeditarfest')}}</h3>
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{$error}}</li>
@@ -19,7 +19,7 @@
         {{csrf_field()}}
         <fieldset>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Nombre</label>
+                <label class="col-md-4 control-label" for="name">{{ trans('translate.nombre')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="name" name="name" placeholder="Nombre del festival (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{$festival->name}}">
@@ -30,28 +30,28 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="location">Localización</label>
+                <label class="col-md-4 control-label" for="location">{{ trans('translate.location')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="location" name="location" placeholder="Localidad en donde se celebra"
                            class="form-control input-md" title="Localidad" value="{{$festival->location}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="province">Provincia</label>
+                <label class="col-md-4 control-label" for="province">{{ trans('translate.provincia')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="province" name="province" placeholder="Provincia española"
                            class="form-control input-md" title="Provincia" value="{{$festival->province}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="date">Fecha</label>
+                <label class="col-md-4 control-label" for="date">{{ trans('translate.fecha')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="date" name="date" placeholder="Fecha en la que se celebra"
                            class="form-control input-md" title="Fecha" value="{{$festival->date}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label">Logo del festival</label>
+                <label class="col-md-4 control-label">{{ trans('translate.logo')}}</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="artists-add-button" class="col-md-4 control-label">Artistas</label>
+                <label for="artists-add-button" class="col-md-4 control-label">{{ trans('translate.artistas')}}</label>
                 <div class="col-md-4">
                     <select class="selectpicker" name="artists[]" multiple title="Artistas" data-size="10"
                             data-dropup-auto="false" data-selected-text-format="count" data-live-search="true">
@@ -72,7 +72,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
+            <div class="form-group"><label class="col-md-4 control-label">{{ trans('translate.generos')}}</label>
                 <div class="col-md-4">
                     @foreach($genres as $genre)
                         <div class="checkbox">
@@ -86,7 +86,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="save-button"> </label>
                 <div class="col-md-4">
-                    <button id="save-button" name="save-button" class="btn btn-success">Guardar Cambios</button>
+                    <button id="save-button" name="save-button" class="btn btn-success">{{ trans('translate.guardar')}}</button>
                 </div>
             </div>
         </fieldset>

@@ -41,9 +41,9 @@ class UserConfirmed extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Felicidades, ya estás registrado en Awiten Fest')
+                    ->line('Felicidades, ya estás registrado en Awiten Fests')
                     ->action('Entrar', url('/login'))
-                    ->subject('Confirmacion de Usuario Registrado');
+                    ->subject('Confirmación de Usuario Registrado');
     }
 
     /**

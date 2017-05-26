@@ -45,8 +45,8 @@ class MyResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Recibes este mensaje proque has solicitado reestablecer tu contraseña.')
-            ->action('Reestablecer Contraseña', route('password.reset', $this->token))
-            ->line('Si no solicitaste reestablecer la contraseña, por favor, borra este mensaje.');
+            ->line('Recibes este mensaje porque has solicitado restablecer tu contraseña.')
+            ->action('Restablecer Contraseña', route('password.reset', $this->token))
+            ->line('Si no solicitaste restablecer la contraseña, por favor, borra este mensaje.');
     }
 }
