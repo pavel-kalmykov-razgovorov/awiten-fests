@@ -20,7 +20,7 @@ class ConfirmacionAsistenciaEvento extends Notification
     public function __construct($content)
     {
         //joseph-capriati_awakenings_true
-        $this->actionUrlShow = $content['urlshow'];
+        $this->namePermalink = $content['namePermalink'];
         $this->nameArtist = $content['nameArtist'];
         $this->fecha = $content['fecha'];
         $this->nameFestival = $content['nameFestival'];
@@ -47,9 +47,9 @@ class ConfirmacionAsistenciaEvento extends Notification
     {
         return (new MailMessage)
                     ->line('El artistas ' . $this->nameArtist . ' tiene una cita el ' . $this->fecha . ' en el festival ' . $this->nameFestival . ' ¡Confirma su asistencia!')
-                    ->action('Mostrar', $this->actionUrlShow);
-                    //Llamar un controller envez de la url algo parecido a reset password
-    }
+                    //->action('Mostrar',  route('/admin/artists' . '/' . $this->namePermalink . '/details'));
+                   ->action('Mostrar', action('ArtistController@DetailsAdmin', $this->namePermalink ));
+    } 
 
     /**
      * Get the array representation of the notification.
