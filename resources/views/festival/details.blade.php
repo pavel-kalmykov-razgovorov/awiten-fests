@@ -19,7 +19,7 @@
                         <li>
                             <time>
                                 <span class="day">{{$festival->showDateFestival($festival->date)->format('j')}}</span>
-                                <span class="month">{{$festival->showDateFestival($festival->date)->format('F')}}</span>
+                                <span class="month">{{ trans('translate.'.$festival->showDateFestival($festival->date)->format('F'))}}</span>
                                 <span class="year">{{$festival->showDateFestival($festival->date)->format('Y')}}</span>
                                 <span class="time">ALL DAY</span>
                             </time>
