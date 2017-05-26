@@ -250,18 +250,14 @@ class ArtistController extends Controller implements AdministrableController
     public function ConfirmAssistance($artistPermalink, $festivalPermalink, $confirmation)
     {
         $user = Auth::user();
-        $artist = Artist::select('id')->where('permalink', $artistPermalink)->where('manager_id', $user->id)->first();
-        if ($artist == null) {
+        $festival_id = Festival::select('id')->where('permalink', $festivalPermalink)->first()->id;
+        $artist_id = Artist::select('id')->where('permalink', $artistPermalink)->where('manager_id', $user->id)->first()->id;
+        if ($artist_id == null) {
             return redirect('/noPermision');
         }
-        $detallesArtista = Artist::findOrFail($artist);
-        $festival = Festival::select('id')->where('permalink', $festivalPermalink)->first();
-        $detallesFestival = Festival::findOrFail($festival);
+        $detallesArtista = Artist::findOrFail($artist_id);
+        $detallesFestival = Festival::findOrFail($festival_id);
         $confirmation = filter_var($confirmation, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-        Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
-            ->updateExistingPivot(
-                Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
-                ['confirmed' => $confirmation]);
 
         if ($confirmation) {
             $data = array(
@@ -278,6 +274,11 @@ class ArtistController extends Controller implements AdministrableController
             );
             app('App\Http\Controllers\PostController')->Create2($data);
         }
+
+        Artist::where('permalink', $artistPermalink)->firstOrFail()->festivals()
+            ->updateExistingPivot(
+                Festival::where('permalink', $festivalPermalink)->firstOrFail()->id,
+                ['confirmed' => $confirmation]);
 
         return redirect()->back();
     }

@@ -275,10 +275,10 @@ class FestivalController extends Controller implements AdministrableController
         $artists_id = $request->get('artists', []);
         foreach ($artists_id as $artist_id) {
             $datosArtistas = Artist::findOrFail($artist_id);
-            foreach ($datosArtistas->festivals as $festival) {
-                if ($festival->date == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))) {
+            foreach ($datosArtistas->festivals as $festival_artist) { //Pepe Grandísimo HIJO DE PUTAAAAAA
+                if ($festival_artist->date == Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'))) {
                     $rules['unreal_input'] = 'required'; // a confusing error in your errors list...
-                    $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival->name . '.';
+                    $messages['unreal_input.required'] = 'El artista ' . $datosArtistas->name . ' actua ese dia en ' . $festival_artist->name . '.';
                     $validator = Validator::make($request->all(), $rules, $messages);
                     if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
 
@@ -300,7 +300,9 @@ class FestivalController extends Controller implements AdministrableController
         $festival->location = $request->get('location');
         $festival->province = $request->get('province');
         $festival->date = Carbon::createFromFormat('d/m/Y', $request->get('date') ?? Carbon::now()->format('d/m/Y'));
-        $festival->permalink = $request->get('permalink');
+        if ($request->get('permalink', '') != $permalink) {
+            $festival->permalink = $request->get('permalink');
+        }
         $festival->saveOrFail();
         $festival->artists()->sync($request->get('artists'));
         $festival->genres()->sync($request->get('genres'));

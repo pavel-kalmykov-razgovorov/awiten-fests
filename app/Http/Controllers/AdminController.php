@@ -59,7 +59,8 @@ class AdminController extends Controller
     {
         $user = Auth::user();
         $column_names = ['name', 'permalink', 'pathLogo', 'location', 'date', 'province'];
-        return $this->tableViewByModelName(Festival::select($column_names)->where('promoter_id', $user->id)->get(), 'Festival', 'Festival', 'Festivales', $column_names);
+        $model = Festival::select($column_names)->where('promoter_id', $user->id)->get();
+        return $this->tableViewByModelName($model, 'Festival', 'Festival', 'Festivales', $column_names);
     }
 
     public function GenresList(Request $request)
