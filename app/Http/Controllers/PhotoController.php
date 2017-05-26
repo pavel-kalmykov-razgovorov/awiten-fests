@@ -63,11 +63,17 @@ class PhotoController extends Controller implements AdministrableController
     public function Delete($permalink)
     {
         //Comprobar que el usuario identificado tiene acceso al festival indicado
-        $user = Auth::user();
-        $photo =  Photo::join('festivals', "festivals.id", "=", "festival_id")->where('photos.permalink', $permalink)->where('festivals.promoter_id',$user->id)->first();
+        $festivals = Auth::user()->festivals()->get();
+        $festivals_id = array();
+        foreach($festivals as $fest){
+           array_push($festivals_id, $fest->id);
+        }
+        $photo =  Photo::where('permalink', $permalink)->whereIn('festival_id',$festivals_id)->first();
         if($photo == null){
             return redirect('/noPermision');
         }
+        $festival = Festival::where('id',$photo->festival_id)->first();
+        Storage::delete("festivals/$festival->permalink/$photo->name");
         return redirect()->action('AdminController@PhotosList')
             ->with('deleted', $photo->delete());
 
