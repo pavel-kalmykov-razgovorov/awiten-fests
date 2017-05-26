@@ -83,4 +83,30 @@ return array(
     "octubre" => "octubre",
     "noviembre" => "noviembre",
     "diciembre" => "diciembre",
+
+    "guardar" => "Guardar Cambios",
+
+    "editarp" => "Editar Perfil",
+    "noeditar" => "No se ha podido editar el usuario",
+
+    "newuser" => "Nuevo Usuario",
+    "nocrear" => "No se ha podido crear el usuario",
+
+    "añadirartista" => "Añadir Artista",
+    "noañadirart" => "No se ha podido añadir el artista",
+    "pais" => "País",
+    "fotoperfil" => "Foto de perfil",
+    "fotocabecera" => "Foto de cabecera",
+    "añadir" => "Añadir",
+
+    "editar" => "Editar",
+    "noeditarart" => "No se ha podido editar el artista",
+
+    "newfest" => "Nuevo Festival",
+    "nocrearfest" => "No se ha podido crear el festival",
+    "location" => "Localización",
+    "provincia" => "Provincia",
+    "logo" => "Logo de festival",
+
+    "noeditarfest" => "No se ha podido editar el festival",
 );

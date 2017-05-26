@@ -1,11 +1,11 @@
 @extends('admin.master')
 @section('title', $artist->name)
 @section('content')
-    <h1 class="page-header">{{$artist->name}}: Editar</h1>
+<html res="{{ App::setlocale(session('lang'))}}">
+    <h1 class="page-header">{{$artist->name}}: {{ trans('translate.editar')}}</h1>
     @if(count($errors) > 0)
         <div class="alert alert-warning">
-            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span> No se ha podido
-                editar el artista</h3>
+            <h3><span class="glyphicon glyphicon-exclamation-sign valign-top" aria-hidden="true"></span>{{ trans('translate.noeditarart')}}</h3>
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{$error}}</li>
@@ -19,7 +19,7 @@
         {{csrf_field()}}
         <fieldset>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Nombre</label>
+                <label class="col-md-4 control-label" for="name">{{ trans('translate.nombre')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="name" name="name" placeholder="Nombre del artista (debe ser único)"
                            class="form-control input-md" title="Nombre" value="{{$artist->name}}">
@@ -38,21 +38,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="website">Sitio Web</label>
+                <label class="col-md-4 control-label" for="website">Website</label>
                 <div class="col-md-4">
                     <input type="text" id="website" name="website" placeholder="Página web personal"
                            class="form-control input-md" title="Sitio Web" value="{{$artist->website}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">País</label>
+                <label class="col-md-4 control-label" for="textinput">{{ trans('translate.pais')}}</label>
                 <div class="col-md-4">
                     <input type="text" id="country" name="country" placeholder="País de origen"
                            class="form-control input-md" title="País" value="{{$artist->country}}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label">Foto de perfil</label>
+                <label class="col-md-4 control-label">{{ trans('translate.fotoperfil')}}</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label">Foto de cabecera</label>
+                <label class="col-md-4 control-label">{{ trans('translate.fotocabecera')}}</label>
                 <div class="col-md-4">
                     <label class="btn btn-default btn-file">
                         Seleccionar
@@ -73,7 +73,7 @@
                     <span id="pathHeaderFilename">{{$artist->pathHeader}}</span>
                 </div>
             </div>
-            <div class="form-group"><label class="col-md-4 control-label">Géneros</label>
+            <div class="form-group"><label class="col-md-4 control-label">{{ trans('translate.generos')}}</label>
                 <div class="col-md-4">
                     @foreach($genres as $genre)
                         <div class="checkbox">
@@ -87,7 +87,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="save-button"> </label>
                 <div class="col-md-4">
-                    <button id="save-button" name="save-button" class="btn btn-success">Guardar Cambios</button>
+                    <button id="save-button" name="save-button" class="btn btn-success">{{ trans('translate.guardar')}}</button>
                 </div>
             </div>
         </fieldset>

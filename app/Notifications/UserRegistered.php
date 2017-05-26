@@ -41,7 +41,7 @@ class UserRegistered extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Ya estas registrado en Awiten Fests, solo falta que el administrador te de acceso')
+                    ->line('Ya estás registrado en Awiten Fests, solo falta que el administrador te de acceso')
                     ->line('Cuando tengas acceso, te enviaremos un correo')
                     ->subject('Usuario Sin Validar');
     }

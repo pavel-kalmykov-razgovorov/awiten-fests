@@ -42,7 +42,7 @@ return array(
     "fotosfests" => "Festival Photos",
 
     "password" => "Password",
-    "username" => "User name",
+    "username" => "Username",
     "forget"  => "Have you forget password?",
     "rememberme" => "Remember me",
     "nombre" => "Name",
@@ -84,4 +84,30 @@ return array(
     "octubre" => "October",
     "noviembre" => "November",
     "diciembre" => "December",
+
+    "guardar" => "Save Changes",
+
+    "editarp" => "Edit Profile",
+    "noeditar" => "User not edited",
+
+    "newuser" => "New User",
+    "nocrear" => "No user created",
+
+    "añadirartista" => "Add Artist",
+    "noañadirart" => "Artist not added",
+    "pais" => "Country",
+    "fotoperfil" => "Profile picture",
+    "fotocabecera" => "Background",
+    "añadir" => "Add",
+
+    "editar" => "Edit",
+    "noeditarart" => "Artist not edited",
+
+    "newfest" => "New Festival",
+    "nocrearfest" => "Festival not created",
+    "location" => "Location",
+    "provincia" => "Province",
+    "logo" => "Festival Logo",
+
+    "noeditarfest" => "Festival not edited",
 );
