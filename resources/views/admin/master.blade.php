@@ -83,6 +83,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+            <li role="presentation"><a href="{{ url('lang', ['es']) }}"><input  type="image"  src="/images/es.png"/></a>
+        <li role="presentation"><a href="{{ url('lang', ['ca']) }}"><input  type="image"  src="/images/va.png"/></a>
+        <li role="presentation"><a href="{{ url('lang', ['en']) }}"><input  type="image"  src="/images/gb.png"/></a>
+
                 @if (Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
